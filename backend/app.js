@@ -37,7 +37,7 @@ app.use(
 );
 
 const routes = require('./routes');
-app.use(routes); // Connect all the routes
+app.use(routes);
 
 
 app.use((_req, _res, next) => {
