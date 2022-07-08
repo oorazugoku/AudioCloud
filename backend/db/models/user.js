@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
     toSafeObject() {
-      const { id, username, email } = this;
-      return { id, username, email };
+      const { id, firstName, lastName, username, email } = this;
+      return { id, firstName, lastName, username, email };
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
@@ -29,9 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         return await User.scope('currentUser').findByPk(user.id);
       }
     }
-    static async signup({ username, email, password }) {
+    static async signup({ firstName, lastName, username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
+        firstName,
+        lastName,
         username,
         email,
         hashedPassword
@@ -39,25 +41,11 @@ module.exports = (sequelize, DataTypes) => {
       return await User.scope('currentUser').findByPk(user.id);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     static associate(models) {
-      // define association here
+      User.hasMany(models.Song, { foreignKey: 'userId', hooks: true });
+      User.hasMany(models.Image, { foreignKey: 'userId', hooks: true });
+      User.hasMany(models.Playlist, { foreignKey: 'userId', hooks: true });
+      User.hasMany(models.Comment, { foreignKey: 'userId', hooks: true });
     }
   };
 
@@ -73,6 +61,18 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("Cannot be an email.");
             }
           }
+        }
+      },
+      firstName: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [2, 50]
+        }
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [2, 50]
         }
       },
       email: {

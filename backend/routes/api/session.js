@@ -49,9 +49,10 @@ router.post('/login', validateLogin, async (req, res, next) => {
     err.errors = ['The provided credentials were invalid.'];
     return next(err);
   }
-  await setTokenCookie(res, user);
+  const token = await setTokenCookie(res, user);
   return res.json({
-    user
+    user,
+    token
   });
 });
 
@@ -65,25 +66,28 @@ router.delete('/logout', (_req, res) => {
 
 // Signup
 router.post('/signup', validateSignup, async (req, res) => {
-    const { email, password, username } = req.body;
-    const user = await User.signup({ email, username, password });
+    const { firstName, lastName, email, password, username } = req.body;
+    const user = await User.signup({ firstName, lastName, email, username, password });
 
-    await setTokenCookie(res, user);
+    const token = await setTokenCookie(res, user);
 
     return res.json({
-      user
+      user,
+      token
     });
   }
 );
 
 
 // Restore session user
-router.get('/', restoreUser, (req, res) => {
-    const { user } = req;
-    if (user) {
-      return res.json({
-        user: user.toSafeObject()
-      });
+router.get('/current', restoreUser, async (req, res) => {
+  const { user } = req;
+  const token = await setTokenCookie(res, user)
+  if (user) {
+    return res.json({
+      user: user.toSafeObject(),
+      token
+    });
     } else return res.json({});
   }
 );
