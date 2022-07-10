@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Image.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+
       Image.hasOne(models.Album, { foreignKey: 'previewImgId', onDelete: 'CASCADE' });
       Image.hasOne(models.Playlist, { foreignKey: 'previewImgId', onDelete: 'CASCADE' });
       Image.hasOne(models.Song, { foreignKey: 'previewImgId', onDelete: 'CASCADE' });

@@ -16,7 +16,14 @@ module.exports = {
       albumId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'Albums', key: 'id' }
+        references: { model: 'Albums', key: 'id' },
+        onDelete: 'CASCADE'
+      },
+      artistId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'Artists', key: 'id' },
+        onDelete: 'CASCADE'
       },
       title: {
         type: Sequelize.STRING,
@@ -31,11 +38,8 @@ module.exports = {
       },
       previewImgId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Images', key: 'id' }
-      },
-      commentId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Comments', key: 'id' }
+        references: { model: 'Images', key: 'id' },
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

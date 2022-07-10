@@ -11,9 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Song.belongsToMany(models.Playlist, { through: models.SP, onDelete: 'CASCADE' });
-      Song.belongsToMany(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
-      Song.belongsToMany(models.Comment, { foreignKey: 'commentId', onDelete: 'CASCADE' });
 
+      Song.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+      Song.belongsTo(models.Album, { foreignKey: 'albumId', onDelete: 'CASCADE' });
+      Song.belongsTo(models.Artist, { foreignKey: 'artistId', onDelete: 'CASCADE' });
+      Song.belongsTo(models.Image, { foreignKey: 'previewImgId', onDelete: 'CASCADE' });
+
+      Song.hasMany(models.Comment, { foreignKey: 'songId', onDelete: 'CASCADE' });
     }
   }
   Song.init({
@@ -21,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     albumId: {
+      type: DataTypes.INTEGER,
+    },
+    artistId: {
       type: DataTypes.INTEGER,
     },
     title: {
@@ -34,9 +41,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     previewImgId: {
       type: DataTypes.INTEGER,
-    },
-    commentId: {
-      type: DataTypes.INTEGER
     },
   }, {
     sequelize,

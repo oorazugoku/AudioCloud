@@ -8,13 +8,18 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      comment: {
-        type: Sequelize.STRING
-      },
       userId: {
         type: Sequelize.STRING,
         references: { model: 'Users', key: 'id' },
         onDelete: "CASCADE"
+      },
+      songId: {
+        type: Sequelize.STRING,
+        references: { model: 'Songs', key: 'id' },
+        onDelete: "CASCADE"
+      },
+      comment: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
