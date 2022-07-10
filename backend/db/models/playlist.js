@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Playlist.belongsToMany(models.Song, { through: models.SP, onDelete: 'CASCADE' });
-      Playlist.belongsTo(models.Image, { foreignKey: 'previewImgId', onDelete: 'CASCADE' });
     }
   }
   Playlist.init({
@@ -21,12 +20,17 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
     },
-    previewImgId: {
+    imageURL: {
       type: DataTypes.INTEGER
     },
   }, {
     sequelize,
     modelName: 'Playlist',
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt', 'userId']
+      }
+    }
   });
   return Playlist;
 };

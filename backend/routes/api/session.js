@@ -4,6 +4,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
+const { Op } = require('sequelize')
 
 const validateLogin = [
   check('credential')
@@ -65,8 +66,28 @@ router.delete('/logout', (_req, res) => {
 
 
 // Signup
-router.post('/signup', validateSignup, async (req, res) => {
+router.post('/signup', validateSignup, async (req, res, next) => {
     const { firstName, lastName, email, password, username } = req.body;
+    const userCheck = await User.findOne({
+      where: { username }
+    });
+    if(userCheck) {
+      const err = new Error('Username already exists.')
+      err.title = 'Login Error'
+      err.errors = { email: 'User with that Username already exists' }
+      err.status = 403
+      return next(err)
+    }
+    const emailCheck = await User.findOne({
+      where: { email }
+    });
+    if(emailCheck) {
+      const err = new Error('Email already exists.')
+      err.title = 'Login Error'
+      err.errors = { username: 'User with that Email already exists' }
+      err.status = 403
+      return next(err)
+    }
     const user = await User.signup({ firstName, lastName, email, username, password });
 
     const token = await setTokenCookie(res, user);

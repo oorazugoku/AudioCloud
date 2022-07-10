@@ -12,18 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Song.belongsToMany(models.Playlist, { through: models.SP, onDelete: 'CASCADE' });
 
-      Song.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
       Song.belongsTo(models.Album, { foreignKey: 'albumId', onDelete: 'CASCADE' });
-      Song.belongsTo(models.Artist, { foreignKey: 'artistId', onDelete: 'CASCADE' });
-      Song.belongsTo(models.Image, { foreignKey: 'previewImgId', onDelete: 'CASCADE' });
+      Song.belongsTo(models.User, { foreignKey: 'artistId', as: 'Artist', onDelete: 'CASCADE' });
 
       Song.hasMany(models.Comment, { foreignKey: 'songId', onDelete: 'CASCADE' });
     }
   }
   Song.init({
-    userId: {
-      type: DataTypes.INTEGER,
-    },
     albumId: {
       type: DataTypes.INTEGER,
     },
@@ -39,12 +34,17 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING,
     },
-    previewImgId: {
-      type: DataTypes.INTEGER,
+    imageURL: {
+      type: DataTypes.STRING,
     },
   }, {
     sequelize,
     modelName: 'Song',
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt', 'artistId', 'userId']
+      }
+    }
   });
   return Song;
 };

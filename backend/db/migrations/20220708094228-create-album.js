@@ -10,7 +10,7 @@ module.exports = {
       },
       artistId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Artists', key: 'id' },
+        references: { model: 'Users', key: 'id' },
         onDelete: 'CASCADE'
       },
       title: {
@@ -19,10 +19,8 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
-      previewImgId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Images', key: 'id' },
-        onDelete: 'CASCADE'
+      imageURL: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

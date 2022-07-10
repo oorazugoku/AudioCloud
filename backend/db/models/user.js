@@ -42,10 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      User.hasMany(models.Song, { foreignKey: 'userId', hooks: true });
-      User.hasMany(models.Image, { foreignKey: 'userId', hooks: true });
+      User.hasMany(models.Song, { foreignKey: 'artistId', as: 'Artist', hooks: true });
       User.hasMany(models.Playlist, { foreignKey: 'userId', hooks: true });
       User.hasMany(models.Comment, { foreignKey: 'userId', hooks: true });
+      User.hasMany(models.Album, { foreignKey: 'artistId', hooks: true });
     }
   };
 
@@ -102,9 +102,7 @@ module.exports = (sequelize, DataTypes) => {
         currentUser: {
           attributes: { exclude: ["hashedPassword"] }
         },
-        loginUser: {
-          attributes: {}
-        }
+        loginUser: {},
       }
     }
   );
