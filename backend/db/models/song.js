@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Song',
     defaultScope: {
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'artistId', 'userId']
+        exclude: ['createdAt', 'updatedAt']
       }
     }
   });
