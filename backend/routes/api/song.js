@@ -18,6 +18,18 @@ const validateSong = [
   handleValidationErrors
 ];
 
+const validateQuery = [
+  check('page')
+    .optional()
+    .isNumeric()
+    .withMessage('Must be a Number'),
+  check('size')
+    .optional()
+    .isNumeric()
+    .withMessage('Must be a Number'),
+  handleValidationErrors
+]
+
 
 // Edit a Song
 router.put('/:songId', requireAuth, validateSong, async (req, res, next) => {
@@ -25,7 +37,6 @@ router.put('/:songId', requireAuth, validateSong, async (req, res, next) => {
   const { title, description, url, imageURL } = req.body;
   const { songId } = req.params;
   const result = await Song.findByPk(songId);
-  console.log(result)
   if(!result) {
     const err = new Error(`Song couldn't be found.`)
     err.title = 'Missing Item'
@@ -84,9 +95,71 @@ router.get('/current', requireAuth, async (req, res) => {
 
 
 // Get all Songs
-router.get('/', async (req, res) => {
-    const result = await Song.findAll();
-    res.json(result);
+router.get('/', validateQuery, async (req, res, next) => {
+  let { page, size, songTitle, artist, albumTitle, createdAt } = req.query;
+  let pagination = {};
+  page = page === 0 ? 0 : parseInt(page)
+  size = size === 0 ? 20 : parseInt(size)
+
+  page = !Number(page) ? 0 : parseInt(page)
+  size = !Number(size) ? 20 : parseInt(size)
+
+  page = page === undefined ? 0 : parseInt(page)
+  size = size === undefined ? 20 : parseInt(size)
+
+  if (size >= 0 && page >= 0 && size <= 20) {
+    pagination.limit = size
+    pagination.offset = size * (page)
+  }
+  if (size > 20) {
+    pagination.limit = 20
+    pagination.offset = size * (page)
+  }
+
+  // const checkNum = (query) => {
+  //     if(!Number(query)){
+  //         const err = new Error(
+  //             `Please provide a valid number in query.`
+  //             )
+  //         err.status = 400
+  //         return next(err)
+  //     }
+  //     return
+  // }
+
+  // if (page) { checkNum(page) };
+  // if (size) { checkNum(size) };
+  const queries = {};
+  const advSearch = {...pagination}
+  const whereClause = {}
+  if (songTitle) {
+    advSearch.where = whereClause
+    whereClause.title = { [Op.substring]: songTitle }
+  };
+  if (artist) {
+    advSearch.includes = { model: User, where: whereClause }
+    // advSearch.where = whereClause
+    whereClause.username = artist
+  };
+  if (albumTitle) {
+    // whereClause.title = { [Op.substring]: albumTitle }
+    advSearch.includes = { model: Album, where: { [Op.substring]: albumTitle } }
+  };
+  if (createdAt) {
+    advSearch.where = whereClause
+    whereClause.createdAt = { [Op.substring]: createdAt }
+  };
+
+  console.log(advSearch)
+
+  let result = await Song.findAll(advSearch)
+
+  size = result.length
+  res.json({
+      page,
+      size,
+      result
+  })
 });
 
 

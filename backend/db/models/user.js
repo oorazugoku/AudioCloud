@@ -42,10 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      User.hasMany(models.Song, { foreignKey: 'artistId', as: 'Artist', hooks: true });
+      User.hasMany(models.Song, { foreignKey: 'artistId', as: 'Songs', hooks: true });
       User.hasMany(models.Playlist, { foreignKey: 'userId', hooks: true });
       User.hasMany(models.Comment, { foreignKey: 'userId', hooks: true });
-      User.hasMany(models.Album, { foreignKey: 'artistId', hooks: true });
+      User.hasMany(models.Album, { foreignKey: 'artistId', as: 'Album', hooks: true });
     }
   };
 
@@ -81,6 +81,9 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: [3, 256]
         }
+      },
+      imageURL: {
+        type: DataTypes.TEXT
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,

@@ -21,14 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     imageURL: {
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING
     },
   }, {
     sequelize,
     modelName: 'Playlist',
     defaultScope: {
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'userId']
+        exclude: ['createdAt', 'updatedAt']
       }
     }
   });
