@@ -116,19 +116,7 @@ router.get('/', validateQuery, async (req, res, next) => {
     pagination.offset = size * (page)
   }
 
-  // const checkNum = (query) => {
-  //     if(!Number(query)){
-  //         const err = new Error(
-  //             `Please provide a valid number in query.`
-  //             )
-  //         err.status = 400
-  //         return next(err)
-  //     }
-  //     return
-  // }
 
-  // if (page) { checkNum(page) };
-  // if (size) { checkNum(size) };
   const queries = {};
   const advSearch = {...pagination}
   const whereClause = {}
@@ -136,15 +124,15 @@ router.get('/', validateQuery, async (req, res, next) => {
     advSearch.where = whereClause
     whereClause.title = { [Op.substring]: songTitle }
   };
-  if (artist) {
-    advSearch.includes = { model: User, where: whereClause }
-    // advSearch.where = whereClause
-    whereClause.username = artist
-  };
-  if (albumTitle) {
-    // whereClause.title = { [Op.substring]: albumTitle }
-    advSearch.includes = { model: Album, where: { [Op.substring]: albumTitle } }
-  };
+  // if (artist) {
+  //   advSearch.includes = { model: User, where: whereClause }
+  //   // advSearch.where = whereClause
+  //   whereClause.username = artist
+  // };
+  // if (albumTitle) {
+  //   // whereClause.title = { [Op.substring]: albumTitle }
+  //   advSearch.includes = { model: Album, where: { [Op.substring]: albumTitle } }
+  // };
   if (createdAt) {
     advSearch.where = whereClause
     whereClause.createdAt = { [Op.substring]: createdAt }
