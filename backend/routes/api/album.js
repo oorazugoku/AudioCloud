@@ -15,6 +15,37 @@ const validateAlbum = [
 ];
 
 
+// Edit and Album
+router.put('/:albumId', requireAuth, validateAlbum, async (req, res, next) => {
+  const { title, description, imageURL } = req.body;
+  const { albumId } = req.params
+  const { id } = req.user;
+
+  const result = await Album.findByPk(albumId);
+  if(!result) {
+    const err = new Error(`Album couldn't be found.`)
+    err.title = 'Missing Item'
+    err.status = 404
+    return next(err)
+  };
+  if(result.artistId !== id) {
+    const err = new Error(`You are not the Owner of this Album.`)
+    err.title = 'Unauthorized'
+    err.status = 403
+    return next(err)
+  };
+
+  if (title) result.title = title;
+  if (description) result.description = description;
+  if (imageURL) result.imageURL = imageURL;
+
+  await result.save();
+
+
+  res.json(result);
+});
+
+
 // Get details of an Album
 router.get('/:albumId', async (req, res, next) => {
   const { albumId } = req.params;
@@ -23,7 +54,7 @@ router.get('/:albumId', async (req, res, next) => {
       { model: User, as: 'Artist' },
       { model: Song, as: 'Songs' }
     ]
-  })
+  });
   if(!result) {
     const err = new Error(`Album couldn't be found.`)
     err.title = 'Missing Item'
@@ -83,6 +114,33 @@ router.get('/', async (req, res) => {
   res.json(result)
 });
 
+
+// Delete an Album
+router.delete('/:albumId', requireAuth, async (req, res, next) => {
+  const { albumId } = req.params
+  const { id } = req.user;
+
+  const result = await Album.findByPk(albumId);
+  if(!result) {
+    const err = new Error(`Album couldn't be found.`)
+    err.title = 'Missing Item'
+    err.status = 404
+    return next(err)
+  };
+  if(result.artistId !== id) {
+    const err = new Error(`You are not the Owner of this Album.`)
+    err.title = 'Unauthorized'
+    err.status = 403
+    return next(err)
+  };
+
+  await result.destroy();
+
+
+  res.json({
+    message: 'Album Delete Successful!'
+  });
+});
 
 
 
