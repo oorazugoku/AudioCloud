@@ -64,6 +64,19 @@ router.put('/:songId', requireAuth, validateSong, async (req, res, next) => {
 });
 
 
+
+
+// Get all Songs by current User
+router.get('/current', requireAuth, async (req, res) => {
+  const { id } = req.user;
+  const result = await Song.findAll({
+    where: { artistId: id}
+  });
+  res.status(200)
+  res.json(result);
+});
+
+
 // Get details of a Song
 router.get('/:songId', async (req, res, next) => {
   const { songId } = req.params;
@@ -80,17 +93,6 @@ router.get('/:songId', async (req, res, next) => {
     return next(err)
   }
   return res.json(result);
-});
-
-
-// Get all Songs by current User
-router.get('/current', requireAuth, async (req, res) => {
-  const { id } = req.user;
-  const result = await Song.findAll({
-    where: { artistId: id}
-  });
-  res.status(200)
-  res.json(result);
 });
 
 
