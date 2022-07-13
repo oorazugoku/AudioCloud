@@ -124,7 +124,7 @@ router.get('/', validateQuery, async (req, res, next) => {
   const whereClause = {}
   if (songTitle) {
     advSearch.where = whereClause
-    whereClause.title = { [Op.like]: songTitle }
+    whereClause.title = { [Op.substring]: songTitle }
   };
   // if (artist) {
   //   advSearch.includes = { model: User, where: whereClause }
@@ -137,7 +137,7 @@ router.get('/', validateQuery, async (req, res, next) => {
   // };
   if (createdAt) {
     advSearch.where = whereClause
-    whereClause.createdAt = { [Op.like]: createdAt }
+    whereClause.createdAt = { [Op.substring]: createdAt }
   };
 
   console.log(advSearch)
