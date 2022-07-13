@@ -119,30 +119,47 @@ router.get('/', validateQuery, async (req, res, next) => {
   }
 
 
-  const queries = {};
   const advSearch = {...pagination}
   const whereClause = {}
   if (songTitle) {
     advSearch.where = whereClause
     whereClause.title = { [Op.substring]: songTitle }
   };
-  // if (artist) {
-  //   advSearch.includes = { model: User, where: whereClause }
-  //   // advSearch.where = whereClause
-  //   whereClause.username = artist
-  // };
-  // if (albumTitle) {
-  //   // whereClause.title = { [Op.substring]: albumTitle }
-  //   advSearch.includes = { model: Album, where: { [Op.substring]: albumTitle } }
-  // };
+
+  if (artist) {
+    let result = await Song.findAll({
+      include: {
+        model: User,
+        as: 'Artist',
+        attributes: [],
+        where: { username: artist }},
+        ...pagination
+    });
+    size = result.length;
+    return res.json({ page, size, result });
+  };
+
+  if (albumTitle) {
+    let result = await Song.findAll({
+      include: {
+        model: Album,
+        as: 'Album',
+        attributes: ['title'],
+        where: { title: {[Op.substring]: albumTitle }}},
+        ...pagination
+    });
+    size = result.length;
+    return res.json({ page, size, result });
+  };
+
   if (createdAt) {
     advSearch.where = whereClause
     whereClause.createdAt = { [Op.substring]: createdAt }
   };
 
-  console.log(advSearch)
-
   let result = await Song.findAll(advSearch)
+
+
 
   size = result.length
   res.json({
