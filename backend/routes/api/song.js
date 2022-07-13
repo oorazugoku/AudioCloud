@@ -100,22 +100,22 @@ router.get('/:songId', async (req, res, next) => {
 router.get('/', validateQuery, async (req, res, next) => {
   let { page, size, songTitle, artist, albumTitle, createdAt } = req.query;
   let pagination = {};
-  page = page === 0 ? 0 : parseInt(page)
+  page = page === 0 ? 1 : parseInt(page)
   size = size === 0 ? 20 : parseInt(size)
 
-  page = !Number(page) ? 0 : parseInt(page)
+  page = !Number(page) ? 1 : parseInt(page)
   size = !Number(size) ? 20 : parseInt(size)
 
-  page = page === undefined ? 0 : parseInt(page)
+  page = page === undefined ? 1 : parseInt(page)
   size = size === undefined ? 20 : parseInt(size)
 
-  if (size >= 0 && page >= 0 && size <= 20) {
+  if (size >= 1 && page >= 1 && size <= 20) {
     pagination.limit = size
-    pagination.offset = size * (page)
+    pagination.offset = size * (page - 1)
   }
   if (size > 20) {
     pagination.limit = 20
-    pagination.offset = size * (page)
+    pagination.offset = size * (page - 1)
   }
 
 
