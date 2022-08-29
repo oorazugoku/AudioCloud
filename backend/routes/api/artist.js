@@ -90,7 +90,6 @@ router.get('/:artistId/playlists', async (req, res, next) => {
 // Get datils of an Artist by ID
 router.get('/:artistId', async (req, res, next) => {
   const { artistId } = req.params;
-  console.log(sequelize.fn)
   const result = await User.scope(['userOnly']).findByPk(artistId, {
       include: {
         model: Song, as: 'Songs',
@@ -111,7 +110,6 @@ router.get('/:artistId', async (req, res, next) => {
     attributes: [[sequelize.fn('count', sequelize.col('artistId')), 'totalAlbums']],
     raw: true
   });
-console.log(result)
   if(!result.id) {
     const err = new Error(`Artist not Found.`)
     err.title = 'Missing Artist'
