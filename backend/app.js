@@ -15,17 +15,11 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
 
-
-// Security Middleware
 if (!isProduction) {
-// enable cors only in development
 app.use(cors());
 }
-
-// helmet helps set a variety of headers to better secure your app
 app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 
-// Set the _csrf token and create req.csrfToken method
 app.use(
   csurf({
     cookie: {
@@ -58,12 +52,5 @@ app.use((err, _req, res, _next) => {
     stack: isProduction ? null : err.stack
   });
 });
-
-
-
-
-
-
-
 
 module.exports = app;
