@@ -1,0 +1,12 @@
+.HomePage-Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    min-width: 1200px;
+    padding-top: 10px;
+}
+
+.HomePage-logo {
+    height: 20px;
+}
