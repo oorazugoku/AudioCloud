@@ -1,0 +1,16 @@
+.UserNav-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1240px;
+    height: 100vh;
+}
+
+.UserNav-top-navbar {
+    height: 3em;
+    background-color: #333333;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}

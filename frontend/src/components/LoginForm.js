@@ -5,11 +5,13 @@ import logo from './images/cloud-YO.png'
 import logo2 from './images/cloud-PO2.png'
 
 import './CSS/LoginForm.css'
+import { useHistory } from "react-router-dom";
 
 
 
 const LoginForm = ({ setShowModal }) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [errors, setErrors] = useState([]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,6 +26,7 @@ const LoginForm = ({ setShowModal }) => {
         }
         dispatch(login(info))
         .then(()=>setShowModal(false))
+        .then(()=>history.push('/userNav'))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -37,6 +40,7 @@ const LoginForm = ({ setShowModal }) => {
       }
       dispatch(login(info))
       .then(()=>setShowModal(false))
+      .then(()=>history.push('/userNav'))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
