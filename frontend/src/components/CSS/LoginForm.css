@@ -9,6 +9,12 @@
     right: 1em;
 }
 
+.login-errors {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .form-button-demo {
     width: 422px;
     background-color: white;

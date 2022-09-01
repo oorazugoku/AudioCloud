@@ -21,6 +21,14 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isEmail()
     .withMessage('Please provide a valid email.'),
+    check('firstName')
+    .exists({ checkFalsy: true })
+    .isAlpha()
+    .withMessage('Please provide a valid First Name.'),
+    check('lastName')
+    .exists({ checkFalsy: true })
+    .isAlpha()
+    .withMessage('Please provide a valid Last Name.'),
   check('username')
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
@@ -73,7 +81,7 @@ router.post('/signup', validateSignup, async (req, res, next) => {
     if(userCheck) {
       const err = new Error('Username already exists.')
       err.title = 'Sign Up Error'
-      err.errors = { email: 'User with that Username already exists' }
+      err.errors = ['User with that Username already exists']
       err.status = 403
       return next(err)
     }
@@ -83,7 +91,7 @@ router.post('/signup', validateSignup, async (req, res, next) => {
     if(emailCheck) {
       const err = new Error('Email already exists.')
       err.title = 'Sign Up Error'
-      err.errors = { username: 'User with that Email already exists' }
+      err.errors = ['User with that Email already exists']
       err.status = 403
       return next(err)
     }

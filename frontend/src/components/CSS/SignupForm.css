@@ -1,0 +1,22 @@
+.form-section {
+    position: relative;
+}
+
+.form-section > label {
+    position: absolute;
+    left: 5px;
+    top: -14px;
+    font-size: 15px;
+
+}
+
+.form-input-signup {
+    width: 400px;
+    border-radius: 3px;
+    border: 1px solid grey;
+    height: 40px;
+    background-color: white;
+    padding: 0 10px;
+    font-size: 18px;
+    margin: 5px 0;
+}

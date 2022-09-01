@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
+import { login } from "../store/session";
 import logo from './images/cloud-YO.png'
 import logo2 from './images/cloud-PO2.png'
 
 import './CSS/LoginForm.css'
-import { login } from "../store/session";
 
 
 
@@ -26,25 +26,33 @@ const LoginForm = ({ setShowModal }) => {
         .then(()=>setShowModal(false))
         .catch(async (res) => {
           const data = await res.json();
-          console.log(data.errors)
           if (data && data.errors) setErrors(data.errors);
         });
-
     }
+
+    const onDemo = () => {
+      const info = {
+          credential: 'demo@email.com',
+          password: 'password'
+      }
+      dispatch(login(info))
+      .then(()=>setShowModal(false))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
+  }
 
     return (
         <div className='LoginForm-Container'>
         <i className="fas fa-x" onClick={()=>setShowModal(false)}/>
         <div className='login-errors'>
             {errors.map((error, i) => (
-              <ul className='login-errors-inner' key={i}>{error}</ul>
+              <div className='login-errors-inner' key={i}>{error}</div>
             ))}
           </div>
-        {/* <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul> */}
         <div className='form-button-outer'>
-            <button className='form-button-demo' onMouseEnter={()=>setLogoColor(logo)} onMouseLeave={()=>setLogoColor(logo2)} type='submit' onClick={() => { setEmail("demo@aa.io"); setPassword("password") }}><img src={logoColor} style={{height: '15px'}}/>    Demo User</button>
+            <button className='form-button-demo' onMouseEnter={()=>setLogoColor(logo)} onMouseLeave={()=>setLogoColor(logo2)} type='submit' onClick={() => { onDemo() }}><img src={logoColor} style={{height: '15px'}}/>    Demo User</button>
         </div>
         <div className="login-or-container">
             <div className="or-bar"/><div className="login-or">or</div><div className="or-bar"/>
