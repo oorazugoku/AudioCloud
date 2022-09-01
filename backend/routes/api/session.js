@@ -9,7 +9,6 @@ const { Op } = require('sequelize')
 const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })
-    .notEmpty()
     .withMessage('Please provide a valid email or username.'),
   check('password')
     .exists({ checkFalsy: true })
@@ -47,7 +46,7 @@ router.post('/login', validateLogin, async (req, res, next) => {
     const err = new Error('Login failed');
     err.status = 401;
     err.title = 'Login failed';
-    err.errors = ['The provided credentials were invalid.'];
+    err.errors = ['Username/Email and Password do NOT match.'];
     return next(err);
   }
   const token = await setTokenCookie(res, user);

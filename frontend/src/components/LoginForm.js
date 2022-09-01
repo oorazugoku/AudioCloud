@@ -26,6 +26,7 @@ const LoginForm = ({ setShowModal }) => {
         .then(()=>setShowModal(false))
         .catch(async (res) => {
           const data = await res.json();
+          console.log(data.errors)
           if (data && data.errors) setErrors(data.errors);
         });
 
@@ -34,9 +35,14 @@ const LoginForm = ({ setShowModal }) => {
     return (
         <div className='LoginForm-Container'>
         <i className="fas fa-x" onClick={()=>setShowModal(false)}/>
-        <ul>
+        <div className='login-errors'>
+            {errors.map((error, i) => (
+              <ul className='login-errors-inner' key={i}>{error}</ul>
+            ))}
+          </div>
+        {/* <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+        </ul> */}
         <div className='form-button-outer'>
             <button className='form-button-demo' onMouseEnter={()=>setLogoColor(logo)} onMouseLeave={()=>setLogoColor(logo2)} type='submit' onClick={() => { setEmail("demo@aa.io"); setPassword("password") }}><img src={logoColor} style={{height: '15px'}}/>    Demo User</button>
         </div>
@@ -52,7 +58,7 @@ const LoginForm = ({ setShowModal }) => {
               type='text'
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
-              required
+              // required
             />
           </div>
           <div className='form-section'>
@@ -63,13 +69,8 @@ const LoginForm = ({ setShowModal }) => {
               type='password'
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
-              required
+              // required
             />
-          </div>
-          <div className='login-errors'>
-            {errors.map((error, ind) => (
-              <li className='login-errors-inner' key={ind}>{error}</li>
-            ))}
           </div>
           <div className='form-button-outer'>
             <button className='form-button-login' type='submit'>Log In</button>
