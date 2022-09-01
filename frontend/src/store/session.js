@@ -1,11 +1,12 @@
 import { csrfFetch } from './csrf';
 
 //Type Producer
-const SET_USER = 'session/setUser';
-const REMOVE_USER = 'session/removeUser';
+const SET_USER = 'session/SET_USER';
+const REMOVE_USER = 'session/REMOVE_USER';
 
 //Action Creators
 const setUser = (user) => {
+  console.log('SET USER')
   return {
     type: SET_USER,
     payload: user,
@@ -46,6 +47,7 @@ export const logout = () => async (dispatch) => {
 
 // Thunk - Login
 export const login = (user) => async (dispatch) => {
+  console.log('THUNK', user)
   const { credential, password } = user;
   const response = await csrfFetch('/api/session/login', {
     method: 'POST',
@@ -71,6 +73,7 @@ const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
   let newState;
+  console.log('REDUCER', action)
   switch (action.type) {
     case SET_USER:
       newState = Object.assign({}, state);

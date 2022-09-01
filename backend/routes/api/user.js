@@ -5,10 +5,4 @@ const { Op } = require('sequelize')
 
 
 
-
-
-
-
-
-
 module.exports = router;

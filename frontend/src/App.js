@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import { ModalProvider } from './components/context/Modal';
 import HomePage from "./components/HomePage";
+import * as sessionActions from "./store/session";
+
+
+
+
 
 function App() {
+  // const dispatch = useDispatch()
+  // const [isLoaded, setIsLoaded] = useState(false)
+  // useEffect(() => {
+  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  // }, [dispatch]);
+
   return (
   <ModalProvider>
     <BrowserRouter>

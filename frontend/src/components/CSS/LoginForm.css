@@ -1,0 +1,69 @@
+.LoginForm-Container {
+    padding: 50px 30px;
+}
+
+.fa-x {
+    cursor: pointer;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}
+
+.form-button-demo {
+    width: 422px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 3px;
+    height: 40px;
+    margin-top: 10px;
+    color: black;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.login-or-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.login-or {
+    margin: 0 25px;
+}
+
+.or-bar {
+    border-top: 1px solid black;
+    width: 100%;
+}
+
+.form-section {
+    margin: 15px 0;
+}
+
+.form-input {
+    width: 400px;
+    border-radius: 3px;
+    border: 1px solid grey;
+    height: 40px;
+    background-color: white;
+    padding: 0 10px;
+    font-size: 18px;
+}
+
+.form-input:focus {
+    outline: none;
+    border: 1px solid black;
+}
+
+.form-button-login {
+    width: 422px;
+    background-color: rgb(255,85,0);
+    border: 0;
+    border-radius: 3px;
+    height: 40px;
+    margin-top: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}

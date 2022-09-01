@@ -73,7 +73,7 @@ router.post('/signup', validateSignup, async (req, res, next) => {
     });
     if(userCheck) {
       const err = new Error('Username already exists.')
-      err.title = 'Login Error'
+      err.title = 'Sign Up Error'
       err.errors = { email: 'User with that Username already exists' }
       err.status = 403
       return next(err)
@@ -83,7 +83,7 @@ router.post('/signup', validateSignup, async (req, res, next) => {
     });
     if(emailCheck) {
       const err = new Error('Email already exists.')
-      err.title = 'Login Error'
+      err.title = 'Sign Up Error'
       err.errors = { username: 'User with that Email already exists' }
       err.status = 403
       return next(err)
@@ -101,7 +101,7 @@ router.post('/signup', validateSignup, async (req, res, next) => {
 
 
 // Restore session user
-router.get('/current', restoreUser, async (req, res) => {
+router.get('/', restoreUser, async (req, res) => {
   const { user } = req;
   const token = await setTokenCookie(res, user)
   if (user) {
