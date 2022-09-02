@@ -27,7 +27,6 @@ const deleteSongAction = (id) => {
     };
 };
 
-
 // Thunk - Get all Songs
 export const getSongs = () => async (dispatch) => {
   const response = await csrfFetch("/api/songs");

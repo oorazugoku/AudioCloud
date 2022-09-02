@@ -24,7 +24,7 @@ const initialState = { user: null };
 const songReducer = (state = initialState, action) => {
   let newState = {};
   switch (action.type) {
-    case GET_SONGS:
+    case GET_ONE_SONG:
         newState = {...action.payload};
         return newState;
     default:

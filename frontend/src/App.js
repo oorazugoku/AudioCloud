@@ -11,24 +11,21 @@ import * as sessionActions from "./store/session";
 
 
 function App() {
-  // const dispatch = useDispatch()
-  // const [isLoaded, setIsLoaded] = useState(false)
-  // useEffect(() => {
-  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  // }, [dispatch]);
+  const dispatch = useDispatch()
+  const [isLoaded, setIsLoaded] = useState(false)
+  useEffect(() => {
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
   return (
   <ModalProvider>
     <BrowserRouter>
       <Switch>
-        <Route exact path='/userNav'>
+        {isLoaded && (<Route exact path='/userNav'>
           <UserNav />
-        </Route>
+        </Route>)}
         <Route exact path='/'>
           <HomePage />
-        </Route>
-        <Route path="/">
-          Page Does Not Exist
         </Route>
       </Switch>
     </BrowserRouter>
