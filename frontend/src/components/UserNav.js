@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AudioPlayer from "./AudioPlayer";
+import * as sessionActions from '../store/session'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import logoBB from './images/cloud-BB.png';
@@ -47,8 +48,9 @@ const UserNav = () => {
         setDots(!dots);
     };
 
-    const logout = () => {
-        dispatch(logout());
+    const logout = (e) => {
+        // e.preventDefault()
+        dispatch(sessionActions.logout())
         history.push('/')
     };
 
