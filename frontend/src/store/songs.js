@@ -45,14 +45,23 @@ export const getSongs = () => async (dispatch) => {
 
 // Thunk - Create a Song
 export const createSong = (info) => async (dispatch) => {
-  const { title, description, id, imageURL } = info;
-  const response = await csrfFetch(`/api/songs/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-          title,
-          description,
-          imageURL
-      }),
+  const { title, description, files } = info;
+
+  const formData = new FormData();
+  formData.append('title', title)
+  formData.append('description', description)
+  if (files && files.length !== 0) {
+    for (var i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+  }
+
+  const response = await csrfFetch(`/api/songs`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: formData,
   });
   const data = await response.json();
   dispatch(createSongAction(data));

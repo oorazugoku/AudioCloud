@@ -10,7 +10,6 @@ const { singleMulterUpload, singlePublicFileUpload, multipleMulterUpload, multip
 
 const validateSong = [
   check('title')
-    .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage('Song title is required.'),
   handleValidationErrors
@@ -167,37 +166,19 @@ router.get('/', validateQuery, async (req, res, next) => {
   })
 });
 
-// Create a Song without an Album
-router.post('/', requireAuth, singleMulterUpload("audio"), validateSong, async (req, res, next) => {
-  const { title, description, imageURL } = req.body;
-  const { id } = req.user;
-
-  const url = await singlePublicFileUpload(req.file)
-
-  const result = await Song.create({
-      artistId: id,
-      title,
-      description,
-      url,
-      imageURL
-  });
-
-  res.status(201)
-  res.json(result)
-});
 
 // Create a Song in an Album
 router.post('/albums/:albumId', requireAuth, validateSong, async (req, res, next) => {
-    const { title, description, url, imageURL } = req.body;
-    const { albumId } = req.params;
-    const { id } = req.user;
+  const { title, description, url, imageURL } = req.body;
+  const { albumId } = req.params;
+  const { id } = req.user;
     const check = await Album.findByPk(albumId);
     if(!check) {
-        const err = new Error(`Album couldn't be found.`)
-        err.title = 'Missing Item'
-        err.status = 404
-        return next(err)
-      }
+      const err = new Error(`Album couldn't be found.`)
+      err.title = 'Missing Item'
+      err.status = 404
+      return next(err)
+    }
     if(check.artistId !== id) {
       const err = new Error(`You are not the owner if this Album.`)
       err.title = 'Unauthorized'
@@ -206,8 +187,29 @@ router.post('/albums/:albumId', requireAuth, validateSong, async (req, res, next
     }
 
     const result = await Song.create({
+      artistId: id,
+      albumId,
+      title,
+      description,
+      url,
+      imageURL
+    });
+
+    res.status(201)
+    res.json(result)
+  });
+
+  // Create a Song without an Album
+  router.post('/', requireAuth, multipleMulterUpload('files'), async (req, res, next) => {
+    const { title, description } = req.body;
+    const { id } = req.user;
+
+    const files = await multiplePublicFileUpload(req.files)
+    const imageURL = files[0]
+    const url = files[1]
+
+    const result = await Song.create({
         artistId: id,
-        albumId,
         title,
         description,
         url,
@@ -216,8 +218,7 @@ router.post('/albums/:albumId', requireAuth, validateSong, async (req, res, next
 
     res.status(201)
     res.json(result)
-});
-
+  });
 
 // Delete a Song
 router.delete('/:songId', async (req, res, next) => {
