@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 //Type Producer
 const GET_SONGS = 'songs/GET_SONGS';
+const CREATE_SONG = 'songs/CREATE_SONG';
 const EDIT_SONG = 'songs/EDIT_SONG';
 const DELETE_SONG = 'songs/DELETE_SONG';
 
@@ -11,6 +12,13 @@ const getSongsAction = (payload) => {
         type: GET_SONGS,
         payload
   };
+};
+
+const createSongAction = (payload) => {
+  return {
+      type: CREATE_SONG,
+      payload
+};
 };
 
 const editSongAction = (payload) => {
@@ -33,6 +41,22 @@ export const getSongs = () => async (dispatch) => {
   const data = await response.json();
   dispatch(getSongsAction(data.result));
   return response;
+};
+
+// Thunk - Create a Song
+export const createSong = (info) => async (dispatch) => {
+  const { title, description, id, imageURL } = info;
+  const response = await csrfFetch(`/api/songs/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          title,
+          description,
+          imageURL
+      }),
+  });
+  const data = await response.json();
+  dispatch(createSongAction(data));
+  return response
 };
 
 // Thunk - Edit a Song

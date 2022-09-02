@@ -5,6 +5,7 @@ const { Op } = require('sequelize')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const { singleMulterUpload, singlePublicFileUpload, multipleMulterUpload, multiplePublicFileUpload } = require("../../awsS3");
 
 
 const validateSong = [
@@ -12,9 +13,6 @@ const validateSong = [
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage('Song title is required.'),
-  check('url')
-    .exists({ checkFalsy: true })
-    .withMessage('Audio is required.'),
   handleValidationErrors
 ];
 
@@ -169,6 +167,24 @@ router.get('/', validateQuery, async (req, res, next) => {
   })
 });
 
+// Create a Song without an Album
+router.post('/', requireAuth, singleMulterUpload("audio"), validateSong, async (req, res, next) => {
+  const { title, description, imageURL } = req.body;
+  const { id } = req.user;
+
+  const url = await singlePublicFileUpload(req.file)
+
+  const result = await Song.create({
+      artistId: id,
+      title,
+      description,
+      url,
+      imageURL
+  });
+
+  res.status(201)
+  res.json(result)
+});
 
 // Create a Song in an Album
 router.post('/albums/:albumId', requireAuth, validateSong, async (req, res, next) => {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
+import { useHistory } from "react-router-dom";
 import { signup } from "../store/session";
 
 import './CSS/SignupForm.css'
@@ -7,7 +8,8 @@ import './CSS/SignupForm.css'
 
 
 const SignupForm = ({ setShowSignupModal }) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [errors, setErrors] = useState([]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,6 +36,7 @@ const SignupForm = ({ setShowSignupModal }) => {
 
         dispatch(signup(info))
         .then(()=>setShowSignupModal(false))
+        .then(()=>history.push('/userNav'))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);

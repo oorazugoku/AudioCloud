@@ -1,25 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from './context/Modal'
 import Slide from './Slide'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
-
-import logoBB from './images/cloud-BB.png'
-import logoPB from './images/cloud-PB.png'
-import logoPO2 from './images/cloud-PO2.png'
 import logoWhite from './images/Audiocloud-white.svg'
-import logoYO from './images/cloud-YO.png'
+
 
 import './CSS/HomePage.css'
+import { useSelector } from 'react-redux'
 
 
 const HomePage = () => {
     const [showModal, setShowModal] = useState(false)
     const [showSignupModal, setShowSignupModal] = useState(false)
+    const user = useSelector(state => state.session.user)
 
-    const handleSignIn = (e) => {
-        e.preventDefault()
-    }
+    // useEffect(()=>{
+    //     if (user) setIsLoaded(true)
+    // }, [])
 
     return (
         <>
@@ -27,8 +25,10 @@ const HomePage = () => {
             <div className='HomePage-NavBar'>
             <div className='HomePage-navbar-left'><img className='HomePage-logo' src={logoWhite}/></div>
                 <div className='HomePage-navbar-right'>
+
                     <button className='login-button' onClick={()=>setShowModal(true)}>Sign In</button>
                     <button className='signup-button' onClick={()=>setShowSignupModal(true)}>Create Account</button>
+
                 </div>
             </div>
             <div className='HomePage-header-images'>

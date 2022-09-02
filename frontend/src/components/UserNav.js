@@ -12,6 +12,7 @@ import logoYO from './images/cloud-YO.png';
 
 import './CSS/UserNav.css';
 import UserPage from "./UserPage";
+import Upload from "./Upload";
 
 
 const UserNav = () => {
@@ -90,12 +91,19 @@ const UserNav = () => {
                         </div>
                     )}
                         </div>
+                    </div>
                 </div>
             </div>
 
 
-            </div>
-            <UserPage />
+
+            {location === 'home' && (<UserPage />)}
+            {location === 'stream' && (<UserPage />)}
+            {location === 'upload' && (<Upload />)}
+
+
+
+
             <div className="UserNav-bottom-navbar">
                 <AudioPlayer />
             </div>
