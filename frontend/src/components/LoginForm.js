@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from "../store/session";
 import logo from './images/cloud-YO.png'
 import logo2 from './images/cloud-PO2.png'
@@ -17,14 +17,15 @@ const LoginForm = ({ setShowModal }) => {
     const [password, setPassword] = useState('');
     const [logoColor, setLogoColor] = useState(logo2)
 
-    const onLogin = (e) => {
+
+    const onLogin = async (e) => {
         e.preventDefault();
 
         const info = {
             credential: email,
             password
         }
-        dispatch(login(info))
+        await dispatch(login(info))
         .then(()=>setShowModal(false))
         .then(()=>history.push('/userNav'))
         .catch(async (res) => {

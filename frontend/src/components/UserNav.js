@@ -22,6 +22,11 @@ const UserNav = () => {
     const [logo, setLogo] = useState(null);
     const [dots, setDots] = useState(false);
     const user = useSelector(state => state.session.user);
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    useEffect(()=>{
+      if (user) setIsLoaded(true)
+    }, [dispatch, user])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -64,7 +69,7 @@ const UserNav = () => {
     };
 
 
-    return user && (
+    return isLoaded && (
         <>
         <div className="UserNav-Container">
             <div className="UserNav-top-navbar-container">

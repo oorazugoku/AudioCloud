@@ -13,8 +13,8 @@ import * as sessionActions from "./store/session";
 function App() {
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
-
   const [isLoaded, setIsLoaded] = useState(false)
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -23,9 +23,9 @@ function App() {
   <ModalProvider>
     <BrowserRouter>
       <Switch>
-        {isLoaded && (<Route exact path='/userNav'>
+        <Route exact path='/userNav'>
           <UserNav />
-        </Route>)}
+        </Route>
         <Route exact path='/'>
           <HomePage />
         </Route>
