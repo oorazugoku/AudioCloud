@@ -5,6 +5,7 @@ import { ModalProvider } from './components/context/Modal';
 import HomePage from "./components/HomePage";
 import UserNav from "./components/UserNav";
 import * as sessionActions from "./store/session";
+import { getUsers } from "./store/users";
 
 
 
@@ -18,6 +19,10 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+  useEffect(()=>{
+    dispatch(getUsers())
+  }, [])
 
   return (
   <ModalProvider>

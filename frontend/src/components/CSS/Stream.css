@@ -1,0 +1,30 @@
+.Stream-container {
+    height: 100%;
+    width: 900px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    top: 3em;
+    background-color: white;
+}
+
+.Stream-songs {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    margin: 30px;
+}
+
+.Stream-song-image {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+.Stream-song-info {
+    display: flex;
+    flex-direction: column;
+}

@@ -19,7 +19,7 @@ export const getOneSong = (id) => async (dispatch) => {
     return response
 };
 
-const initialState = { user: null };
+const initialState = {};
 
 const songReducer = (state = initialState, action) => {
   let newState = {};

@@ -13,6 +13,8 @@ import logoYO from './images/cloud-YO.png';
 import './CSS/UserNav.css';
 import UserPage from "./UserPage";
 import Upload from "./Upload";
+import { getSongs } from "../store/songs";
+import Stream from "./Stream";
 
 
 const UserNav = () => {
@@ -28,6 +30,10 @@ const UserNav = () => {
     useEffect(()=>{
       if (user) setIsLoaded(true)
     }, [dispatch, user])
+
+    useEffect(()=>{
+        dispatch(getSongs())
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -98,8 +104,8 @@ const UserNav = () => {
 
 
             {location === 'home' && (<UserPage />)}
-            {location === 'stream' && (<UserPage />)}
-            {location === 'upload' && (<Upload />)}
+            {location === 'stream' && (<Stream />)}
+            {location === 'upload' && (<Upload setLocation={setLocation} />)}
 
 
 

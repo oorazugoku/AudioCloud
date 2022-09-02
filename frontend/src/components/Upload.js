@@ -5,7 +5,7 @@ import { createSong } from "../store/songs";
 import './CSS/Upload.css'
 
 
-const Upload = () => {
+const Upload = ({ setLocation }) => {
     const dispatch = useDispatch();
     const [file, setFile] = useState();
     const [image, setImage] = useState();
@@ -29,8 +29,7 @@ const Upload = () => {
             description,
             files
         }
-        console.log('SUBMIT', info)
-        dispatch(createSong(info))
+        dispatch(createSong(info)).then(()=>setLocation('home'))
     }
 
     const previewFile = (e) => {

@@ -94,7 +94,7 @@ export const deleteSong = (id) => async (dispatch) => {
 
 
 
-const initialState = { user: null };
+const initialState = {};
 
 const songsReducer = (state = initialState, action) => {
   let newState = {};

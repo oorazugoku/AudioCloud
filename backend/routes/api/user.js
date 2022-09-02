@@ -5,11 +5,9 @@ const { Op } = require('sequelize')
 
 
 // Get all users
-router.post('/all', async (req, res) => {
+router.get('/', async (req, res) => {
     const result = await User.findAll();
-    return res.json({
-      result
-    });
+    return res.json(result);
   }
 );
 
