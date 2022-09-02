@@ -34,22 +34,24 @@ const UserNav = () => {
 
     const clickHome = () => {
         setLocation('home');
+        setDots(false);
     };
 
     const clickStream = () => {
         setLocation('stream');
+        setDots(false);
     };
 
     const clickUpload = () => {
         setLocation('upload');
+        setDots(false);
     };
 
     const clickDots = () => {
         setDots(!dots);
     };
 
-    const logout = (e) => {
-        // e.preventDefault()
+    const logout = () => {
         dispatch(sessionActions.logout())
         history.push('/')
     };
