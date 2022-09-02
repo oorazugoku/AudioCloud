@@ -10,7 +10,7 @@
 .UserNav-top-navbar-container {
     height: 3em;
     background-color: #333333;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: center;
     color: #CCCCCC;
-
+    z-index: 50;
 }
 
 .UserNav-top-navbar {
