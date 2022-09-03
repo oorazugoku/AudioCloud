@@ -3,11 +3,14 @@
     width: 900px;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
     position: absolute;
-    top: 3em;
     background-color: white;
+    top: 3em;
+}
+
+.Stream-left-container {
+    height: 100%;
+    width: 900px;
 }
 
 .Stream-songs {
@@ -27,4 +30,17 @@
 .Stream-song-info {
     display: flex;
     flex-direction: column;
+}
+
+
+
+.Stream-right-container {
+    height: 100%;
+    width: 340px;
+    background-color: white;
+    border-left: 1px solid lightgray;
+}
+
+.Stream-right-inner {
+    position: fixed;
 }

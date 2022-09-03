@@ -12,18 +12,24 @@ const Stream = () => {
     return (
         <>
             <div className="Stream-container">
-                {songs?.map((song, i) => (
-                    <div key={`song${i}`} className='Stream-songs'>
-                        <div className="Stream-song-image"><img className='Stream-song-image' src={song?.imageURL}/></div>
-                            <div className="Stream-song-info">
-                                <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
-                                <div className="Stream-song-title">{song?.title}</div>
-                                <div className="Stream-song-title">{song?.title}</div>
-                            </div>
-                    </div>
-                ))}
+
+                <div className="Stream-left-container">
+                    {songs?.map((song, i) => (
+                        <div key={`song${i}`} className='Stream-songs'>
+                            <div className="Stream-song-image"><img className='Stream-song-image' src={song?.imageURL}/></div>
+                                <div className="Stream-song-info">
+                                    <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
+                                    <div className="Stream-song-title">{song?.title}</div>
+                                    <div className="Stream-song-title">{song?.title}</div>
+                                </div>
+                        </div>
+                    ))}
+                </div>
+
                 <div className="Stream-right-container">
-                    
+                    <div className="Stream-right-inner">
+                        STUFF AND THINGS
+                    </div>
                 </div>
             </div>
         </>

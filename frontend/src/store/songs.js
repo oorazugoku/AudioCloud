@@ -102,6 +102,10 @@ const songsReducer = (state = initialState, action) => {
     case GET_SONGS:
         for (let each of action.payload) newState[each.id] = each;
         return newState;
+    case CREATE_SONG:
+        newState = {...state}
+        newState[action.payload.id] = action.payload;
+        return newState;
     case EDIT_SONG:
         newState = {...state}
         newState[action.payload.id] = action.payload;
