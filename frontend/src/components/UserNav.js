@@ -104,7 +104,7 @@ const UserNav = () => {
 
 
             {location === 'home' && (<UserPage />)}
-            {location === 'stream' && (<Stream />)}
+            {location === 'stream' && (<Stream setLocation={setLocation} />)}
             {location === 'upload' && (<Upload setLocation={setLocation} />)}
 
 

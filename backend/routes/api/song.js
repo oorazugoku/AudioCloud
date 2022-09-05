@@ -50,7 +50,7 @@ router.put('/:songId', requireAuth, validateSong, async (req, res, next) => {
   result.title = title;
   result.description = description;
   // result.url = url;
-  result.imageURL = imageURL;
+  // result.imageURL = imageURL;
 
   await result.save()
 

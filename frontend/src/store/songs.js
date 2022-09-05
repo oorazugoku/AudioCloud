@@ -70,13 +70,12 @@ export const createSong = (info) => async (dispatch) => {
 
 // Thunk - Edit a Song
 export const editSong = (info) => async (dispatch) => {
-    const { title, description, id, imageURL } = info;
+    const { title, description, id } = info;
     const response = await csrfFetch(`/api/songs/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
             title,
-            description,
-            imageURL
+            description
         }),
     });
     const data = await response.json();
