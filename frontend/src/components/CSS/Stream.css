@@ -29,6 +29,8 @@
     height: 200px;
     width: 200px;
     object-fit: cover;
+    border: 1px solid gray;
+    padding: 5px;
 }
 
 .Stream-song-info {
@@ -37,6 +39,16 @@
     justify-content: space-between;
     width: 100%;
     margin-left: 15px;
+}
+
+.fa-pen-to-square {
+    color: #FF5500;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.fa-pen-to-square:hover {
+    color: #ff3300;
 }
 
 .Stream-song-artist {

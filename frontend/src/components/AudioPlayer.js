@@ -9,6 +9,7 @@ import { setPlaying } from "../store/playing";
 const AudioPlayer = () => {
     const dispatch = useDispatch();
     const song = useSelector(state => state.song)
+    const users = useSelector(state => state.users)
     const playing = useSelector(state => state.playing)
 
     const handlePlay = () => {
@@ -25,12 +26,19 @@ const AudioPlayer = () => {
             <ReactPlayer
             url={song.url}
             controls={true}
-            width={1200}
+            width={1100}
             height={50}
             playing={playing}
             onPlay={handlePlay}
             onPause={handlePause}
             />
+
+            <div className="AudioPlayer-info-container">
+            <div className="AudioPlayer-username">{users[song.artistId]?.username}</div>
+            <div className="AudioPlayer-song-title">{song.title}</div>
+            </div>
+
+
         </div>
         </>
     );

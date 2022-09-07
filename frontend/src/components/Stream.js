@@ -52,7 +52,7 @@ const Stream = ({ setLocation }) => {
 
 
                                 </div>
-                                {user.id === song.artistId && (<button className="Stream-song-edit-button" onClick={()=>{setEditing(true); setSong(song)}}>Edit</button>)}
+                                {user.id === song.artistId && (<i className="fas fa-pen-to-square" onClick={()=>{setEditing(true); setSong(song)}}/>)}
                         </div>
                     ))}
                 </div>
