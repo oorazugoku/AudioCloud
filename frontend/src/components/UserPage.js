@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import WaveSurfer from 'wavesurfer.js';
 import EditSong from "./EditSong";
-import ReactPlayer from "react-player";
 
 import './CSS/UserPage.css'
 import { getOneSong } from "../store/song";
@@ -16,49 +14,10 @@ const UserPage = () => {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.session.user);
     const [editing, setEditing] = useState(false);
-    const [eachAudio, setEachAudio] = useState({});
     const songState = useSelector(state => state.song)
     const playing = useSelector(state => state.playing)
 
 
-    // useEffect(()=>{
-    //     let newAudio = {}
-    //     songs?.map((song, i) => {
-    //         if (song.artistId === user.id) {
-
-    //             let wave = new Audio(song.url);
-    //             const audio = WaveSurfer.create({
-    //                 container: `.Stream-wave-${i}`,
-    //                 barWidth: 1,
-    //                 barRadius: 1,
-    //                 height: 0,
-    //                 maxCanvasWidth: 700,
-    //                 // barHeight: 100,
-    //                 waveColor: 'violet',
-    //                 progressColor: 'purple',
-    //                 normalize: true,
-    //                 scrollParent: true,
-    //                 mediaType: 'audio',
-    //                 mediaControls: true,
-    //                 responsive: true,
-    //                 hideScrollbar: true,
-    //                 // preload: true,
-    //                 data: wave,
-    //                 backend: 'MediaElement',
-    //                 xhr: {
-    //                     mode: "no-cors",
-    //                     method: "GET",
-    //                     credentials: "include"
-    //                 }
-    //             });
-    //             audio.song = song.url
-    //             audio.drawBuffer()
-    //             audio.load(audio.song)
-    //             newAudio[i] = audio
-    //         }
-    //         })
-    //         setEachAudio(newAudio)
-    // }, [])
 
     const handleSong = (id) => {
         dispatch(getOneSong(id))
@@ -71,9 +30,10 @@ const UserPage = () => {
 
     return (
         <>
-        {!editing && (<div className="UserPage-Container">
+        {!editing && (
+        <div className="UserPage-Container">
             <div className="UserPage-header">
-                <div className="UserPage-header-username">{user.username}</div>
+                <div className="UserPage-header-username">{user?.username}</div>
             </div>
             <div className="UserPage-lower-container">
                 <div className="Stream-left-container">
@@ -85,7 +45,6 @@ const UserPage = () => {
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song?.title}</div>
                                     <div className={`Stream-wave-${i}`}>
-                                        <button className="play-pause-button" onClick={()=>handleSong(song.id)}>Play</button>
                                     </div>
                                 </div>
                                 {user.id === song.artistId && (<button className="Stream-song-edit-button" onClick={()=>{setEditing(true); setSong(song)}}>Edit</button>)}

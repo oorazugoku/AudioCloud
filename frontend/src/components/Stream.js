@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import WaveSurfer from 'wavesurfer.js';
 import EditSong from "./EditSong";
 
 
@@ -17,53 +16,6 @@ const Stream = ({ setLocation }) => {
     const user = useSelector(state => state.session.user);
     const [editing, setEditing] = useState(false);
     const playing = useSelector(state => state.playing)
-    // const [eachAudio, setEachAudio] = useState({});
-    // const [url, setUrl] = useState()
-
-
-
-    // useEffect(()=>{
-    //     let newAudio = {}
-    //     songs?.map((song, i) => {
-    //             let wave = new Audio(song.url);
-    //             const audio = WaveSurfer.create({
-    //                 container: `.Stream-wave-${i}`,
-    //                 barWidth: 1,
-    //                 barRadius: 1,
-    //                 height: 0,
-    //                 maxCanvasWidth: 700,
-    //                 // barHeight: 100,
-    //                 waveColor: 'violet',
-    //                 progressColor: 'purple',
-    //                 normalize: true,
-    //                 scrollParent: true,
-    //                 mediaType: 'audio',
-    //                 mediaControls: true,
-    //                 responsive: true,
-    //                 hideScrollbar: true,
-    //                 // preload: true,
-    //                 data: wave,
-    //                 backend: 'MediaElement',
-    //                 xhr: {
-    //                     mode: "no-cors",
-    //                     method: "GET",
-    //                     credentials: "include"
-    //                 }
-    //             });
-
-    //             // wave.preload = true
-    //             // wave.src = song.url
-    //             audio.song = song.url
-    //             audio.drawBuffer()
-    //             // console.log(wave)
-    //             // audio.load(wave)
-    //             audio.load(audio.song)
-    //             newAudio[i] = audio
-    //         })
-
-    //         setEachAudio(newAudio)
-
-    // }, [])
 
     const handleSong = (id) => {
         dispatch(getOneSong(id))
