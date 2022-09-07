@@ -1,16 +1,36 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ReactPlayer from 'react-player'
 
 import './CSS/AudioPlayer.css';
+import { setPlaying } from "../store/playing";
 
 
 const AudioPlayer = () => {
-    const song = useSelector(state => state.songs[1])
+    const dispatch = useDispatch();
+    const song = useSelector(state => state.song)
+    const playing = useSelector(state => state.playing)
 
+    const handlePlay = () => {
+        dispatch(setPlaying(true))
+    }
+
+    const handlePause = () => {
+        dispatch(setPlaying(false))
+    }
 
     return (
         <>
         <div className="AudioPlayer-Container">
+            <ReactPlayer
+            url={song.url}
+            controls={true}
+            width={1200}
+            height={50}
+            playing={playing}
+            onPlay={handlePlay}
+            onPause={handlePause}
+            />
         </div>
         </>
     );

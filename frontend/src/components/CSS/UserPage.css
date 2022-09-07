@@ -1,0 +1,22 @@
+.UserPage-Container {
+    width: 1240px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    top: 3em;
+    padding-bottom: 50px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+}
+
+.UserPage-header {
+    height: 200px;
+    background-color: #111111;
+    color: white;
+}
+
+.UserPage-header-username {
+    margin: 50px;
+    font-weight: bold;
+    font-size: 50px;
+}

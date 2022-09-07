@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPlaying } from "../store/playing";
+import { removeSong } from "../store/song";
 import { deleteSong, editSong } from "../store/songs";
 
 const EditSong = ({ setEditing, song }) => {
@@ -8,6 +10,7 @@ const EditSong = ({ setEditing, song }) => {
     const [imagePre, setImagePre] = useState(song.imageURL);
     const [title, setTitle] = useState(song.title);
     const [description, setDescription] = useState(song.description);
+    const songState = useSelector(state => state.song)
 
 
 
@@ -26,7 +29,13 @@ const EditSong = ({ setEditing, song }) => {
     }
 
     const handleDelete = () => {
-        dispatch(deleteSong(song.id)).then(()=>setEditing(false))
+        if (songState.id === song.id) {
+            dispatch(deleteSong(song.id))
+            dispatch(removeSong()).then(()=>setEditing(false))
+        } else {
+            dispatch(deleteSong(song.id))
+            .then(()=>setEditing(false))
+        }
     }
 
     const previewFile = (e) => {

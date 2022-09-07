@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { createSong } from "../store/songs";
 
 import './CSS/Upload.css'
+import './CSS/Loading.css'
 
 
 const Upload = ({ setLocation }) => {
@@ -13,7 +14,8 @@ const Upload = ({ setLocation }) => {
     const [audioUploaded, setAudioUploaded] = useState(false);
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
-    const [fileArr, setFilesArr] = useState([])
+    const [fileArr, setFilesArr] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     const audioSubmit = (e) => {
         e.preventDefault();
@@ -29,7 +31,11 @@ const Upload = ({ setLocation }) => {
             description,
             files
         }
-        dispatch(createSong(info)).then(()=>setLocation('home'))
+        setLoading(true);
+        dispatch(createSong(info))
+        .then(()=>setLoading(false))
+        .then(()=>setLocation('home'))
+        .catch(()=>setLoading(false))
     }
 
     const previewFile = (e) => {
@@ -40,6 +46,13 @@ const Upload = ({ setLocation }) => {
 
     return (
         <>
+        {loading && (
+            <div className="Loading-container">
+                <div className="loading-circle">LOADING
+                    <span></span>
+                </div>
+            </div>
+        )}
         <div className="Upload-container">
             {!audioUploaded && (
             <div className="Upload-inner-audio-container">

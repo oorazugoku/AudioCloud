@@ -34,6 +34,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
+    margin-left: 15px;
 }
 
 
@@ -50,4 +51,27 @@
 
 .Stream-song-edit-button {
 
+}
+
+.play-button {
+    background-color: #FF5500;
+    border: 0;
+    border-radius: 50%;
+    height: 35px;
+    width: 45px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.play-button:hover,
+.play-button:active {
+    background-color: #ff3300;
+}
+
+.fa-play {
+    margin-left: 3px;
 }
