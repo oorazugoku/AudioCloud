@@ -12,6 +12,7 @@ body {
 }
 
 #root {
+    min-width: 500px;
     width: 1240px;
     height: 100%;
 }

@@ -34,12 +34,23 @@ const Stream = ({ setLocation }) => {
                 <div className="Stream-left-container">
                     {songs?.map((song, i) => (
                         <div key={`song${i}`} className='Stream-songs'>
-                            <div className="Stream-song-image"><img className='Stream-song-image' src={song?.imageURL}/></div>
+                            <div className="Stream-song-image">
+                                <img className='Stream-song-image' src={song?.imageURL}/>
+                                </div>
                                 {songState.id === song.id & playing ? (<button className="play-button" onClick={handlePause}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
                                 <div className="Stream-song-info">
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
-                                    <div className="Stream-song-title">{song?.title}</div>
+                                    <div className="Stream-song-title">{song.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
                                     <div className={`Stream-wave-${i}`}></div>
+
+
+                                    {songState.id === song.id & playing ? (<div className="Media-Playing">Playing</div>) : (<></>)}
+                                    <div className="Stram-comments-container">
+                                        <div className=""></div>
+                                    </div>
+
+
+
                                 </div>
                                 {user.id === song.artistId && (<button className="Stream-song-edit-button" onClick={()=>{setEditing(true); setSong(song)}}>Edit</button>)}
                         </div>

@@ -7,6 +7,7 @@
     background-color: white;
     top: 3em;
     padding-bottom: 50px;
+    margin: 0;
 }
 
 .Stream-left-container {
@@ -21,6 +22,7 @@
     align-items: flex-start;
     width: 840px;
     margin: 30px;
+    position: relative;
 }
 
 .Stream-song-image {
@@ -37,7 +39,41 @@
     margin-left: 15px;
 }
 
+.Stream-song-artist {
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    color: #999999;
+    font-size: 14px;
+    line-height: 16px;
+    padding-bottom: 5px;
+}
 
+.Media-Playing {
+    position: absolute;
+    top: 0;
+    left: 70%;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    animation: pulsate 3s ease-out;
+    animation-iteration-count: infinite;
+    opacity: 0.5;
+}
+
+@keyframes pulsate {
+    0% {
+        opacity: 0.1;
+    }
+    45% {
+        opacity: 1.0;
+    }
+    55% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0.1;
+    }
+}
 
 .Stream-right-container {
     height: 100%;
