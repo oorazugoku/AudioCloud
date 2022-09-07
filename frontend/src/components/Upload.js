@@ -66,6 +66,7 @@ const Upload = ({ setLocation }) => {
                     />
                     <input
                         type="button"
+                        className="file-upload-button"
                         value="choose a file to upload"
                         onClick={()=>document.getElementById('audioFile').click()}
                     />

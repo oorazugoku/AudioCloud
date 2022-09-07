@@ -21,6 +21,12 @@
     min-width: 150px;
 }
 
+.AudioPlayer-info-image {
+    height: 35px;
+    width: 35px;
+    margin-right: 5px;
+}
+
 .AudioPlayer-username {
     color: #999999;
     font-size: 14px;
@@ -28,4 +34,8 @@
 
 .AudioPlayer-song-title {
     font-size: 14px;
+}
+
+.react-player {
+    color: #FF5500;
 }

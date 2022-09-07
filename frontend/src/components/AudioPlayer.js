@@ -24,19 +24,25 @@ const AudioPlayer = () => {
         <>
         <div className="AudioPlayer-Container">
             <ReactPlayer
+            className="react-player"
             url={song.url}
             controls={true}
-            width={1100}
+            width={1080}
             height={50}
             playing={playing}
             onPlay={handlePlay}
             onPause={handlePause}
+            style={{color:'#FF5500'}}
             />
 
+            {song?.imageURL && (<>
+            <img className="AudioPlayer-info-image" src={song.imageURL}/>
             <div className="AudioPlayer-info-container">
-            <div className="AudioPlayer-username">{users[song.artistId]?.username}</div>
-            <div className="AudioPlayer-song-title">{song.title}</div>
+            <div className="AudioPlayer-username">{users[song.artistId].username.length < 20 ? users[song.artistId].username : `${users[song.artistId].username.slice(0,16)}...`}</div>
+            <div className="AudioPlayer-song-title">{song.title.length < 16 ? song.title : `${song.title.slice(0,16)}...`}</div>
             </div>
+            </>
+            )}
 
 
         </div>

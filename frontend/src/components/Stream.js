@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EditSong from "./EditSong";
 
-
+import './CSS/Comments.css'
 import './CSS/Stream.css'
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
 
 const Stream = ({ setLocation }) => {
     const dispatch = useDispatch();
-    const [song, setSong] = useState();
     const songState = useSelector(state => state.song)
     const songs = useSelector(state => Object.values(state.songs));
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.session.user);
-    const [editing, setEditing] = useState(false);
     const playing = useSelector(state => state.playing)
+    const [editing, setEditing] = useState(false);
+    const [song, setSong] = useState();
+    const [comment, setComment] = useState('');
 
     const handleSong = (id) => {
         dispatch(getOneSong(id))
@@ -24,6 +25,10 @@ const Stream = ({ setLocation }) => {
 
     const handlePause = () => {
         dispatch(setPlaying(false))
+    }
+
+    const handleComment = () => {
+        
     }
 
 
@@ -36,7 +41,9 @@ const Stream = ({ setLocation }) => {
                         <div key={`song${i}`} className='Stream-songs'>
                             <div className="Stream-song-image">
                                 <img className='Stream-song-image' src={song?.imageURL}/>
-                                </div>
+                            </div>
+                            <div>
+                                <div className="Stream-song-header">
                                 {songState.id === song.id & playing ? (<button className="play-button" onClick={handlePause}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
                                 <div className="Stream-song-info">
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
@@ -45,14 +52,27 @@ const Stream = ({ setLocation }) => {
 
 
                                     {songState.id === song.id & playing ? (<div className="Media-Playing">Playing</div>) : (<></>)}
+                                    </div>
                                     <div className="Stram-comments-container">
                                         <div className=""></div>
                                     </div>
-
-
-
                                 </div>
-                                {user.id === song.artistId && (<i className="fas fa-pen-to-square" onClick={()=>{setEditing(true); setSong(song)}}/>)}
+                                    <div className="Comment-container">
+                                        <form onSubmit={handleComment}>
+                                            <div className="Comment-input-container">
+                                            <input
+                                            className="Comment-input"
+                                            placeholder="Write a comment"
+                                            />
+
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+
+                                {/* {user.id === song.artistId && (<i className="fas fa-pen-to-square" onClick={()=>{setEditing(true); setSong(song)}}/>)} */}
                         </div>
                     ))}
                 </div>
