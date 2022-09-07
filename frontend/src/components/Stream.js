@@ -14,25 +14,53 @@ const Stream = ({ setLocation }) => {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.session.user);
     const [editing, setEditing] = useState(false);
+    const [eachAudio, setEachAudio] = useState({});
+    const [done, setDone] = useState(false)
 
 
 
     useEffect(()=>{
+        let newAudio = {}
         songs?.map((song, i) => {
-            const audio = WaveSurfer.create({
-                container: `.Stream-wave-${i}`,
-                waveColor: 'violet',
-                progressColor: 'purple',
-                xhr: {
-                    mode: "no-cors",
-                    method: "GET",
-                    credentials: "include"
-                }
-            });
-            audio.load(`${song.url}`)
-        })
+                let wave = new Audio(song.url);
+                const audio = WaveSurfer.create({
+                    container: `.Stream-wave-${i}`,
+                    barWidth: 1,
+                    barRadius: 1,
+                    height: 100,
+                    maxCanvasWidth: 700,
+                    // barHeight: 100,
+                    waveColor: 'violet',
+                    progressColor: 'purple',
+                    normalize: true,
+                    scrollParent: true,
+                    mediaType: 'audio',
+                    responsive: true,
+                    hideScrollbar: true,
+                    // preload: true,
+                    data: wave,
+                    backend: 'MediaElement',
+                    xhr: {
+                        mode: "no-cors",
+                        method: "GET",
+                        credentials: "include"
+                    }
+                });
+
+                // wave.preload = true
+                // wave.src = song.url
+                audio.song = song.url
+                audio.drawBuffer()
+                // console.log(wave)
+                // audio.load(wave)
+                audio.load(audio.song)
+                newAudio[i] = audio
+            })
+
+            setEachAudio(newAudio)
 
     }, [])
+
 
     return (
         <>
@@ -45,7 +73,9 @@ const Stream = ({ setLocation }) => {
                                 <div className="Stream-song-info">
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song?.title}</div>
-                                    <div className={`Stream-wave-${i}`}></div>
+                                    <div className={`Stream-wave-${i}`}>
+                                        <button className="play-pause-button" onClick={()=>eachAudio[i].playPause()}>Play/Pause</button>
+                                    </div>
                                     <div className="Stream-song-description">{song?.description}</div>
                                 </div>
                                 {user.id === song.artistId && (<button className="Stream-song-edit-button" onClick={()=>{setEditing(true); setSong(song)}}>Edit</button>)}

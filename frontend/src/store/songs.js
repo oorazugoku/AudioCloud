@@ -51,7 +51,7 @@ export const createSong = (info) => async (dispatch) => {
   formData.append('title', title)
   formData.append('description', description)
   if (files && files.length !== 0) {
-    for (var i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
       formData.append("files", files[i]);
     }
   }
