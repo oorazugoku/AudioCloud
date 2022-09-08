@@ -19,7 +19,7 @@
     height: 450px;
     width: 620px;
     border-radius: 4px;
-    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
 }
 
 .Upload-inner-audio-container .audio-error {
@@ -66,7 +66,7 @@
 }
 
 .form-label {
-    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
     font-size: 12px;
 }
 
@@ -90,7 +90,7 @@
 .image-preview-container {
     height: 260px;
     width: 260px;
-    background-image: linear-gradient(135deg,#846170,#70929c);
+    background-image: linear-gradient(135deg, #846170, #70929c);
 }
 
 .Upload-inner-image-right {
