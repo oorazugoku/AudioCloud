@@ -80,7 +80,8 @@ router.get('/:songId', async (req, res, next) => {
   const result = await Song.findByPk(songId, {
     include: [
       { model: User, as: 'Artist' },
-      { model: Album.scope(['preview']), as: 'Album' }
+      { model: Album.scope(['preview']), as: 'Album' },
+      { model: Comment }
     ]
   });
   if(!result) {
@@ -154,7 +155,7 @@ router.get('/', validateQuery, async (req, res, next) => {
     whereClause.createdAt = { [Op.substring]: createdAt }
   };
 
-  let result = await Song.findAll(advSearch)
+  let result = await Song.findAll({include: { model: Comment }})
 
 
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import EditSong from "./EditSong";
-
-import './CSS/Comments.css'
-import './CSS/Stream.css'
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
+import EditSong from "./EditSong";
+import Comments from "./Comments";
+
+import './CSS/Stream.css'
 
 const Stream = ({ setLocation }) => {
     const dispatch = useDispatch();
@@ -25,10 +25,6 @@ const Stream = ({ setLocation }) => {
 
     const handlePause = () => {
         dispatch(setPlaying(false))
-    }
-
-    const handleComment = () => {
-        
     }
 
 
@@ -57,18 +53,7 @@ const Stream = ({ setLocation }) => {
                                         <div className=""></div>
                                     </div>
                                 </div>
-                                    <div className="Comment-container">
-                                        <form onSubmit={handleComment}>
-                                            <div className="Comment-input-container">
-                                            <input
-                                            className="Comment-input"
-                                            placeholder="Write a comment"
-                                            />
-
-                                            </div>
-                                        </form>
-
-                                    </div>
+                                    <Comments song={song}/>
                                 </div>
 
 

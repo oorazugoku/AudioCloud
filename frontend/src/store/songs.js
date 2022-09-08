@@ -6,6 +6,8 @@ const CREATE_SONG = 'songs/CREATE_SONG';
 const EDIT_SONG = 'songs/EDIT_SONG';
 const DELETE_SONG = 'songs/DELETE_SONG';
 
+const GET_SONG_COMMENTS = 'comments/GET_SONG_COMMENTS';
+
 //Action Creators
 const getSongsAction = (payload) => {
     return {
@@ -33,6 +35,13 @@ const deleteSongAction = (id) => {
       type: DELETE_SONG,
       id
     };
+};
+
+const getSongCommentsAction = (payload) => {
+  return {
+    type: GET_SONG_COMMENTS,
+    payload
+  };
 };
 
 // Thunk - Get all Songs

@@ -5,6 +5,7 @@ import EditSong from "./EditSong";
 import './CSS/UserPage.css'
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
+import Comments from "./Comments";
 
 
 const UserPage = () => {
@@ -27,10 +28,6 @@ const UserPage = () => {
 
     const handlePause = () => {
         dispatch(setPlaying(false))
-    }
-
-    const handleComment = () => {
-        
     }
 
     return (
@@ -62,17 +59,7 @@ const UserPage = () => {
                                         <div className=""></div>
                                     </div>
                                 </div>
-                                    <div className="Comment-container">
-                                        <form onSubmit={handleComment}>
-                                            <div className="Comment-input-container">
-                                            <input
-                                            className="Comment-input"
-                                            placeholder="Write a comment"
-                                            />
-                                            </div>
-                                        </form>
-
-                                    </div>
+                                    <Comments />
                                 </div>
 
 

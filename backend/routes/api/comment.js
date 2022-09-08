@@ -69,7 +69,7 @@ router.put('/:commentId', requireAuth, validateComment, async (req, res, next) =
 });
 
 
-// Create a Song in an Album
+// Create a Comment by songId
 router.post('/songs/:songId', requireAuth, validateComment, async (req, res, next) => {
   const { comment } = req.body;
   const { songId } = req.params;
