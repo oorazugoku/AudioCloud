@@ -53,7 +53,7 @@ const Stream = ({ setLocation }) => {
                                         <div className=""></div>
                                     </div>
                                 </div>
-                                    <Comments song={song}/>
+                                    <Comments song={song} setLocation={setLocation} />
                                 </div>
 
 

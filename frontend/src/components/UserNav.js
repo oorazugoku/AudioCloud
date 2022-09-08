@@ -15,6 +15,7 @@ import UserPage from "./UserPage";
 import Upload from "./Upload";
 import { getSongs } from "../store/songs";
 import Stream from "./Stream";
+import CommentsPage from "./CommentsPage";
 
 
 const UserNav = () => {
@@ -73,6 +74,7 @@ const UserNav = () => {
         if (location === 'home') setLogo(logoBB);
         if (location === 'stream') setLogo(logoPO2);
         if (location === 'upload') setLogo(logoYO);
+        if (location === 'comments') setLogo(logoPB);
     };
 
 
@@ -103,9 +105,10 @@ const UserNav = () => {
 
 
 
-            {location === 'home' && (<UserPage />)}
+            {location === 'home' && (<UserPage setLocation={setLocation} />)}
             {location === 'stream' && (<Stream setLocation={setLocation} />)}
             {location === 'upload' && (<Upload setLocation={setLocation} />)}
+            {location === 'comments' && (<CommentsPage />)}
 
 
 

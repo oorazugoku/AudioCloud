@@ -8,7 +8,7 @@ import { setPlaying } from "../store/playing";
 import Comments from "./Comments";
 
 
-const UserPage = () => {
+const UserPage = ({ setLocation }) => {
     const dispatch = useDispatch();
     const songs = useSelector(state => Object.values(state.songs));
     const users = useSelector(state => state.users);
@@ -17,7 +17,7 @@ const UserPage = () => {
     const playing = useSelector(state => state.playing)
     const [editing, setEditing] = useState(false);
     const [song, setSong] = useState();
-    const [comment, setComment] = useState('');
+
 
 
 
@@ -59,7 +59,7 @@ const UserPage = () => {
                                         <div className=""></div>
                                     </div>
                                 </div>
-                                    <Comments />
+                                    <Comments song={song} setLocation={setLocation} />
                                 </div>
 
 
