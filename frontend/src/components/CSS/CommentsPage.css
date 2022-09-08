@@ -1,0 +1,64 @@
+.CommentsPage-container {
+    width: 1240px;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.CommentsPage-left {
+    height: 100%;
+    min-height: 80vh;
+    width: 900px;
+    margin-top: 5em;
+    margin-left: 2em;
+    margin-right: 2em;
+    padding-bottom: 60px;
+}
+
+.CommentsPage-input-container {
+    border: 1px solid #E5E5E5;
+    background-color: #F2F2F2;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 6px;
+    margin-bottom: 10px;
+}
+
+.CommentsPage-input {
+    width: 100%;
+    border: 1px solid #E5E5E5;
+    border-radius: 3px;
+    height: 20px;
+    color: #999999;
+    padding-left: 10px;
+}
+
+.CommentsPage-lower-container {
+    color: #999999;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 12px;
+}
+
+.commentList-comment {
+    word-wrap: break-word;
+}
+
+
+
+
+.CommentsPage-right {
+    width: 340px;
+    border-left: 1px solid #CCCCCC;
+    margin-top: 4em;
+
+}

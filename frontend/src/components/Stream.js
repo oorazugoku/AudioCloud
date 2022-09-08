@@ -15,7 +15,6 @@ const Stream = ({ setLocation }) => {
     const user = useSelector(state => state.session.user);
     const playing = useSelector(state => state.playing)
     const [editing, setEditing] = useState(false);
-    const [song, setSong] = useState();
     const [comment, setComment] = useState('');
 
     const handleSong = (id) => {
@@ -56,8 +55,6 @@ const Stream = ({ setLocation }) => {
                                     <Comments song={song} setLocation={setLocation} />
                                 </div>
 
-
-                                {/* {user.id === song.artistId && (<i className="fas fa-pen-to-square" onClick={()=>{setEditing(true); setSong(song)}}/>)} */}
                         </div>
                     ))}
                 </div>
@@ -68,9 +65,6 @@ const Stream = ({ setLocation }) => {
                     </div>
                 </div>
             </div>)}
-            {editing && (
-                <EditSong setEditing={setEditing} song={song} />
-            )}
 
         </>
     );

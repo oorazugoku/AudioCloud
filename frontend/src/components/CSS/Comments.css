@@ -115,6 +115,9 @@
     cursor: pointer;
 }
 
+.Comments-share-button:hover {
+    border-color: #999999;
+}
 
 .Comments-lower-right {
     display: flex;

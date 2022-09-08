@@ -14,10 +14,16 @@
     background-color: white;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 450px;
     width: 620px;
     border-radius: 4px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+}
+
+.Upload-inner-audio-container .audio-error {
+    align-items: flex-end;
 }
 
 .Upload-form {

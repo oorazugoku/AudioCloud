@@ -49,7 +49,7 @@ const UserPage = ({ setLocation }) => {
                                 {songState.id === song.id & playing ? (<button className="play-button" onClick={handlePause}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
                                 <div className="Stream-song-info">
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
-                                    <div className="Stream-song-title">{song.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
+                                    <div className="Stream-song-title">{song?.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
                                     <div className={`Stream-wave-${i}`}></div>
 
 

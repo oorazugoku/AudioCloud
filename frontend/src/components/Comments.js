@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { addComment, getSongComments } from "../store/comments";
 import { getOneSong } from "../store/song";
+import { getSongFromComments } from "../store/songComments";
 import { getSongs } from "../store/songs";
 
 import './CSS/Comments.css'
@@ -31,7 +32,9 @@ const Comments = ({ song, setLocation }) => {
     };
 
     const handleViewComments = () => {
-        dispatch(getSongComments(song.id)).then(()=>setLocation('comments'))
+        dispatch(getSongComments(song.id))
+        .then(()=>dispatch(getSongFromComments(song)))
+        .then(()=>setLocation('comments'))
     }
 
     return (

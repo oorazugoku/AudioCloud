@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import { createSong } from "../store/songs";
 
@@ -16,26 +16,45 @@ const Upload = ({ setLocation }) => {
     const [description, setDescription] = useState();
     const [fileArr, setFilesArr] = useState([]);
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('Your Song file size is too large. Please reduce it below 10Mb.');
 
-    const audioSubmit = (e) => {
-        e.preventDefault();
-        setAudioUploaded(true);
+    const audioSubmit = () => {
+        if (!error) setAudioUploaded(true);
     }
+
+    useEffect(()=>{
+        if (file) {
+            if (file.size > 10000000) {
+                setError('Your Song file size is too large. Please reduce it below 10Mb.')
+            } else {
+                setError(null)
+            }
+        }
+    }, [file])
+
+    useEffect(()=>{
+        if (file && !error) setAudioUploaded(true);
+    }, [error])
 
     const imageSubmit = (e) => {
         e.preventDefault();
         const files = [image, file]
-        setFilesArr(files)
-        const info = {
-            title,
-            description,
-            files
+        if (files[0].size & files[0].size > 10) setError('Your Image file size is too large. Please reduce it below 10Mb.')
+
+
+        if (error.length === 0) {
+            setFilesArr(files)
+            const info = {
+                title,
+                description,
+                files
+            }
+            setLoading(true);
+            dispatch(createSong(info))
+            .then(()=>setLoading(false))
+            .then(()=>setLocation('home'))
+            .catch(()=>setLoading(false))
         }
-        setLoading(true);
-        dispatch(createSong(info))
-        .then(()=>setLoading(false))
-        .then(()=>setLocation('home'))
-        .catch(()=>setLoading(false))
     }
 
     const previewFile = (e) => {
@@ -61,7 +80,7 @@ const Upload = ({ setLocation }) => {
                         type="file"
                         id="audioFile"
                         style={{display: 'none'}}
-                        onChange={(e)=>{setFile(e.target.files[0]); audioSubmit(e)}}
+                        onChange={(e)=>{setFile(e.target.files[0]); audioSubmit()}}
                         accept='audio/*'
                     />
                     <input
@@ -71,6 +90,7 @@ const Upload = ({ setLocation }) => {
                         onClick={()=>document.getElementById('audioFile').click()}
                     />
                 </form>
+                {file && error && (<div className="audio-error">{error}</div>)}
             </div>
             )}
             {audioUploaded && (
