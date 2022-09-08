@@ -22,7 +22,7 @@ const UserNav = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [file, setFile] = useState('');
-    const [location, setLocation] = useState();
+    const [location, setLocation] = useState('home');
     const [logo, setLogo] = useState(null);
     const [dots, setDots] = useState(false);
     const user = useSelector(state => state.session.user);
