@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
-import { createSong } from "../store/songs";
+import { createSong, getSongs } from "../store/songs";
 
 import './CSS/Upload.css'
 import './CSS/Loading.css'
@@ -12,8 +12,8 @@ const Upload = ({ setLocation }) => {
     const [image, setImage] = useState();
     const [imagePre, setImagePre] = useState();
     const [audioUploaded, setAudioUploaded] = useState(false);
-    const [title, setTitle] = useState();
-    const [description, setDescription] = useState();
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [fileArr, setFilesArr] = useState([]);
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('Your Song file size is too large. Please reduce it below 10Mb.');
@@ -30,7 +30,11 @@ const Upload = ({ setLocation }) => {
                 setError(null)
             }
         }
-    }, [file])
+        if (image) {
+            if (image.size > 10000000) setError('Your Image file size is too large. Please reduce it below 10Mb.')
+        }
+
+    }, [file, image])
 
     useEffect(()=>{
         if (file && !error) setAudioUploaded(true);
@@ -39,10 +43,9 @@ const Upload = ({ setLocation }) => {
     const imageSubmit = (e) => {
         e.preventDefault();
         const files = [image, file]
-        if (files[0].size & files[0].size > 10) setError('Your Image file size is too large. Please reduce it below 10Mb.')
 
 
-        if (error.length === 0) {
+        if (!error) {
             setFilesArr(files)
             const info = {
                 title,
@@ -51,6 +54,7 @@ const Upload = ({ setLocation }) => {
             }
             setLoading(true);
             dispatch(createSong(info))
+            .then(()=>dispatch(getSongs()))
             .then(()=>setLoading(false))
             .then(()=>setLocation('home'))
             .catch(()=>setLoading(false))
@@ -134,6 +138,7 @@ const Upload = ({ setLocation }) => {
                             />
                         </form>
                         <button type="button" onClick={imageSubmit}>Save</button>
+                        {image && error && (<>{error}</>)}
                     </div>
             </div>
             )}

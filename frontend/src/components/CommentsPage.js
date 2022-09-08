@@ -63,7 +63,7 @@ const CommentsPage = () => {
     const handleDelete = (id) => {
         dispatch(deleteComment(id))
         .then(()=>dispatch(getSongComments(song.id)))
-        .then(()=>dispatch(getSongs(song.id)))
+        .then(()=>dispatch(getSongs()))
     }
 
     return (

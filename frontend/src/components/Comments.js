@@ -59,7 +59,7 @@ const Comments = ({ song, setLocation }) => {
 
                 <div className="Comments-lower-right" onClick={handleViewComments}>
                     <i className="fa-solid fa-message"/>
-                    <div className="number-of-comments">{song.Comments.length}</div>
+                    <div className="number-of-comments">{song.Comments?.length}</div>
                 </div>
             </div>
             )}
