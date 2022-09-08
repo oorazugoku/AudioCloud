@@ -16,6 +16,7 @@ import Upload from "./Upload";
 import { getSongs } from "../store/songs";
 import Stream from "./Stream";
 import CommentsPage from "./CommentsPage";
+import { setPlaying } from "../store/playing";
 
 
 const UserNav = () => {
@@ -66,6 +67,7 @@ const UserNav = () => {
 
     const logout = () => {
         dispatch(sessionActions.logout())
+        .then(()=>dispatch(setPlaying(false)))
         history.push('/')
     };
 

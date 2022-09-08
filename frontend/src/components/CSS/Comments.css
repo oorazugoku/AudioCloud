@@ -95,7 +95,6 @@
     justify-content: space-between;
     align-items: center;
     font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
-    cursor: pointer;
 }
 
 .Comments-lower-container:hover {
@@ -124,6 +123,7 @@
     flex-direction: row;
     align-items: center;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .fa-message {

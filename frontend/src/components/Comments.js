@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import { addComment, getSongComments } from "../store/comments";
 import { getOneSong } from "../store/song";
@@ -11,6 +11,13 @@ const Comments = ({ song, setLocation }) => {
     const dispatch = useDispatch();
     const [comment, setComment] = useState('');
     const [copied, setCopied] = useState(false);
+    const [count, setCount] = useState()
+
+    useEffect(()=>{
+        setCount(comment.length)
+    }, [comment])
+    console.log(count)
+
 
     const handleComment = (e) => {
         e.preventDefault();
@@ -20,16 +27,27 @@ const Comments = ({ song, setLocation }) => {
         };
         dispatch(addComment(info))
         .then(()=>dispatch(getSongs()))
-        .then(()=>setComment(''));
+        .then(()=>setComment(''))
+        .then(()=>setCount(280));
     };
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(song.url);
-        setCopied(true);
-        setTimeout(()=>{
-            setCopied(false);
-        }, 4000);
-    };
+    const handleCommentChange = (e) => {
+        if (comment.length < 280) {
+            setComment(e.target.value)
+        }
+    }
+
+    let red;
+    if (count === 280) red = {color: "#FF5500"}
+
+
+    // const handleCopy = () => {
+    //     navigator.clipboard.writeText(song.url);
+    //     setCopied(true);
+    //     setTimeout(()=>{
+    //         setCopied(false);
+    //     }, 4000);
+    // };
 
     const handleViewComments = () => {
         dispatch(getSongComments(song.id))
@@ -42,11 +60,12 @@ const Comments = ({ song, setLocation }) => {
         {copied && (<div className="copied-container"><div className="copied-left"><i className="fas fa-check"/></div><div className="copied-right">Link has been copied to the clipboard!</div></div>)}
         <div className="Comment-container">
             <form onSubmit={handleComment}>
-                <div className="Comment-input-container">
+                <div className="Comment-input-container" >
                     <input
+
                     className="Comment-input"
                     value={comment}
-                    onChange={(e)=>setComment(e.target.value)}
+                    onChange={(e)=>handleCommentChange(e)}
                     placeholder="Write a comment"
                     />
                 </div>
@@ -54,7 +73,9 @@ const Comments = ({ song, setLocation }) => {
             {song && (
             <div className="Comments-lower-container">
                 <div className="Comments-lower-left">
-                    <button className="Comments-share-button" onClick={handleCopy}><i className="fa-solid fa-arrow-up-right-from-square"/> Copy Link</button>
+                    <div/>
+                    {count > 0 && (<div className="remaining">Remaining <div className="remaining-num" style={red}>{280 - count}</div></div>)}
+                    {/* <button className="Comments-share-button" onClick={handleCopy}><i className="fa-solid fa-arrow-up-right-from-square"/> Copy Link</button> */}
                 </div>
 
                 <div className="Comments-lower-right" onClick={handleViewComments}>

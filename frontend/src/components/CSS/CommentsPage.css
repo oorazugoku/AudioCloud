@@ -53,8 +53,12 @@
     word-wrap: break-word;
 }
 
-
-
+.CommentsPage-lower-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 12px;
+}
 
 .CommentsPage-right {
     width: 340px;

@@ -20,7 +20,12 @@ const CommentsPage = () => {
     const [comment, setComment] = useState('');
     const [editID, setEditID] = useState();
     const [commentEdit, setCommentEdit] = useState('');
+    const [count, setCount] = useState()
+    const [count2, setCount2] = useState()
 
+    useEffect(()=>{
+        setCount(comment.length)
+    }, [comment, commentEdit])
 
     const handleComment = (e) => {
         e.preventDefault();
@@ -31,7 +36,8 @@ const CommentsPage = () => {
         dispatch(addComment(info))
         .then(()=>dispatch(getSongs(song.id)))
         .then(()=>dispatch(getSongComments(song.id)))
-        .then(()=>setComment(''));
+        .then(()=>setComment(''))
+        .then(()=>setCount(280));
     };
 
     const handleCommentEdit = (e) => {
@@ -46,18 +52,19 @@ const CommentsPage = () => {
 
     }
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(song.url);
-        setCopied(true);
-        setTimeout(()=>{
-            setCopied(false);
-        }, 4000);
-    };
+    // const handleCopy = () => {
+    //     navigator.clipboard.writeText(song.url);
+    //     setCopied(true);
+    //     setTimeout(()=>{
+    //         setCopied(false);
+    //     }, 4000);
+    // };
 
     const handleEdit = (data) => {
         setShowModal(true)
         setEditID(data.id)
         setCommentEdit(data.comment)
+        setCount(280)
     }
 
     const handleDelete = (id) => {
@@ -65,6 +72,26 @@ const CommentsPage = () => {
         .then(()=>dispatch(getSongComments(song.id)))
         .then(()=>dispatch(getSongs()))
     }
+
+    const handleCommentChange = (e) => {
+        if (comment.length < 280) {
+            setComment(e.target.value)
+        }
+    }
+
+    const handleEditChange = (e) => {
+        if (commentEdit.length < 280) {
+            setCommentEdit(e.target.value)
+        }
+    }
+
+    let red;
+    if (count === 280) red = {color: "#FF5500"}
+
+    let red2;
+    if (count2 === 280) red2 = {color: "#FF5500"}
+
+
 
     return (
         <>
@@ -76,17 +103,17 @@ const CommentsPage = () => {
                             <input
                             className="CommentsPage-input"
                             value={comment}
-                            onChange={(e)=>setComment(e.target.value)}
+                            onChange={(e)=>handleCommentChange(e)}
                             placeholder="Write a comment"
                             />
                         </div>
                     </form>
                     {comments && (<div className="CommentsPage-lower-container">
                         <div className="Comments-lower-left">
-                            <button className="Comments-share-button" onClick={handleCopy}><i className="fa-solid fa-arrow-up-right-from-square"/> Copy Link</button>
+                        {count > 0 && (<div className="remaining">Remaining <div className="remaining-num" style={red}>{280 - count}</div></div>)}
                         </div>
 
-                        <div className="Comments-lower-right">
+                        <div className="CommentsPage-lower-right">
                             <i className="fa-solid fa-message"/>
                             <div className="number-of-comments">{comments.length}</div>
                         </div>
@@ -102,7 +129,7 @@ const CommentsPage = () => {
                                     <input
                                     className="CommentsPage-input"
                                     value={commentEdit}
-                                    onChange={(e)=>setCommentEdit(e.target.value)}
+                                    onChange={(e)=>handleEditChange(e)}
                                     placeholder="Write a comment"
                                     />
                                 </div>
