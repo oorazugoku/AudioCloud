@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'
 const HomePage = () => {
     const [showModal, setShowModal] = useState(false)
     const [showSignupModal, setShowSignupModal] = useState(false)
-    const user = useSelector(state => state.session.user)
+    // const user = useSelector(state => state.session.user)
 
     // useEffect(()=>{
     //     if (user) setIsLoaded(true)
