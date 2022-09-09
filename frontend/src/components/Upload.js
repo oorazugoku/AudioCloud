@@ -123,6 +123,7 @@ const Upload = ({ setLocation }) => {
             </div>
         )}
         <div className="Upload-container">
+        {file && (<div style={{color: 'white', paddingBottom: '5px'}}>{file.name}</div>)}
             {!audioUploaded && (
             <div className="Upload-inner-audio-container">
                 <form className='Upload-form'>
@@ -183,7 +184,7 @@ const Upload = ({ setLocation }) => {
                                 onChange={(e)=>setDescription(e.target.value)}
                             />
                         </form>
-                        <button type="button" disabled={stopButton} onClick={imageSubmit}>Save</button>
+                        <button type="button" disabled={stopButton} className="Upload-save-button" onClick={imageSubmit}>Save</button>
                         {error && (<div className="upload-errors">{error}</div>)}
                     </div>
             </div>

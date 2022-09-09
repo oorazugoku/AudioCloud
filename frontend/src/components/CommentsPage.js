@@ -90,6 +90,23 @@ const CommentsPage = () => {
     let red2;
     if (count2 === 280) red2 = {color: "#FF5500"}
 
+    const checkDay = (date) => {
+        const today = new Date()
+        const newDate = new Date(date)
+        const time = newDate.toLocaleTimeString([], { timeStyle: 'short' })
+        const todayDay = today.getDay()
+        const dateDay = newDate.getDay()
+
+        if (todayDay - dateDay === 0) {
+          return `Today at ${time}`
+        } else if (todayDay - dateDay === 1) {
+          return `Yesterday at ${time}`
+        } else {
+          const result = newDate.toLocaleDateString()
+          return result
+        }
+    }
+
 
 
     return (
@@ -121,8 +138,10 @@ const CommentsPage = () => {
                     <div className="comment-section">
                     {comments?.map((each, i) => (
                         <div className="CommentsPage-commentsList" key={i}>
+                            <div className="commentList-owner-info">
                             <div className="commentList-user">{users[each.userId]?.username}</div>
-                            <div className="commentList-comment">{each.updatedAt}</div>
+                            <div className="commentList-date">{checkDay(each.updatedAt)}</div>
+                            </div>
                             {editID === each.id ? (
                             <form onSubmit={handleCommentEdit}>
                                 <div className="CommentsPage-input-container">

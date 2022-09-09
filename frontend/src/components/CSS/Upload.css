@@ -1,5 +1,6 @@
 .Upload-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #111111;
@@ -134,6 +135,24 @@
 .Upload-title-form {
     display: flex;
     flex-direction: column;
+}
+
+.Upload-save-button {
+    border: 1px solid #99999975;
+    color: black;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.Upload-save-button:hover {
+    border-color: #999999;
 }
 
 .audio-error {

@@ -18,6 +18,26 @@
     padding-bottom: 60px;
 }
 
+.CommentsPage-commentsList {
+    margin-top: 10px;
+}
+
+.commentList-owner-info {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    color: #999999;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+}
+
+.commentList-user {
+    margin-right: 15px;
+}
+
+.commentList-date {
+    font-size: 10px;
+}
+
 .CommentsPage-input-container {
     border: 1px solid #E5E5E5;
     background-color: #F2F2F2;

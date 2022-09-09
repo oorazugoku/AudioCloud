@@ -16,3 +16,7 @@ body {
     width: 1240px;
     height: 100%;
 }
+
+input:focus {
+    outline: none;
+}
