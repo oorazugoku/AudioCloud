@@ -1,0 +1,48 @@
+.EditSong-button-container {
+    margin-top: 10px;
+}
+
+
+.EditSong-cancel-button,
+.EditSong-save-button {
+    border: 1px solid #99999975;
+    color: black;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.EditSong-save-button {
+    margin: 0 5px;
+}
+
+.EditSong-delete-button {
+    border: 1px solid #99999975;
+    color: black;
+    background-color: #FF5500;
+    font-size: 12px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.EditSong-cancel-button:hover,
+.EditSong-save-button:hover {
+    border-color: #999999;
+}
+
+.EditSong-delete-button:hover {
+    color: white;
+}
+
+.EditSong-error {
+    color: red;
+}

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaying } from "../store/playing";
 import { removeSong } from "../store/song";
-import { deleteSong, editSong } from "../store/songs";
+import { deleteSong, editSong, getSongs } from "../store/songs";
+
+import './CSS/EditSong.css'
 
 const EditSong = ({ setEditing, song }) => {
     const dispatch = useDispatch();
@@ -10,18 +12,32 @@ const EditSong = ({ setEditing, song }) => {
     const [imagePre, setImagePre] = useState(song.imageURL);
     const [title, setTitle] = useState(song.title);
     const [description, setDescription] = useState(song.description);
-    const songState = useSelector(state => state.song)
+    const [error, setError] = useState(null);
+    const [saveOff, setSaveOff] = useState(false);
+    const songState = useSelector(state => state.song);
 
-
+    useEffect(()=>{
+        if (!title) {
+            setError('Please input a Title.')
+            setSaveOff(true)
+        } else {
+            setError(null)
+            setSaveOff(false)
+        }
+    }, [title])
 
     const imageSubmit = (e) => {
         e.preventDefault();
-        const info = {
-            id: song.id,
-            title,
-            description
+        if (!error) {
+            const info = {
+                id: song.id,
+                title,
+                description
+            }
+            dispatch(editSong(info))
+            .then(()=>dispatch(getSongs()))
+            .then(()=>setEditing(false))
         }
-        dispatch(editSong(info)).then(()=>setEditing(false))
     }
 
     const cancel = () => {
@@ -84,9 +100,12 @@ const EditSong = ({ setEditing, song }) => {
                                 onChange={(e)=>setDescription(e.target.value)}
                             />
                         </form>
-                        <button type="button" onClick={cancel}>Cancel</button>
-                        <button type="button" onClick={imageSubmit}>Save</button>
-                        <button type="button" onClick={handleDelete}>Delete</button>
+                        <div className="EditSong-button-container">
+                            <button type="button" className="EditSong-cancel-button" onClick={cancel}>Cancel</button>
+                            <button type="button" disabled={saveOff} className="EditSong-save-button" onClick={imageSubmit}>Save</button>
+                            <button type="button" className="EditSong-delete-button" onClick={handleDelete}>Delete</button>
+                        </div>
+                        {error && (<div className="EditSong-error">{error}</div>)}
                     </div>
             </div>
         </div>
