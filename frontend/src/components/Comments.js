@@ -16,25 +16,24 @@ const Comments = ({ song, setLocation }) => {
     useEffect(()=>{
         setCount(comment.length)
     }, [comment])
-    console.log(count)
 
 
     const handleComment = (e) => {
-        e.preventDefault();
-        const info = {
-            id: song.id,
-            comment
-        };
-        dispatch(addComment(info))
-        .then(()=>dispatch(getSongs()))
-        .then(()=>setComment(''))
-        .then(()=>setCount(280));
+        if (comment.length <= 280) {
+            e.preventDefault();
+            const info = {
+                id: song.id,
+                comment
+            };
+            dispatch(addComment(info))
+            .then(()=>dispatch(getSongs()))
+            .then(()=>setComment(''))
+            .then(()=>setCount(280));
+        }
     };
 
     const handleCommentChange = (e) => {
-        if (comment.length < 280) {
-            setComment(e.target.value)
-        }
+        setComment(e.target.value)
     }
 
     let red;
@@ -65,6 +64,7 @@ const Comments = ({ song, setLocation }) => {
 
                     className="Comment-input"
                     value={comment}
+                    maxLength={280}
                     onChange={(e)=>handleCommentChange(e)}
                     placeholder="Write a comment"
                     />
