@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, deleteComment, editComment, getSongComments } from "../store/comments";
+import { setPlaying } from "../store/playing";
+import { getOneSong } from "../store/song";
 import { getSongFromComments } from "../store/songComments";
 import { getSongs } from "../store/songs";
 
@@ -9,6 +11,8 @@ import './CSS/CommentsPage.css'
 const CommentsPage = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
+    const songState = useSelector(state => state.song)
+    const playing = useSelector(state => state.playing)
     const comments = useSelector(state => Object.values(state.comments));
     const song = useSelector(state => state.songComments);
     const songs = useSelector(state => state.songs);
@@ -25,6 +29,17 @@ const CommentsPage = () => {
         setCount2(commentEdit.length)
     }, [comment, commentEdit])
 
+
+    const handleSong = (id) => {
+        dispatch(getOneSong(id))
+        .then(()=>dispatch(setPlaying(true)))
+    }
+
+    const handlePause = () => {
+        dispatch(setPlaying(false))
+    }
+
+
     const handleComment = (e) => {
         e.preventDefault();
         if (comment.length <= 280) {
@@ -37,7 +52,6 @@ const CommentsPage = () => {
             .then(()=>dispatch(getSongs(song.id)))
             .then(()=>dispatch(getSongComments(song.id)))
             .then(()=>setComment(''))
-            // .then(()=>setCount(280));
         }
     };
 
@@ -66,7 +80,6 @@ const CommentsPage = () => {
     const handleEdit = (data) => {
         setEditID(data.id)
         setCommentEdit(data.comment)
-        // setCount2(280);
     };
 
     const handleDelete = (id) => {
@@ -111,8 +124,21 @@ const CommentsPage = () => {
 
     return (
         <>
+            <div className="CommentsPage-header-container">
+                <div className="CommentsPage-top-left-container">
+                    <div className="CommentsPage-play-button">
+                    {songState.id === song.id & playing ?
+                        (<button className="CommentsPage-play-button" onClick={handlePause}><i className="fas fa-pause"/></button>) :
+                        (<button className="CommentsPage-play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
+                    </div>
+                    <div className="CommentsPage-song-info-container">
+                        <div className="CommentsPage-song-title">{song.title}</div>
+                        <div className="CommentsPage-artist-username">{users[song.artistId].username}</div>
+                    </div>
+                </div>
+                <div className="CommentsPage-song-image"><img className='header-song-image' src={song.imageURL}/></div>
+            </div>
             <div className="CommentsPage-container">
-
                 <div className="CommentsPage-left">
                     <form onSubmit={handleComment}>
                         <div className="CommentsPage-input-container">
@@ -165,7 +191,7 @@ const CommentsPage = () => {
                                 </div>
                             )}
                         </div>
-                    ))}
+                    )).reverse()}
                     </div>
                 </div>
                 <div className="CommentsPage-right">

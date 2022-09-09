@@ -65,7 +65,7 @@ const UserPage = ({ setLocation }) => {
 
                                 {user.id === song.artistId && (<i className="fas fa-pen-to-square" onClick={()=>{setEditing(true); setSong(song)}}/>)}
                         </div>
-                    ))}
+                    )).reverse()}
                 </div>
 
                 <div className="Stream-right-container">

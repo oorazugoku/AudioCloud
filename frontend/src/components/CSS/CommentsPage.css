@@ -2,17 +2,106 @@
     width: 1240px;
     background-color: white;
     position: absolute;
-    top: 0;
+    top: 449px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.CommentsPage-left {
+.CommentsPage-header-container {
+    margin-top: 3em;
+    height: 400px;
+    width: 100%;
+    background: linear-gradient(90deg, #AAACB1, #7D7A7A);
+    position: relative;
+}
+
+
+.CommentsPage-top-left-container {
+    margin-top: 50px;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.CommentsPage-play-button {
+    background-color: #FF5500;
+    border: 0;
+    border-radius: 50%;
+    height: 90px;
+    width: 90px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+
+}
+
+.CommentsPage-play-button:hover,
+.CommentsPage-play-button:active {
+    background-color: #ff3300;
+}
+
+.CommentsPage-song-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+}
+
+.CommentsPage-song-title {
+    font-size: 2em;
+    color: white;
+}
+
+.CommentsPage-artist-username {
+    font-size: 1.3em;
+    color: #999999;
+}
+
+.CommentsPage-song-title,
+.CommentsPage-artist-username {
+    background-color: #212223;
+
+    padding: 0 10px;
+    margin: 5px;
+}
+
+
+
+
+
+
+.CommentsPage-song-image {
+    height: 360px;
+    width: 360px;
+    position: absolute;
+    top: 1.2em;
+    right: 1.4em;
+}
+
+.header-song-image {
     height: 100%;
-    min-height: 80vh;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+.CommentsPage-left {
     width: 900px;
-    margin-top: 5em;
+    margin-top: 3em;
     margin-left: 2em;
     margin-right: 2em;
     padding-bottom: 60px;
@@ -88,6 +177,8 @@
 
 .commentList-comment {
     word-wrap: break-word;
+    font-size: 12px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
 }
 
 .CommentsPage-lower-right {
@@ -100,8 +191,8 @@
 .CommentsPage-right {
     width: 340px;
     border-left: 1px solid #CCCCCC;
-    margin-top: 4em;
-
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
 
 .commentList-edit-info {

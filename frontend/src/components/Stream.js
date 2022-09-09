@@ -56,7 +56,7 @@ const Stream = ({ setLocation }) => {
                                 </div>
 
                         </div>
-                    ))}
+                    )).reverse()}
                 </div>
 
                 <div className="Stream-right-container">
