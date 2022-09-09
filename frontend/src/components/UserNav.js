@@ -94,7 +94,7 @@ const UserNav = () => {
                     </div>
                 <div className="UserNav-top-navbar-right">
                     <div className="UserNav-upload" onClick={clickUpload} style={location === 'upload' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Upload</div>
-                    <div className="UserNav-user">{user?.username.length < 16 ? user?.username : `${user?.username.slice(0,16)}...`}</div>
+                    <div className="UserNav-user">{user?.username.length < 14 ? user?.username : `${user?.username.slice(0,15)}...`}</div>
                     <div className="UserNav-dots" style={dots ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}} onClick={clickDots}>
                         <i className="fas fa-ellipsis"/>
                     {dots && (

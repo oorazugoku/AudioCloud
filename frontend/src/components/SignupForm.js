@@ -19,7 +19,7 @@ const SignupForm = ({ setShowSignupModal }) => {
     const [password2, setPassword2] = useState('');
 
 
-    const onSignup = (e) => {
+    const onSignup = async (e) => {
         e.preventDefault();
         if (password2 !== password) {
             setErrors(['Your Passwords MUST match.'])
@@ -34,7 +34,7 @@ const SignupForm = ({ setShowSignupModal }) => {
             password
         }
 
-        dispatch(signup(info))
+        await dispatch(signup(info))
         .then(()=>setShowSignupModal(false))
         .then(()=>history.push('/userNav'))
         .catch(async (res) => {

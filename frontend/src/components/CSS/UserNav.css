@@ -116,6 +116,7 @@
 
 .UserNav-user {
     margin: 0 10px;
+    word-wrap: break-word;
 }
 
 .fa-ellipsis:hover,
