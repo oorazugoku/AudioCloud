@@ -15,9 +15,9 @@ const Upload = ({ setLocation }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [fileArr, setFilesArr] = useState([]);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('Your Song file size is too large. Please reduce it below 10Mb.');
-    const [stopButton, setStopButton] = useState(false)
+    const [stopButton, setStopButton] = useState(false);
 
     const audioSubmit = () => {
         if (!error) setAudioUploaded(true);
@@ -61,6 +61,7 @@ const Upload = ({ setLocation }) => {
                     case 'png':
                     case 'gif':
                     case 'tiff':
+                    case 'jfif':
                         setStopButton(false)
                         setError(null)
                         return

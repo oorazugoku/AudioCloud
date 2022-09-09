@@ -17,6 +17,7 @@ import { getSongs } from "../store/songs";
 import Stream from "./Stream";
 import CommentsPage from "./CommentsPage";
 import { setPlaying } from "../store/playing";
+import { getUsers } from "../store/users";
 
 
 const UserNav = () => {
@@ -35,6 +36,7 @@ const UserNav = () => {
 
     useEffect(()=>{
         dispatch(getSongs())
+        dispatch(getUsers())
     }, [])
 
     const handleSubmit = (e) => {
@@ -92,7 +94,7 @@ const UserNav = () => {
                     </div>
                 <div className="UserNav-top-navbar-right">
                     <div className="UserNav-upload" onClick={clickUpload} style={location === 'upload' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Upload</div>
-                    <div className="UserNav-user">{user?.username}</div>
+                    <div className="UserNav-user">{user?.username.length < 16 ? user?.username : `${user?.username.slice(0,16)}...`}</div>
                     <div className="UserNav-dots" style={dots ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}} onClick={clickDots}>
                         <i className="fas fa-ellipsis"/>
                     {dots && (
