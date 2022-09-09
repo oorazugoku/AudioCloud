@@ -57,7 +57,7 @@ const CommentsPage = () => {
 
     const handleCommentEdit = (e) => {
         e.preventDefault();
-        if (commentEdit.length < 280) {
+        if (commentEdit.length <= 280) {
             const info = {
                 id: editID,
                 comment: commentEdit
