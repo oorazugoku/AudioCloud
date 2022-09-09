@@ -137,12 +137,13 @@ const CommentsPage = () => {
                             </form>
                             ) : (<><div className="commentList-comment">{each.comment}</div></>)}
                             {user.id === each.userId && (
-                                <>
+                                <div className="commentList-edit-info">
                                 {count2 > 0 && editID === each.id && (<div className="remaining">Remaining <div className="remaining-num" style={red2}>{280 - count2}</div></div>)}
-
+                                <div>
                                 <button onClick={()=>handleEdit(each)}>Edit</button>
                                 <button onClick={()=>handleDelete(each.id)}>Delete</button>
-                            </>
+                                </div>
+                                </div>
                             )}
                         </div>
                     ))}

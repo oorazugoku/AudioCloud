@@ -122,11 +122,11 @@
     align-items: center;
     font-size: 12px;
     cursor: pointer;
+    padding-top: 10px;
 }
 
 .fa-message {
     color: #999999;
-
 }
 
 .number-of-comments {
