@@ -17,28 +17,63 @@ const Upload = ({ setLocation }) => {
     const [fileArr, setFilesArr] = useState([]);
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('Your Song file size is too large. Please reduce it below 10Mb.');
+    const [stopButton, setStopButton] = useState(false)
 
     const audioSubmit = () => {
         if (!error) setAudioUploaded(true);
-    }
+    };
+
 
     useEffect(()=>{
-        if (file) {
+        if (file && !image) {
+            const fileArr = file.name.split('.');
+            const ext = fileArr[fileArr.length - 1]
             if (file.size > 10000000) {
                 setError('Your Song file size is too large. Please reduce it below 10Mb.')
+                return
             } else {
                 setError(null)
+                switch (ext.toLowerCase()) {
+                    case 'm4a':
+                    case 'flac':
+                    case 'mp3':
+                    case 'mp4':
+                    case 'wav':
+                    case 'wma':
+                    case 'aac':
+                        return
+                }
+                setError('This is not an Audio file. Please upload the correct file type.')
             }
         }
+
+
         if (image) {
-            if (image.size > 10000000) setError('Your Image file size is too large. Please reduce it below 10Mb.')
+            const fileArr = image.name.split('.');
+            const ext = fileArr[fileArr.length - 1]
+            if (image.size > 10000000) {
+                setError('Your Image file size is too large. Please reduce it below 10Mb.')
+                    return
+            } else {
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                    case 'jpeg':
+                    case 'png':
+                    case 'gif':
+                    case 'tiff':
+                        setStopButton(false)
+                        return
+                }
+                setStopButton(true)
+                setError('This is not an Image file. Please upload the correct file type.')
+            }
         }
 
-    }, [file, image])
+    }, [file, image]);
 
     useEffect(()=>{
         if (file && !error) setAudioUploaded(true);
-    }, [error])
+    }, [error]);
 
     const imageSubmit = (e) => {
         e.preventDefault();
@@ -59,12 +94,12 @@ const Upload = ({ setLocation }) => {
             .then(()=>setLocation('home'))
             .catch(()=>setLoading(false))
         }
-    }
+    };
 
     const previewFile = (e) => {
         setImage(e.target.files[0]);
-        setImagePre(URL.createObjectURL(e.target.files[0]))
-    }
+        setImagePre(URL.createObjectURL(e.target.files[0]));
+    };
 
 
     return (
@@ -137,8 +172,8 @@ const Upload = ({ setLocation }) => {
                                 onChange={(e)=>setDescription(e.target.value)}
                             />
                         </form>
-                        <button type="button" onClick={imageSubmit}>Save</button>
-                        {image && error && (<>{error}</>)}
+                        <button type="button" disabled={stopButton} onClick={imageSubmit}>Save</button>
+                        {error && (<>{error}</>)}
                     </div>
             </div>
             )}

@@ -89,3 +89,39 @@
     justify-content: space-between;
     flex-direction: row;
 }
+
+.comment-edit-button {
+    border: 1px solid #99999975;
+    color: black;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.comment-edit-button:hover {
+    border-color: #999999;
+
+}
+
+.comment-delete-button {
+    border: 1px solid #99999975;
+    color: black;
+    background-color: #FF5500;
+    font-size: 12px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.comment-delete-button:hover {
+    color: white;
+}
