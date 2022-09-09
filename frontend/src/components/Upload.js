@@ -62,25 +62,34 @@ const Upload = ({ setLocation }) => {
                     case 'gif':
                     case 'tiff':
                         setStopButton(false)
+                        setError(null)
                         return
                 }
                 setStopButton(true)
                 setError('This is not an Image file. Please upload the correct file type.')
             }
         }
+        if (title) setError(null)
 
-    }, [file, image]);
+    }, [file, image, title]);
 
     useEffect(()=>{
         if (file && !error) setAudioUploaded(true);
     }, [error]);
 
+
+
     const imageSubmit = (e) => {
         e.preventDefault();
         const files = [image, file]
+        if (!title) {
+            setError('Please Input a Title.')
+        }
+        if (!image) {
+            setError('Please Upload an Image.')
+        }
 
-
-        if (!error) {
+        if (!error && title?.length > 0 && image) {
             setFilesArr(files)
             const info = {
                 title,
@@ -95,6 +104,8 @@ const Upload = ({ setLocation }) => {
             .catch(()=>setLoading(false))
         }
     };
+
+
 
     const previewFile = (e) => {
         setImage(e.target.files[0]);
@@ -152,7 +163,7 @@ const Upload = ({ setLocation }) => {
                                 value="Upload Image"
                                 onClick={()=>document.getElementById('imageFile').click()}
                             />)}
-                            {image && (<button type='button' onClick={()=>document.getElementById('imageFile').click()}>Replace Image</button>)}
+                            {image && (<button type='button' className="replace-image-button" onClick={()=>document.getElementById('imageFile').click()}>Replace Image</button>)}
                         </form>
                 </div>
                     <div className="Upload-inner-image-right">
@@ -173,7 +184,7 @@ const Upload = ({ setLocation }) => {
                             />
                         </form>
                         <button type="button" disabled={stopButton} onClick={imageSubmit}>Save</button>
-                        {error && (<>{error}</>)}
+                        {error && (<div className="upload-errors">{error}</div>)}
                     </div>
             </div>
             )}

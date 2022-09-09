@@ -20,6 +20,7 @@
     width: 620px;
     border-radius: 4px;
     font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+    position: relative;
 }
 
 .Upload-inner-audio-container .audio-error {
@@ -56,6 +57,20 @@
     position: relative;
 }
 
+.replace-image-button {
+    border: 1px solid #99999975;
+    color: black;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
 .file-upload-button {
     background-color: #FF5500;
     color: white;
@@ -84,7 +99,20 @@
 .file-search {
     position: absolute;
     top: 16em;
-    /* left: 7.5em; */
+    border: 1px solid #99999975;
+    color: black;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.file-search:hover {
+    border-color: #999999;
 }
 
 .image-preview-container {
@@ -100,9 +128,22 @@
     justify-content: flex-start;
     flex-direction: column;
     height: 600px;
+    position: relative;
 }
 
 .Upload-title-form {
     display: flex;
     flex-direction: column;
+}
+
+.audio-error {
+    color: red;
+    position: absolute;
+    bottom: 1em;
+}
+
+.upload-errors {
+    position: absolute;
+    top: 10em;
+    color: red;
 }
