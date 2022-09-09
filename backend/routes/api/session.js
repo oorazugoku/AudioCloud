@@ -20,15 +20,27 @@ const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
     .isEmail()
-    .withMessage('Please provide a valid email.'),
-    check('firstName')
+    .withMessage('Please provide a valid email.')
+    .isLength({ min: 3 })
+    .withMessage('Please provide a Email with at least 3 characters.')
+    .isLength({ max: 256 })
+    .withMessage('Please provide a Email with 256 or fewer characters.'),
+  check('firstName')
     .exists({ checkFalsy: true })
     .isAlpha()
-    .withMessage('Please provide a valid First Name.'),
-    check('lastName')
+    .withMessage('Please provide a valid First Name.')
+    .isLength({ min: 2 })
+    .withMessage('Please provide a First Name with at least 2 characters.')
+    .isLength({ max: 50 })
+    .withMessage('Please provide a First Name with 50 or fewer characters.'),
+  check('lastName')
     .exists({ checkFalsy: true })
     .isAlpha()
-    .withMessage('Please provide a valid Last Name.'),
+    .withMessage('Please provide a valid Last Name.')
+    .isLength({ min: 2 })
+    .withMessage('Please provide a Last Name with at least 2 characters.')
+    .isLength({ max: 50 })
+    .withMessage('Please provide a Last Name with 50 or fewer characters.'),
   check('username')
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
@@ -42,7 +54,9 @@ const validateSignup = [
   check('password')
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
-    .withMessage('Password must be 6 characters or more.'),
+    .withMessage('Password must be 6 characters or more.')
+    .isLength({ max: 60 })
+    .withMessage('Password must be 60 characters or fewer.'),
   handleValidationErrors
 ];
 

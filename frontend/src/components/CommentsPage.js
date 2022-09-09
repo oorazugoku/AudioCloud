@@ -184,8 +184,8 @@ const CommentsPage = () => {
                             {user.id === each.userId && (
                                 <div className="commentList-edit-info">
                                 {count2 > 0 && editID === each.id && (<div className="remaining">Remaining <div className="remaining-num" style={red2}>{280 - count2}</div></div>)}
-                                <div>
-                                <button className="comment-edit-button" onClick={()=>handleEdit(each)}>Edit</button>
+                                <div className="commentList-edit-buttons-container">
+                                {editID !== each.id ? (<button className="comment-edit-button" onClick={()=>handleEdit(each)}>Edit</button>) : (<div className="press-enter">Press Enter to Save</div>)}
                                 <button className="comment-delete-button" onClick={()=>handleDelete(each.id)}>Delete</button>
                                 </div>
                                 </div>

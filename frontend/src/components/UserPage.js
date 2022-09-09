@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EditSong from "./EditSong";
+import HireMe from "./HireMe";
 
 import './CSS/UserPage.css'
 import { getOneSong } from "../store/song";
@@ -70,7 +71,7 @@ const UserPage = ({ setLocation }) => {
 
                 <div className="Stream-right-container">
                     <div className="Stream-right-inner">
-                        STUFF AND THINGS
+                        <HireMe/>
                     </div>
                 </div>
             </div>

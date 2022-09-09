@@ -6,6 +6,7 @@ import EditSong from "./EditSong";
 import Comments from "./Comments";
 
 import './CSS/Stream.css'
+import HireMe from "./HireMe";
 
 const Stream = ({ setLocation }) => {
     const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const Stream = ({ setLocation }) => {
 
                 <div className="Stream-right-container">
                     <div className="Stream-right-inner">
-                        STUFF AND THINGS
+                        <HireMe/>
                     </div>
                 </div>
             </div>)}

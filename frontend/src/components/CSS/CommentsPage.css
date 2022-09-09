@@ -218,6 +218,18 @@
     border-color: #999999;
 }
 
+.commentList-edit-buttons-container {
+    display: flex;
+    align-items: center;
+}
+
+.press-enter {
+    font-family: inherit;
+    font-size: 12px;
+    color: #999999;
+    margin-right: 10px;
+}
+
 .comment-delete-button {
     border: 1px solid #99999975;
     color: black;
