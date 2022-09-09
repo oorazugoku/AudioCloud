@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaying } from "../store/playing";
-import { removeSong } from "../store/song";
+import { getOneSong, removeSong } from "../store/song";
 import { deleteSong, editSong, getSongs } from "../store/songs";
 
 import './CSS/EditSong.css'
@@ -36,6 +36,7 @@ const EditSong = ({ setEditing, song }) => {
             }
             dispatch(editSong(info))
             .then(()=>dispatch(getSongs()))
+            .then(()=>dispatch(getOneSong(songState.id)))
             .then(()=>setEditing(false))
         }
     }

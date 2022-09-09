@@ -44,5 +44,6 @@
 }
 
 .EditSong-error {
+    margin-top: 50px;
     color: red;
 }
