@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addComment, deleteComment, editComment, getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
 import { getSongs } from "../store/songs";
-import { Modal } from './context/Modal'
 
 import './CSS/CommentsPage.css'
-import EditComment from "./EditComment";
 
 const CommentsPage = () => {
     const dispatch = useDispatch();
@@ -15,41 +13,47 @@ const CommentsPage = () => {
     const song = useSelector(state => state.songComments);
     const songs = useSelector(state => state.songs);
     const users = useSelector(state => state.users);
-    const [showModal, setShowModal] = useState(false);
     const [copied, setCopied] = useState(false);
     const [comment, setComment] = useState('');
     const [editID, setEditID] = useState();
     const [commentEdit, setCommentEdit] = useState('');
-    const [count, setCount] = useState()
-    const [count2, setCount2] = useState()
+    const [count, setCount] = useState(280)
+    const [count2, setCount2] = useState(280)
 
     useEffect(()=>{
         setCount(comment.length)
+        setCount2(commentEdit.length)
     }, [comment, commentEdit])
 
     const handleComment = (e) => {
         e.preventDefault();
-        const info = {
-            id: song.id,
-            comment
-        };
-        dispatch(addComment(info))
-        .then(()=>dispatch(getSongs(song.id)))
-        .then(()=>dispatch(getSongComments(song.id)))
-        .then(()=>setComment(''))
-        .then(()=>setCount(280));
+        if (comment.length <= 280) {
+
+            const info = {
+                id: song.id,
+                comment
+            };
+            dispatch(addComment(info))
+            .then(()=>dispatch(getSongs(song.id)))
+            .then(()=>dispatch(getSongComments(song.id)))
+            .then(()=>setComment(''))
+            // .then(()=>setCount(280));
+        }
     };
 
     const handleCommentEdit = (e) => {
-        e.preventDefault()
-        const info = {
-            id: editID,
-            comment: commentEdit
+        e.preventDefault();
+        if (commentEdit.length < 280) {
+            const info = {
+                id: editID,
+                comment: commentEdit
+            };
+            dispatch(editComment(info))
+            .then(()=>dispatch(getSongComments(song.id)))
+            .then(()=>setEditID())
+            .then(()=>setCommentEdit(''))
         }
-        dispatch(editComment(info))
-        .then(()=>dispatch(getSongComments(song.id)))
-        .then(()=>setEditID())
-    }
+    };
 
     // const handleCopy = () => {
     //     navigator.clipboard.writeText(song.url);
@@ -60,28 +64,24 @@ const CommentsPage = () => {
     // };
 
     const handleEdit = (data) => {
-        setShowModal(true)
         setEditID(data.id)
         setCommentEdit(data.comment)
-        setCount(280)
-    }
+        // setCount2(280);
+    };
 
     const handleDelete = (id) => {
         dispatch(deleteComment(id))
         .then(()=>dispatch(getSongComments(song.id)))
-        .then(()=>dispatch(getSongs()))
-    }
+        .then(()=>dispatch(getSongs()));
+    };
 
     const handleCommentChange = (e) => {
-        if (comment.length < 280) {
             setComment(e.target.value)
-        }
-    }
+    };
 
-    const handleEditChange = (e) => {
-        if (commentEdit.length < 280) {
-            setCommentEdit(e.target.value)
-        }
+    const handleEditChange = (e, id) => {
+        if (editID !== id) setEditID(id)
+        setCommentEdit(e.target.value)
     }
 
     let red;
@@ -102,6 +102,7 @@ const CommentsPage = () => {
                             <input
                             className="CommentsPage-input"
                             value={comment}
+                            maxLength={280}
                             onChange={(e)=>handleCommentChange(e)}
                             placeholder="Write a comment"
                             />
@@ -127,8 +128,9 @@ const CommentsPage = () => {
                                 <div className="CommentsPage-input-container">
                                     <input
                                     className="CommentsPage-input"
+                                    maxLength={280}
                                     value={commentEdit}
-                                    onChange={(e)=>handleEditChange(e)}
+                                    onChange={(e)=>handleEditChange(e, each.id)}
                                     placeholder="Write a comment"
                                     />
                                 </div>
@@ -136,6 +138,8 @@ const CommentsPage = () => {
                             ) : (<><div className="commentList-comment">{each.comment}</div></>)}
                             {user.id === each.userId && (
                                 <>
+                                {count2 > 0 && editID === each.id && (<div className="remaining">Remaining <div className="remaining-num" style={red2}>{280 - count2}</div></div>)}
+
                                 <button onClick={()=>handleEdit(each)}>Edit</button>
                                 <button onClick={()=>handleDelete(each.id)}>Delete</button>
                             </>
