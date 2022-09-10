@@ -30,7 +30,7 @@ const SignupForm = ({ setShowSignupModal }) => {
             firstName,
             lastName,
             email,
-            username,
+            username: username.trim(),
             password
         }
 
