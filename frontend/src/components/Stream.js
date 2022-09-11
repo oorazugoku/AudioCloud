@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
-import EditSong from "./EditSong";
 import Comments from "./Comments";
 
 import './CSS/Stream.css'
@@ -13,9 +12,7 @@ const Stream = ({ setLocation }) => {
     const songState = useSelector(state => state.song)
     const songs = useSelector(state => Object.values(state.songs));
     const users = useSelector(state => state.users);
-    const user = useSelector(state => state.session.user);
     const playing = useSelector(state => state.playing)
-    const [editing, setEditing] = useState(false);
     const [comment, setComment] = useState('');
 
     const handleSong = (id) => {
@@ -30,8 +27,7 @@ const Stream = ({ setLocation }) => {
 
     return (
         <>
-            {!editing && (<div className="Stream-container">
-
+            <div className="Stream-container">
                 <div className="Stream-left-container">
                     {songs?.map((song, i) => (
                         <div key={`song${i}`} className='Stream-songs'>
@@ -65,7 +61,7 @@ const Stream = ({ setLocation }) => {
                         <HireMe/>
                     </div>
                 </div>
-            </div>)}
+            </div>
 
         </>
     );

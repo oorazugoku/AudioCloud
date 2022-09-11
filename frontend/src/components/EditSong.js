@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlaying } from "../store/playing";
 import { getOneSong, removeSong } from "../store/song";
 import { deleteSong, editSong, getSongs } from "../store/songs";
 

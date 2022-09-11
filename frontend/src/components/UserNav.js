@@ -39,11 +39,6 @@ const UserNav = () => {
         dispatch(getUsers())
     }, [])
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-    };
-
     useEffect(()=>{
         logoChanger();
     }, [location]);

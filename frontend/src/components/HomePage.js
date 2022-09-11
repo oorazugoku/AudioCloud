@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Modal } from './context/Modal'
 import Slide from './Slide'
 import LoginForm from './LoginForm'
@@ -6,21 +6,14 @@ import SignupForm from './SignupForm'
 import logoWhite from './images/Audiocloud-white.svg'
 import linked from './images/Linkedin.png'
 import git from './images/github.png'
-import suit_pic from './images/suit_pic.png'
 
 
 import './CSS/HomePage.css'
-import { useSelector } from 'react-redux'
 
 
 const HomePage = () => {
     const [showModal, setShowModal] = useState(false)
     const [showSignupModal, setShowSignupModal] = useState(false)
-    // const user = useSelector(state => state.session.user)
-
-    // useEffect(()=>{
-    //     if (user) setIsLoaded(true)
-    // }, [])
 
     return (
         <>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux'
 import { login } from "../store/session";
 import logo from './images/cloud-YO.png'
 import logo2 from './images/cloud-PO2.png'
@@ -71,7 +71,6 @@ const LoginForm = ({ setShowModal }) => {
               type='text'
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
-              // required
             />
           </div>
           <div className='form-section'>
@@ -82,7 +81,6 @@ const LoginForm = ({ setShowModal }) => {
               type='password'
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
-              // required
             />
           </div>
           <div className='form-button-outer'>

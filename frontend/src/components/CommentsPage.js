@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addComment, deleteComment, editComment, getSongComments } from "../store/comments";
 import { setPlaying } from "../store/playing";
 import { getOneSong } from "../store/song";
-import { getSongFromComments } from "../store/songComments";
 import { getSongs } from "../store/songs";
 
 import './CSS/CommentsPage.css'
@@ -15,9 +14,7 @@ const CommentsPage = () => {
     const playing = useSelector(state => state.playing)
     const comments = useSelector(state => Object.values(state.comments));
     const song = useSelector(state => state.songComments);
-    const songs = useSelector(state => state.songs);
     const users = useSelector(state => state.users);
-    const [copied, setCopied] = useState(false);
     const [comment, setComment] = useState('');
     const [editID, setEditID] = useState();
     const [commentEdit, setCommentEdit] = useState('');
@@ -68,14 +65,6 @@ const CommentsPage = () => {
             .then(()=>setCommentEdit(''))
         }
     };
-
-    // const handleCopy = () => {
-    //     navigator.clipboard.writeText(song.url);
-    //     setCopied(true);
-    //     setTimeout(()=>{
-    //         setCopied(false);
-    //     }, 4000);
-    // };
 
     const handleEdit = (data) => {
         setEditID(data.id)

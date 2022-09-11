@@ -6,9 +6,6 @@ import './CSS/HireMe.css'
 const HireMe = () => {
     const [meet, setMeet] = useState(false)
 
-    const handleInfoClick = () => {
-    }
-
     return (
     <>
         <div className="HireMe-container">
