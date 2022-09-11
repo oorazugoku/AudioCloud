@@ -95,21 +95,54 @@
 .HomePage-body {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: row;
-    height: 300px;
+    height: 150px;
     width: 100%;
     background-color: white;
     margin-top: 450px;
 }
 
 .HomePage-body-text {
-    margin-top: 30px;
     font-size: 25px;
     color: #333333;
 }
 
 .HomePage-section2 {
     background-color: black;
-    height: 300px;
+    height: 150px;
     width: 1240px;
+    color: white;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 0 0 15px 15px;
+}
+
+.HomePage-link-container {
+    display: flex;
+    align-items: center;
+}
+
+.HomePage-LinkedIn,
+.HomePage-GitHub {
+    height: 40px;
+    width: 40px;
+}
+
+a.HomePage-links {
+    margin-left: 5px;
+}
+
+.HomePage-links:hover {
+    color: #999999;
+    font-weight: bold;
+}
+
+.HomePage-logos {
+    height: 100%;
+    width: 100%;
 }

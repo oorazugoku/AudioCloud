@@ -155,10 +155,22 @@
     border-color: #999999;
 }
 
+.file-type-list {
+    position: absolute;
+    bottom: 0;
+    font-size: 12px
+}
+
+.file-type-list2 {
+    position: absolute;
+    bottom: -1em;
+    font-size: 12px
+}
+
 .audio-error {
     color: red;
     position: absolute;
-    bottom: 1em;
+    top: 0;
 }
 
 .upload-errors {

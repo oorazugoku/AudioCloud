@@ -4,6 +4,9 @@ import Slide from './Slide'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 import logoWhite from './images/Audiocloud-white.svg'
+import linked from './images/Linkedin.png'
+import git from './images/github.png'
+import suit_pic from './images/suit_pic.png'
 
 
 import './CSS/HomePage.css'
@@ -36,13 +39,26 @@ const HomePage = () => {
             </div>
             <div className='HomePage-body'>
                 <div className='HomePage-body-text'>
-                    Hear what's trending for free in the AudioCloud community
+                    Sign up now and become an Artist in seconds!
                 </div>
             </div>
             <div className='HomePage-section2'>
-                <div className='HomePage-section2-text'>
-                    Hear what's trending for free in the AudioCloud community
-                </div>
+                    <div>
+                    Audiocloud, inspired by<a className='HomePage-links' href='https://www.soundcloud.com' target='_blank' style={{ color: 'white' }}>Soundcloud</a>
+                    </div>
+
+                    <div className='HomePage-link-container'>
+                    <div className='HomePage-LinkedIn'>
+                        <img className='HomePage-logos' src={linked}/>
+                    </div>
+                    <a className='HomePage-links' href='https://www.linkedin.com/in/benjamin-durham-full-stack/' target='_blank' style={{ color: 'white' }}>LinkedIn</a>
+                    </div>
+                    <div className='HomePage-link-container'>
+                    <div className='HomePage-GitHub'>
+                        <img className='HomePage-logos' src={git}/>
+                    </div>
+                    <a className='HomePage-links' href='https://github.com/oorazugoku/AudioCloud' target='_blank' style={{ color: 'white' }}>GitHub</a>
+                    </div>
             </div>
         </div>
         {showModal && (

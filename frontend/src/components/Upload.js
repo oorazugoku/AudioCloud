@@ -142,6 +142,7 @@ const Upload = ({ setLocation }) => {
                         onClick={()=>document.getElementById('audioFile').click()}
                     />
                 </form>
+                <div className='file-type-list'>Audio File Types: m4a, flac, mp3, mp4, wav, wma, aac</div>
                 {file && error && (<div className="audio-error">{error}</div>)}
             </div>
             )}
@@ -186,6 +187,7 @@ const Upload = ({ setLocation }) => {
                             />
                         </form>
                         <button type="button" disabled={stopButton} className="Upload-save-button" onClick={imageSubmit}>Save</button>
+                        <div className='file-type-list2'>Image File Types: jpg, jpeg, png, gif, tiff, jfif</div>
                         {error && (<div className="upload-errors">{error}</div>)}
                     </div>
             </div>
