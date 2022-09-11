@@ -108,7 +108,7 @@
 }
 
 .CommentsPage-commentsList {
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 .commentList-owner-info {
@@ -173,12 +173,14 @@
     font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
     border-bottom: 1px solid #E5E5E5;
     padding-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .commentList-comment {
     word-wrap: break-word;
     font-size: 12px;
     font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    margin-left: 10px;
 }
 
 .CommentsPage-lower-right {
@@ -221,6 +223,7 @@
 .commentList-edit-buttons-container {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .press-enter {

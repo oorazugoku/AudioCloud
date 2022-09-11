@@ -39,6 +39,11 @@ const HomePage = () => {
                     Hear what's trending for free in the AudioCloud community
                 </div>
             </div>
+            <div className='HomePage-section2'>
+                <div className='HomePage-section2-text'>
+                    Hear what's trending for free in the AudioCloud community
+                </div>
+            </div>
         </div>
         {showModal && (
             <>

@@ -110,13 +110,15 @@ const CommentsPage = () => {
         const todayDay = today.getDay()
         const dateDay = newDate.getDay()
 
-        if (todayDay - dateDay === 0) {
-          return `Today at ${time}`
-        } else if (todayDay - dateDay === 1) {
-          return `Yesterday at ${time}`
-        } else {
-          const result = newDate.toLocaleDateString()
-          return result
+        if (date) {
+            if (todayDay - dateDay === 0) {
+                return `Today at ${time}`
+            } else if (todayDay - dateDay === 1) {
+                return `Yesterday at ${time}`
+            } else {
+                const result = newDate.toLocaleDateString()
+                return result
+            }
         }
     }
 
@@ -166,7 +168,7 @@ const CommentsPage = () => {
                         <div className="CommentsPage-commentsList" key={i}>
                             <div className="commentList-owner-info">
                             <div className="commentList-user">{users[each.userId]?.username}</div>
-                            <div className="commentList-date">{checkDay(each.updatedAt)}</div>
+                            <div className="commentList-date">{checkDay(each?.createdAt)}</div>
                             </div>
                             {editID === each.id ? (
                             <form onSubmit={handleCommentEdit}>
