@@ -26,3 +26,32 @@ You have the ability to create a profile, become an artist by Uploading Audio, l
 
 ### Hosting
 ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
+
+## Github [Wiki](https://github.com/oorazugoku/AudioCloud/wiki)
+
+## Features
+### Signup
+![sign](https://user-images.githubusercontent.com/103156527/189545259-d0408029-4704-4705-a9be-4fd63c5c65a1.png)
+
+### Login with your information or as a Demo User
+![log](https://user-images.githubusercontent.com/103156527/189545280-d23dd897-e0a5-4586-9470-c6c1ac1c8409.png)
+
+### Upload Audio and an Image
+![up](https://user-images.githubusercontent.com/103156527/189545415-80e59f5a-aa0c-4116-85f9-f1ca3341fea3.png)
+
+### Play Any uploaded content
+![paly](https://user-images.githubusercontent.com/103156527/189545439-110d057c-c965-4514-8761-7bb3ce177f12.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
