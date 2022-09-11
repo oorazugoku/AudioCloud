@@ -42,6 +42,48 @@ You have the ability to create a profile, become an artist by Uploading Audio, l
 ### Play Any uploaded content
 ![paly](https://user-images.githubusercontent.com/103156527/189545439-110d057c-c965-4514-8761-7bb3ce177f12.png)
 
+### Edit the info of your Song or Delete the Song
+![edit](https://user-images.githubusercontent.com/103156527/189545857-a6a9bd92-a935-4843-a990-285bfd37d8a6.png)
+
+### Comment on any song or edit a previous comment of yours
+![commetn](https://user-images.githubusercontent.com/103156527/189545909-d54755e2-0e05-46b6-8f69-69ac8d0641c0.png)
+
+## How to Run Locally
+
+1. Clone the Repo:
+```bash
+git@github.com:oorazugoku/AudioCloud.git
+```
+2. Install npm
+```bash
+npm install
+```
+3. Create a .env file with these settings
+```bash
+DB_FILE=db/dev.db
+JWT_SECRET=<<YOUR KEY HERE>>
+AWS_ACCESS_KEY_ID=AKIA2SQGE5QL2WLKLU65
+AWS_SECRET_ACCESS_KEY=<<EMAIL ME FOR ACCESS>>
+```
+4. Backend install and start
+```bash
+cd backend/
+npm install
+npm start
+```
+5. Frontend install and start
+```bash
+cd frontend/
+npm install
+npm start
+```
+
+
+
+
+
+
+
 
 
 
