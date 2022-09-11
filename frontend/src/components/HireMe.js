@@ -24,6 +24,9 @@ const HireMe = () => {
                         <div className="my-title">Full Stack Engineer</div>
                     </div>
                 </div>
+                <div className="my-bio">At 11 years old, I loved playing around with web design, learning basic HTML and making simple themed websites on kid subjects like Dragonball Z.
+                Since then, I have developed my skills and have grown to dig deep into my passion.
+                JavaScript, React, and React-Redux are my strongest skillsets but I strive to learn as much as I can and become proficient with many tools.</div>
             </a>)}
         </div>
     </>

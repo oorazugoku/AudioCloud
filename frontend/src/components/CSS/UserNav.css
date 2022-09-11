@@ -148,6 +148,16 @@
     display: flex;
     align-items: flex-end;
     border-radius: 0 0 3px 3px;
+    animation: signout 1s;
+}
+
+@keyframes signout {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .logout-button {
