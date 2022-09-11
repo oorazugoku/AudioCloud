@@ -46,7 +46,6 @@ const HomePage = () => {
                     <div>
                     Audiocloud, inspired by<a className='HomePage-links' href='https://www.soundcloud.com' target='_blank' style={{ color: 'white' }}>Soundcloud</a>
                     </div>
-
                     <div className='HomePage-link-container'>
                     <div className='HomePage-LinkedIn'>
                         <img className='HomePage-logos' src={linked}/>
