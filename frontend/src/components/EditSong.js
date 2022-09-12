@@ -25,6 +25,8 @@ const EditSong = ({ setEditing, song }) => {
         }
     }, [title])
 
+    console.log(songState)
+
     const imageSubmit = (e) => {
         e.preventDefault();
         if (!error) {
@@ -35,7 +37,9 @@ const EditSong = ({ setEditing, song }) => {
             }
             dispatch(editSong(info))
             .then(()=>dispatch(getSongs()))
-            .then(()=>dispatch(getOneSong(songState.id)))
+            .then(()=> {
+                if (Object.values(songState).length > 0) dispatch(getOneSong(songState.id))
+            })
             .then(()=>setEditing(false))
         }
     }
