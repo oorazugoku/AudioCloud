@@ -18,6 +18,7 @@ import Stream from "./Stream";
 import CommentsPage from "./CommentsPage";
 import { setPlaying } from "../store/playing";
 import { getUsers } from "../store/users";
+import { removeSong } from "../store/song";
 
 
 const UserNav = () => {
@@ -65,6 +66,7 @@ const UserNav = () => {
     const logout = () => {
         dispatch(sessionActions.logout())
         .then(()=>dispatch(setPlaying(false)))
+        .then(()=>dispatch(removeSong()))
         history.push('/')
     };
 
