@@ -25,8 +25,6 @@ const EditSong = ({ setEditing, song }) => {
         }
     }, [title])
 
-    console.log(songState)
-
     const imageSubmit = (e) => {
         e.preventDefault();
         if (!error) {
