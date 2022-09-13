@@ -19,6 +19,7 @@ import CommentsPage from "./CommentsPage";
 import { setPlaying } from "../store/playing";
 import { getUsers } from "../store/users";
 import { removeSong } from "../store/song";
+import { getAllLikes } from "../store/likes";
 
 
 const UserNav = () => {
@@ -38,6 +39,7 @@ const UserNav = () => {
     useEffect(()=>{
         dispatch(getSongs())
         dispatch(getUsers())
+        dispatch(getAllLikes())
     }, [])
 
     useEffect(()=>{

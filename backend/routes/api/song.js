@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { Album, Artist, Comment, Image, Playlist, Song, SP, User } = require('../../db/models')
+const { Album, Artist, Comment, Image, Playlist, Song, SP, User, songLike } = require('../../db/models')
 const { Op } = require('sequelize')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -60,9 +60,6 @@ router.put('/:songId', requireAuth, validateSong, async (req, res, next) => {
   });
 });
 
-
-
-
 // Get all Songs by current User
 router.get('/current', requireAuth, async (req, res) => {
   const { id } = req.user;
@@ -97,6 +94,7 @@ router.get('/:songId', async (req, res, next) => {
 // Get all Songs
 router.get('/', validateQuery, async (req, res, next) => {
   let { page, size, songTitle, artist, albumTitle, createdAt } = req.query;
+  const { id } = req.user;
   let pagination = {};
   page = page === 0 ? 1 : parseInt(page)
   size = size === 0 ? 20 : parseInt(size)
@@ -155,7 +153,7 @@ router.get('/', validateQuery, async (req, res, next) => {
     whereClause.createdAt = { [Op.substring]: createdAt }
   };
 
-  let result = await Song.findAll({include: { model: Comment }})
+  let result = await Song.findAll({include: [{ model: Comment }, { model: songLike }]})
 
 
 
@@ -199,6 +197,7 @@ router.post('/albums/:albumId', requireAuth, validateSong, async (req, res, next
     res.status(201)
     res.json(result)
   });
+
 
   // Create a Song without an Album
   router.post('/', requireAuth, multipleMulterUpload('files'), async (req, res, next) => {

@@ -1,12 +1,14 @@
 const express = require('express')
 const router = express.Router();
-const { User } = require('../../db/models')
+const { User, songLike } = require('../../db/models')
 const { Op } = require('sequelize')
 
 
 // Get all users
 router.get('/', async (req, res) => {
-    const result = await User.findAll();
+    const result = await User.findAll({
+      include: { model: songLike, as: 'Likes'}
+    });
     return res.json(result);
   }
 );

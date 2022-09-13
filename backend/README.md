@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-<img src="AudioCloud.png">
+<img src="/home/ben/AppAcc/PersonalProjects/AudioCloud/frontend/src/components/images/diagram.png">
 
 ## API Documentation
 

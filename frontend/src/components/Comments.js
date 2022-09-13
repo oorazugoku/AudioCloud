@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addComment, getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
 import { getSongs } from "../store/songs";
+import { likeSong, unlikeSong } from "../store/likes";
 
 import './CSS/Comments.css'
 
 const Comments = ({ song, setLocation }) => {
     const dispatch = useDispatch();
+    const likes = useSelector(state => state.likes);
     const [comment, setComment] = useState('');
     const [count, setCount] = useState()
 
@@ -43,6 +45,14 @@ const Comments = ({ song, setLocation }) => {
         .then(()=>setLocation('comments'))
     }
 
+    const handleDisLike = (songId) => {
+        dispatch(unlikeSong(songId))
+    }
+
+    const handleLike = (songId) => {
+        dispatch(likeSong(songId))
+    }
+
     return (
         <>
         <div className="Comment-container">
@@ -62,6 +72,8 @@ const Comments = ({ song, setLocation }) => {
             <div className="Comments-lower-container">
                 <div className="Comments-lower-left">
                     <div/>
+                    {likes[song.id] ? (<div className="Stream-likes" onClick={()=>handleDisLike(song.id)}><i className="fa fa-heart" id='redheart' /></div>) :
+                    (<div className="Stream-likes" onClick={()=>handleLike(song.id)}><i className="fa-regular fa-heart"/></div>)}
                     {count > 0 && (<div className="remaining">Remaining <div className="remaining-num" style={red}>{280 - count}</div></div>)}
                 </div>
 

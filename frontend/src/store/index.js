@@ -4,9 +4,10 @@ import session from './session';
 import songs from './songs';
 import song from './song';
 import users from './users';
-import playing from './playing'
-import comments from './comments'
-import songComments from './songComments'
+import playing from './playing';
+import comments from './comments';
+import songComments from './songComments';
+import likes from './likes';
 
 
 const rootReducer = combineReducers({
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   song,
   playing,
   comments,
-  songComments
+  songComments,
+  likes
 })
 
 let enhancer;

@@ -1,19 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
 import Comments from "./Comments";
+import WaveSurfer from 'wavesurfer.js'
 
 import './CSS/Stream.css'
 import HireMe from "./HireMe";
 
 const Stream = ({ setLocation }) => {
     const dispatch = useDispatch();
-    const songState = useSelector(state => state.song)
+    const songState = useSelector(state => state.song);
     const songs = useSelector(state => Object.values(state.songs));
     const users = useSelector(state => state.users);
-    const playing = useSelector(state => state.playing)
+    const playing = useSelector(state => state.playing);
     const [comment, setComment] = useState('');
+    const [loaded, setLoaded] = useState(false);
+
+    let wave;
+    let check;
+
+    // useEffect(()=>{
+    //     check = document.getElementsByClassName('Stream-songs')
+    //     if (check) {songs?.map((each, i) => {
+
+    //         wave = WaveSurfer.create({
+    //             container: `.Stream-wave-${i}`,
+    //             // forceDecode: true,
+    //             // xhr: { cache: 'default', mode: 'cors', method: 'GET', credentials: 'same-origin', redirect: 'follow', referrer: 'client', headers: [ { key: 'audiocloud.s3.amazonaws.com', value: 'oorazugoku' } ]}
+
+    //         })
+    //         wave.load(each.url)
+    //     })}
+    // }, [check])
+
 
     const handleSong = (id) => {
         dispatch(getOneSong(id))
@@ -23,6 +43,8 @@ const Stream = ({ setLocation }) => {
     const handlePause = () => {
         dispatch(setPlaying(false))
     }
+
+
 
 
     return (

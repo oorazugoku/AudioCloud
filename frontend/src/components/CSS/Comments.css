@@ -125,8 +125,28 @@
     padding-top: 10px;
 }
 
+.Comments-lower-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    padding-top: 10px;
+}
+
 .fa-message {
     color: #999999;
+}
+
+.fa-heart {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#redheart {
+    color: red;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 
 .number-of-comments {
