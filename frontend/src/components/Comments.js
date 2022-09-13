@@ -72,8 +72,8 @@ const Comments = ({ song, setLocation }) => {
             <div className="Comments-lower-container">
                 <div className="Comments-lower-left">
                     <div/>
-                    {likes[song.id] ? (<div className="Stream-likes" onClick={()=>handleDisLike(song.id)}><i className="fa fa-heart" id='redheart' /></div>) :
-                    (<div className="Stream-likes" onClick={()=>handleLike(song.id)}><i className="fa-regular fa-heart"/></div>)}
+                    {likes[song.id] ? (<div className="Stream-likes" ><i className="fa fa-heart" id='redheart' onClick={()=>handleDisLike(song.id)}/></div>) :
+                    (<div className="Stream-likes" ><i className="fa-regular fa-heart" onClick={()=>handleLike(song.id)}/></div>)}
                     {count > 0 && (<div className="remaining">Remaining <div className="remaining-num" style={red}>{280 - count}</div></div>)}
                 </div>
 

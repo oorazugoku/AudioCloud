@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, deleteComment, editComment, getSongComments } from "../store/comments";
+import { likeSong, unlikeSong } from "../store/likes";
 import { setPlaying } from "../store/playing";
 import { getOneSong } from "../store/song";
 import { getSongs } from "../store/songs";
@@ -14,6 +15,7 @@ const CommentsPage = () => {
     const playing = useSelector(state => state.playing)
     const comments = useSelector(state => Object.values(state.comments));
     const song = useSelector(state => state.songComments);
+    const likes = useSelector(state => state.likes);
     const users = useSelector(state => state.users);
     const [comment, setComment] = useState('');
     const [editID, setEditID] = useState();
@@ -111,6 +113,13 @@ const CommentsPage = () => {
         }
     }
 
+    const handleDisLike = (songId) => {
+        dispatch(unlikeSong(songId))
+    }
+
+    const handleLike = (songId) => {
+        dispatch(likeSong(songId))
+    }
 
 
     return (
@@ -144,6 +153,8 @@ const CommentsPage = () => {
                     </form>
                     {comments && (<div className="CommentsPage-lower-container">
                         <div className="Comments-lower-left">
+                        {likes[song.id] ? (<div className="Stream-likes" ><i className="fa fa-heart" id='redheart' onClick={()=>handleDisLike(song.id)}/></div>) :
+                        (<div className="Stream-likes" ><i className="fa-regular fa-heart" onClick={()=>handleLike(song.id)}/></div>)}
                         {count > 0 && (<div className="remaining">Remaining <div className="remaining-num" style={red}>{280 - count}</div></div>)}
                         </div>
 
