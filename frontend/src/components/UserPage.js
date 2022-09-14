@@ -6,7 +6,7 @@ import HireMe from "./HireMe";
 import './CSS/UserPage.css'
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
-import Comments from "./Comments";
+import CommentBar from "./CommentBar";
 import { getSongs } from "../store/songs";
 
 
@@ -63,7 +63,7 @@ const UserPage = ({ setLocation }) => {
                                         <div className=""></div>
                                     </div>
                                 </div>
-                                    <Comments song={song} setLocation={setLocation} />
+                                    <CommentBar song={song} setLocation={setLocation} />
                                 </div>
 
 

@@ -119,7 +119,7 @@ const UserNav = () => {
 
 
             <div className="UserNav-bottom-navbar">
-                <AudioPlayer />
+                <AudioPlayer setLocation={setLocation}/>
             </div>
         </div>
         </>

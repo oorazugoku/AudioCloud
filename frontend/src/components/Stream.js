@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
-import Comments from "./Comments";
+import CommentBar from "./CommentBar";
 import WaveSurfer from 'wavesurfer.js'
 
 import './CSS/Stream.css'
@@ -71,7 +71,7 @@ const Stream = ({ setLocation }) => {
                                         <div className=""></div>
                                     </div>
                                 </div>
-                                    <Comments song={song} setLocation={setLocation} />
+                                    <CommentBar song={song} setLocation={setLocation} />
                                 </div>
 
                         </div>

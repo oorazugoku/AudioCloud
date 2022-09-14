@@ -4,9 +4,11 @@ import ReactPlayer from 'react-player'
 
 import './CSS/AudioPlayer.css';
 import { setPlaying } from "../store/playing";
+import { getSongComments } from "../store/comments";
+import { getSongFromComments } from "../store/songComments";
 
 
-const AudioPlayer = () => {
+const AudioPlayer = ({ setLocation }) => {
     const dispatch = useDispatch();
     const song = useSelector(state => state.song)
     const users = useSelector(state => state.users)
@@ -18,6 +20,12 @@ const AudioPlayer = () => {
 
     const handlePause = () => {
         dispatch(setPlaying(false))
+    }
+
+    const handleViewComments = () => {
+        dispatch(getSongComments(song.id))
+        .then(()=>dispatch(getSongFromComments(song)))
+        .then(()=>setLocation('comments'))
     }
 
     return (
@@ -35,9 +43,10 @@ const AudioPlayer = () => {
             style={{color:'#FF5500'}}
             />
 
-            {song?.imageURL && (<>
-            <img className="AudioPlayer-info-image" src={song.imageURL}/>
-            <div className="AudioPlayer-info-container">
+            {song?.imageURL && (
+            <>
+            <img className="AudioPlayer-info-image" src={song.imageURL} onClick={handleViewComments}/>
+            <div className="AudioPlayer-info-container" onClick={handleViewComments}>
             <div className="AudioPlayer-username">{users[song.artistId].username.length < 20 ? users[song.artistId].username : `${users[song.artistId].username.slice(0,16)}...`}</div>
             <div className="AudioPlayer-song-title">{song.title.length < 16 ? song.title : `${song.title.slice(0,16)}...`}</div>
             </div>

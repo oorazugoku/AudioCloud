@@ -19,12 +19,14 @@
     font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
     width: 150px;
     min-width: 150px;
+    cursor: pointer;
 }
 
 .AudioPlayer-info-image {
     height: 35px;
     width: 35px;
     margin-right: 5px;
+    cursor: pointer;
 }
 
 .AudioPlayer-username {
