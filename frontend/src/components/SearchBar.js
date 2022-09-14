@@ -31,7 +31,7 @@ const SearchBar = () => {
                     onChange={(e)=>handleSearch(e)}
                     >
                     </input>
-                    <i class="fas fa-magnifying-glass" onClick={handleSubmit}></i>
+                    <i className="fas fa-magnifying-glass" onClick={handleSubmit}></i>
                 </form>
             </div>
         </>
