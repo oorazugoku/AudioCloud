@@ -20,6 +20,7 @@ import { setPlaying } from "../store/playing";
 import { getUsers } from "../store/users";
 import { removeSong } from "../store/song";
 import { getAllLikes } from "../store/likes";
+import SearchBar from "./SearchBar";
 
 
 const UserNav = () => {
@@ -91,6 +92,7 @@ const UserNav = () => {
                         <button className="UserNav-home-button" onClick={clickHome} style={location === 'home' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Home</button>
                         <button className="UserNav-stream-button" onClick={clickStream} style={location === 'stream' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Stream</button>
                     </div>
+                    {location === 'stream' && (<SearchBar />)}
                 <div className="UserNav-top-navbar-right">
                     <div className="UserNav-upload" onClick={clickUpload} style={location === 'upload' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Upload</div>
                     <div className="UserNav-user">{user?.username.length < 14 ? user?.username : `${user?.username.slice(0,15)}...`}</div>

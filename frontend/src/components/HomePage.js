@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from './context/Modal'
 import Slide from './Slide'
 import LoginForm from './LoginForm'
@@ -12,8 +12,9 @@ import './CSS/HomePage.css'
 
 
 const HomePage = () => {
-    const [showModal, setShowModal] = useState(false)
-    const [showSignupModal, setShowSignupModal] = useState(false)
+
+    const [showModal, setShowModal] = useState(false);
+    const [showSignupModal, setShowSignupModal] = useState(false);
 
     return (
         <>

@@ -45,8 +45,9 @@ const getSongCommentsAction = (payload) => {
 };
 
 // Thunk - Get all Songs
-export const getSongs = () => async (dispatch) => {
-  const response = await csrfFetch("/api/songs");
+export const getSongs = (search) => async (dispatch) => {
+  let response;
+  search ? response = await csrfFetch(`/api/songs?search=${search}`) : response = await csrfFetch(`/api/songs`);
   const data = await response.json();
   dispatch(getSongsAction(data.result));
   return response;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EditSong from "./EditSong";
 import HireMe from "./HireMe";
@@ -7,6 +7,7 @@ import './CSS/UserPage.css'
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
 import Comments from "./Comments";
+import { getSongs } from "../store/songs";
 
 
 const UserPage = ({ setLocation }) => {
@@ -19,7 +20,9 @@ const UserPage = ({ setLocation }) => {
     const [editing, setEditing] = useState(false);
     const [song, setSong] = useState();
 
-
+    useEffect(()=>{
+        dispatch(getSongs())
+    }, [dispatch])
 
 
     const handleSong = (id) => {

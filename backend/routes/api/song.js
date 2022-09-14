@@ -93,7 +93,7 @@ router.get('/:songId', async (req, res, next) => {
 
 // Get all Songs
 router.get('/', validateQuery, async (req, res, next) => {
-  let { page, size, songTitle, artist, albumTitle, createdAt } = req.query;
+  let { page, size, search } = req.query;
   const { id } = req.user;
   let pagination = {};
   page = page === 0 ? 1 : parseInt(page)
@@ -115,45 +115,95 @@ router.get('/', validateQuery, async (req, res, next) => {
   }
 
 
-  const advSearch = {...pagination}
-  const whereClause = {}
-  if (songTitle) {
-    advSearch.where = whereClause
-    whereClause.title = { [Op.substring]: songTitle }
-  };
+  // const advSearch = {...pagination}
+  // const whereClause = {}
 
-  if (artist) {
-    let result = await Song.findAll({
+  if (search) {
+    let song = await Song.findAll({
+      where: { title: { [Op.substring]: search } }
+    })
+    let artist = await Song.findAll({
       include: {
         model: User,
         as: 'Artist',
         attributes: [],
-        where: { username: artist }},
+        where: { username: { [Op.substring]: search } }},
         ...pagination
     });
-    size = result.length;
-    return res.json({ page, size, result });
-  };
-
-  if (albumTitle) {
-    let result = await Song.findAll({
+    let album = await Song.findAll({
       include: {
         model: Album,
         as: 'Album',
         attributes: ['title'],
-        where: { title: {[Op.substring]: albumTitle }}},
+        where: { title: {[Op.substring]: search }}},
         ...pagination
     });
-    size = result.length;
-    return res.json({ page, size, result });
-  };
+    console.log('SONG', song)
+    console.log('ARTIST', artist)
+    console.log('ALBUM', album)
 
-  if (createdAt) {
-    advSearch.where = whereClause
-    whereClause.createdAt = { [Op.substring]: createdAt }
-  };
+    if (song.length > 0 || artist.length > 0 || album.length > 0) {
+      let result = [...song, ...artist, ...album]
+      let count = 0
+      if (song && song.length > count) count += song.length;
+      if (artist && artist.length > count) count += artist.length;
+      if (album && album.length > count) count += album.length;
+      size = count;
+      return res.json({ page, size, result });
+    }
+  }
 
-  let result = await Song.findAll({include: [{ model: Comment }, { model: songLike }]})
+
+  // if (search) {
+  //   // advSearch.where = whereClause
+  //   // whereClause.title = { [Op.substring]: songTitle }
+  //   let result = await Song.findAll({
+  //     where: { title: { [Op.substring]: search } }
+  //   })
+  //   if (result) {
+  //     size = result.length;
+  //     return res.json({ page, size, result });
+  //   }
+  // };
+
+  // if (artist) {
+  //   let result = await Song.findAll({
+  //     include: {
+  //       model: User,
+  //       as: 'Artist',
+  //       attributes: [],
+  //       where: { username: { [Op.substring]: artist } }},
+  //       ...pagination
+  //   });
+  //   if (result) {
+  //     size = result.length;
+  //     return res.json({ page, size, result });
+  //   }
+  // };
+
+  // if (search) {
+  //   let result = await Song.findAll({
+  //     include: {
+  //       model: Album,
+  //       as: 'Album',
+  //       attributes: ['title'],
+  //       where: { title: {[Op.substring]: search }}},
+  //       ...pagination
+  //   });
+  //   if (result) {
+  //     size = result.length;
+  //     return res.json({ page, size, result });
+  //   }
+  // };
+
+  // if (createdAt) {
+  //   advSearch.where = whereClause
+  //   whereClause.createdAt = { [Op.substring]: createdAt }
+  // };
+
+  let result = await Song.findAll({
+    include: [{ model: Comment }, { model: songLike }]
+  })
 
 
 

@@ -1,0 +1,23 @@
+.SearchBar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.SearchBar-input {
+    width: 350px;
+    height: 25px;
+    border-radius: 4px;
+    border: 0;
+    padding-left: 5px;
+    color: #333333;
+}
+
+.fa-magnifying-glass {
+    position: absolute;
+    top: 1em;
+    right: 10px;
+    color: #333333;
+    cursor: pointer;
+}
