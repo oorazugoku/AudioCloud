@@ -20,19 +20,24 @@ const Stream = ({ setLocation }) => {
     let wave;
     let check;
 
-    // useEffect(()=>{
-    //     check = document.getElementsByClassName('Stream-songs')
-    //     if (check) {songs?.map((each, i) => {
+    useEffect(()=>{
+        check = document.getElementsByClassName('Stream-songs')
+        if (check) {songs?.map((each, i) => {
+            wave = WaveSurfer.create({
+                container: `.Stream-wave-${i}`,
+                height: 50,
+                waveColor: '#333333',
+                progressColor: '#FF5500',
+                barGap: 2,
+                barRadius: 0,
+                barWidth: 2,
+                hideScrollbar: true,
+                responsive: true,
 
-    //         wave = WaveSurfer.create({
-    //             container: `.Stream-wave-${i}`,
-    //             // forceDecode: true,
-    //             // xhr: { cache: 'default', mode: 'cors', method: 'GET', credentials: 'same-origin', redirect: 'follow', referrer: 'client', headers: [ { key: 'audiocloud.s3.amazonaws.com', value: 'oorazugoku' } ]}
-
-    //         })
-    //         wave.load(each.url)
-    //     })}
-    // }, [check])
+            })
+            wave.load(each.url)
+        })}
+    }, [check])
 
 
     const handleSong = (id) => {
@@ -63,7 +68,8 @@ const Stream = ({ setLocation }) => {
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
                                     <div className={`Stream-wave-${i}`}></div>
-
+                                    <div className='wave-bottom-overlay-bar'></div>
+                                    <div className='wave-bottom-overlay'></div>
 
                                     {songState.id === song.id & playing ? (<div className="Media-Playing">Playing</div>) : (<></>)}
                                     </div>

@@ -5,7 +5,7 @@ import { getSongFromComments } from "../store/songComments";
 import { getSongs } from "../store/songs";
 import { likeSong, unlikeSong } from "../store/likes";
 
-import './CSS/Comments.css'
+import './CSS/CommentBar.css'
 
 const Comments = ({ song, setLocation }) => {
     const dispatch = useDispatch();
