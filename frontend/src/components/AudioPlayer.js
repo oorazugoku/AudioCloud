@@ -38,10 +38,6 @@ const AudioPlayer = ({ setLocation }) => {
     return (
         <>
         <div className="AudioPlayer-Container">
-            {/* <div className="AudioPlayer">
-                <i className="fa-sharp fa-solid fa-play" onClick={handlePlay}/>
-
-            </div> */}
             <ReactPlayer
             className="react-player"
             url={song.url}

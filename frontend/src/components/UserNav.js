@@ -3,6 +3,16 @@ import AudioPlayer from "./AudioPlayer";
 import * as sessionActions from '../store/session'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { getSongs } from "../store/songs";
+import { setPlaying } from "../store/playing";
+import { getUsers } from "../store/users";
+import { removeSong } from "../store/song";
+import { getAllLikes } from "../store/likes";
+import UserPage from "./UserPage";
+import Upload from "./Upload";
+import Stream from "./Stream";
+import CommentsPage from "./CommentsPage";
+import SearchBar from "./SearchBar";
 import logoBB from './images/cloud-BB.png';
 import logoPB from './images/cloud-PB.png';
 import logoPO2 from './images/cloud-PO2.png';
@@ -11,16 +21,6 @@ import logoYO from './images/cloud-YO.png';
 
 
 import './CSS/UserNav.css';
-import UserPage from "./UserPage";
-import Upload from "./Upload";
-import { getSongs } from "../store/songs";
-import Stream from "./Stream";
-import CommentsPage from "./CommentsPage";
-import { setPlaying } from "../store/playing";
-import { getUsers } from "../store/users";
-import { removeSong } from "../store/song";
-import { getAllLikes } from "../store/likes";
-import SearchBar from "./SearchBar";
 
 
 const UserNav = () => {
