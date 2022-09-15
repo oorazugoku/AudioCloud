@@ -16,11 +16,13 @@ const Stream = ({ setLocation }) => {
     const playing = useSelector(state => state.playing);
     const [comment, setComment] = useState('');
     const [loaded, setLoaded] = useState(false);
+    const [waves, setWaves] = useState({})
 
     let wave;
     let check;
 
     useEffect(()=>{
+        let obj = {...waves}
         check = document.getElementsByClassName('Stream-songs')
         if (check) {songs?.map((each, i) => {
             wave = WaveSurfer.create({
@@ -36,17 +38,20 @@ const Stream = ({ setLocation }) => {
 
             })
             wave.load(each.url)
+            obj[i] = wave
+            setWaves(obj)
         })}
     }, [check])
 
 
-    const handleSong = (id) => {
+    const handleSong = (id, i) => {
         dispatch(getOneSong(id))
         .then(()=>dispatch(setPlaying(true)))
+        .then(()=>waves[i].playPause())
     }
 
-    const handlePause = () => {
-        dispatch(setPlaying(false))
+    const handlePause = (i) => {
+        dispatch(setPlaying(false)).then(()=>waves[i].playPause())
     }
 
 
@@ -63,11 +68,11 @@ const Stream = ({ setLocation }) => {
                             </div>
                             <div>
                                 <div className="Stream-song-header">
-                                {songState.id === song.id & playing ? (<button className="play-button" onClick={handlePause}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
+                                {songState.id === song.id & playing ? (<button className="play-button" onClick={()=>handlePause(i)}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id, i)}}><i className="fas fa-play"/></button>)}
                                 <div className="Stream-song-info">
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
-                                    <div className={`Stream-wave-${i}`}></div>
+                                    <section className={`Stream-wave-${i}`}></section>
                                     <div className='wave-bottom-overlay-bar'></div>
                                     <div className='wave-bottom-overlay'></div>
 

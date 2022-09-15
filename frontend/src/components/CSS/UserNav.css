@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: center;
     color: #CCCCCC;
-    z-index: 50;
+    z-index: 50000;
 }
 
 .UserNav-top-navbar {
@@ -167,4 +167,9 @@
 
 .logout-button:hover {
     background-color: #F2F2F2;
+}
+
+.UserNav-bottom-navbar {
+    z-index: 5000000;
+    background-color: #CCCCCC;
 }

@@ -34,3 +34,26 @@
     box-sizing: border-box;
     padding-bottom: 50px;
 }
+
+.UserPage-wave-bottom-overlay-bar {
+    position: absolute;
+    border-top: 1px solid white;
+    height: 25px;
+    width: 550px;
+    top: 5.65em;
+    z-index: 11;
+    pointer-events: none;
+}
+
+.UserPage-wave-bottom-overlay {
+    position: absolute;
+    opacity: .8;
+    border-top: 2px solid white;
+    height: 25px;
+    width: 550px;
+    top: 5.65em;
+    background-color: white;
+    background-blend-mode: multiply;
+    z-index: 10;
+    pointer-events: none;
+}
