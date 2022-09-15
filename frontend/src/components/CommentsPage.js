@@ -5,6 +5,8 @@ import { likeSong, unlikeSong } from "../store/likes";
 import { setPlaying } from "../store/playing";
 import { getOneSong } from "../store/song";
 import { getSongs } from "../store/songs";
+import WaveSurfer from 'wavesurfer.js'
+
 
 import './CSS/CommentsPage.css'
 
@@ -22,6 +24,30 @@ const CommentsPage = () => {
     const [commentEdit, setCommentEdit] = useState('');
     const [count, setCount] = useState(280)
     const [count2, setCount2] = useState(280)
+    const [waves, setWaves] = useState()
+
+    let wave;
+    let check;
+
+    useEffect(()=>{
+        check = document.getElementsByClassName('CommentPage-wave')
+        if (check) {
+            wave = WaveSurfer.create({
+                container: '.CommentPage-wave',
+                height: 150,
+                waveColor: 'black',
+                progressColor: '#FF5500',
+                barGap: 2,
+                barRadius: 0,
+                barWidth: 2,
+                hideScrollbar: true,
+                responsive: true,
+
+            })
+            wave.load(song.url)
+            setWaves(wave)
+        }
+    }, [check])
 
     useEffect(()=>{
         setCount(comment.length)
@@ -32,10 +58,11 @@ const CommentsPage = () => {
     const handleSong = (id) => {
         dispatch(getOneSong(id))
         .then(()=>dispatch(setPlaying(true)))
+        .then(()=>waves.playPause())
     }
 
     const handlePause = () => {
-        dispatch(setPlaying(false))
+        dispatch(setPlaying(false)).then(()=>waves.playPause())
     }
 
 
@@ -135,6 +162,9 @@ const CommentsPage = () => {
                         <div className="CommentsPage-song-title">{song.title}</div>
                         <div className="CommentsPage-artist-username">{users[song.artistId].username}</div>
                     </div>
+                    <section className='CommentPage-wave'></section>
+                    <div className='CommentPage-wave-bottom-overlay-bar'></div>
+                    <div className='CommentPage-wave-bottom-overlay'></div>
                 </div>
                 <div className="CommentsPage-song-image"><img className='header-song-image' src={song.imageURL}/></div>
             </div>
