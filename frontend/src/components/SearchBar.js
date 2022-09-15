@@ -11,9 +11,13 @@ const SearchBar = () => {
 
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(getSongs(search))
-        setSearch('')
+        e.preventDefault();
+        if (search.length > 0) {
+            dispatch(getSongs(search))
+            setSearch('')
+        } else {
+            dispatch(getSongs())
+        }
     }
 
     const handleSearch = (e) => {
