@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSongs } from "../store/songs";
-import search from './images/search.svg'
 
 import './CSS/SearchBar.css'
 
-const SearchBar = () => {
+const SearchBar = ({ searched, setSearched}) => {
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (search.length > 0) {
-            dispatch(getSongs(search))
+        const trimmed = search.trim()
+        if (trimmed.length > 0) {
+            dispatch(getSongs(trimmed))
             setSearch('')
-        } else {
-            dispatch(getSongs())
+            setSearched(!searched)
         }
     }
 

@@ -9,7 +9,7 @@ import './CSS/Stream.css'
 import HireMe from "./HireMe";
 import { setWave } from "../store/wave";
 
-const Stream = ({ setLocation }) => {
+const Stream = ({ setLocation, searched }) => {
     const dispatch = useDispatch();
     const songState = useSelector(state => state.song);
     const songs = useSelector(state => Object.values(state.songs));
@@ -17,24 +17,20 @@ const Stream = ({ setLocation }) => {
     const playing = useSelector(state => state.playing);
     const waveState = useSelector(state => state.wave);
     const duration = useSelector(state => state.duration)
-    const [comment, setComment] = useState('');
+    const [render, setRender] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [waves, setWaves] = useState({});
     const [currentWave, setCurrentWave] = useState();
     const [index, setIndex] = useState();
-    // let index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
 
-    // useEffect(()=>{
-    //     index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
-    // }, [currentWave, duration])
 
     let wave;
     let check;
 
     useEffect(()=>{
-        let obj = {...waves}
+        let obj = {}
         check = document.getElementsByClassName('Stream-songs')
-        if (check) {songs?.map((each, i) => {
+        if (check && render) {songs?.map((each, i) => {
             wave = WaveSurfer.create({
                 container: `.Stream-wave-${i}`,
                 height: 50,
@@ -47,20 +43,31 @@ const Stream = ({ setLocation }) => {
                 responsive: true,
                 partialRender: true
             })
+            obj = {...waves}
             wave.load(each.url)
             wave.setVolume(0)
             wave.setMute(true)
             obj[i] = wave
             setWaves(obj)
+            setLoaded(true)
             if (songState?.id === each.id && playing) {
                 setIndex(i)
             }
         })}
-    }, [check])
+        return ()=> {
+            const array = Object.values(waves)
+            array.forEach(each => each.destroy())
+        }
+    }, [check, render])
+
+    useEffect(()=>{
+        setRender(false)
+        setRender(true)
+    }, [searched, render])
 
     useEffect(()=>{
         waves[index]?.setCurrentTime(duration)
-    }, [duration])
+    }, [duration, index])
 
     const handleSong = (id, i) => {
         setIndex(i)
@@ -86,7 +93,7 @@ const Stream = ({ setLocation }) => {
 
 
 
-    return (
+    return render && (
         <>
             <div className="Stream-container">
                 <div className="Stream-left-container">
@@ -102,8 +109,12 @@ const Stream = ({ setLocation }) => {
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
                                     <section className={`Stream-wave-${i}`}></section>
+                                    {loaded && (
+                                    <>
                                     <div className='wave-bottom-overlay-bar'></div>
                                     <div className='wave-bottom-overlay'></div>
+                                    </>
+                                    )}
 
                                     {songState.id === song.id & playing ? (<div className="Media-Playing">Playing</div>) : (<></>)}
                                     </div>

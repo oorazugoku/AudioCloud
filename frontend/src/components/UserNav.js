@@ -32,7 +32,8 @@ const UserNav = () => {
     const [dots, setDots] = useState(false);
     const user = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [logoDiv, setLogoDiv] = useState(0)
+    const [logoDiv, setLogoDiv] = useState(0);
+    const [searched, setSearched] = useState(false)
 
     useEffect(()=>{
       if (user) setIsLoaded(true)
@@ -93,7 +94,7 @@ const UserNav = () => {
                         <button className="UserNav-home-button" onClick={clickHome} style={location === 'home' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Home</button>
                         <button className="UserNav-stream-button" onClick={clickStream} style={location === 'stream' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Stream</button>
                     </div>
-                    {location === 'stream' && (<SearchBar />)}
+                    {location === 'stream' && (<SearchBar searched={searched} setSearched={setSearched} />)}
                 <div className="UserNav-top-navbar-right">
                     <div className="UserNav-upload" onClick={clickUpload} style={location === 'upload' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Upload</div>
                     <div className="UserNav-user">{user?.username.length < 14 ? user?.username : `${user?.username.slice(0,15)}...`}</div>
@@ -112,7 +113,7 @@ const UserNav = () => {
 
 
             {location === 'home' && (<UserPage setLocation={setLocation} />)}
-            {location === 'stream' && (<Stream setLocation={setLocation} />)}
+            {location === 'stream' && (<Stream setLocation={setLocation} searched={searched} />)}
             {location === 'upload' && (<Upload setLocation={setLocation} />)}
             {location === 'comments' && (<CommentsPage />)}
 

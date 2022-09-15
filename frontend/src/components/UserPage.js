@@ -32,7 +32,6 @@ const UserPage = ({ setLocation }) => {
     //     index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
     // }, [currentWave, duration])
 
-    let wave;
     let check;
 
     check = document.getElementsByClassName('Stream-songs')
@@ -40,7 +39,7 @@ const UserPage = ({ setLocation }) => {
         let obj = {...waves}
         if (check) {songs?.map((each, i) => {
             if (user.id === each.artistId) {
-                wave = WaveSurfer.create({
+                const wave = WaveSurfer.create({
                     container: `.Stream-wave-${i}`,
                     height: 50,
                     waveColor: '#333333',
@@ -55,6 +54,7 @@ const UserPage = ({ setLocation }) => {
                 wave.load(each.url)
                 obj[i] = wave
                 setWaves(obj)
+                setLoaded(true)
                 if (songState?.id === each.id && playing) {
                     setIndex(i)
                 }
@@ -64,11 +64,11 @@ const UserPage = ({ setLocation }) => {
 
     useEffect(()=>{
         waves[index]?.setCurrentTime(duration)
-    }, [duration])
+    }, [duration, index])
 
 
     useEffect(()=>{
-        dispatch(getSongs()).then(()=>setLoaded(true))
+        dispatch(getSongs())
     }, [dispatch])
 
     const handleSong = (id, i) => {
@@ -110,8 +110,12 @@ const UserPage = ({ setLocation }) => {
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song?.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
                                     <section className={`Stream-wave-${i}`}></section>
+                                    {loaded && (
+                                    <>
                                     <div className='UserPage-wave-bottom-overlay-bar'></div>
                                     <div className='UserPage-wave-bottom-overlay'></div>
+                                    </>
+                                    )}
 
                                     {songState.id === song.id & playing ? (<div className="Media-Playing">Playing</div>) : (<></>)}
                                     </div>

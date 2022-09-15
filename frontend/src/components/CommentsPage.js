@@ -27,6 +27,8 @@ const CommentsPage = () => {
     const [count, setCount] = useState(280);
     const [count2, setCount2] = useState(280);
     const [waves, setWaves] = useState();
+    const [loaded, setLoaded] = useState(false);
+
 
     let wave;
     let check;
@@ -51,6 +53,7 @@ const CommentsPage = () => {
             wave.setMute(true)
             wave.setCurrentTime(duration)
             setWaves(wave)
+            setLoaded(true)
         }
     }, [check])
 
@@ -176,8 +179,10 @@ const CommentsPage = () => {
                         <div className="CommentsPage-artist-username">{users[song.artistId].username}</div>
                     </div>
                     <section className='CommentPage-wave'></section>
+                    {loaded && (<>
                     <div className='CommentPage-wave-bottom-overlay-bar'></div>
                     <div className='CommentPage-wave-bottom-overlay'></div>
+                    </>)}
                 </div>
                 <div className="CommentsPage-song-image"><img className='header-song-image' src={song.imageURL}/></div>
             </div>
