@@ -8,10 +8,12 @@ import { getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
 import { setWave } from "../store/wave";
 import { setDuration } from "../store/duration";
+import { useHistory } from "react-router-dom";
 
 
 const AudioPlayer = ({ setLocation }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const song = useSelector(state => state.song)
     const users = useSelector(state => state.users)
     const playing = useSelector(state => state.playing)
@@ -33,6 +35,7 @@ const AudioPlayer = ({ setLocation }) => {
         dispatch(getSongComments(song.id))
         .then(()=>dispatch(getSongFromComments(song)))
         .then(()=>setLocation('comments'))
+        .then(()=>history.push('/comments'))
     }
 
     return (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 import * as sessionActions from '../store/session'
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { getSongs } from "../store/songs";
 import { setPlaying } from "../store/playing";
 import { getUsers } from "../store/users";
@@ -25,9 +25,10 @@ import './CSS/UserNav.css';
 
 const UserNav = () => {
     const dispatch = useDispatch();
+    const locate = useLocation().pathname;
     const history = useHistory();
     const [file, setFile] = useState('');
-    const [location, setLocation] = useState('home');
+    const [location, setLocation] = useState(locate);
     const [logo, setLogo] = useState(null);
     const [dots, setDots] = useState(false);
     const user = useSelector(state => state.session.user);
@@ -37,7 +38,7 @@ const UserNav = () => {
 
     useEffect(()=>{
       if (user) setIsLoaded(true)
-    }, [dispatch, user])
+    }, [dispatch, user, searched])
 
     useEffect(()=>{
         dispatch(getSongs())
@@ -50,18 +51,21 @@ const UserNav = () => {
     }, [location]);
 
     const clickHome = () => {
-        setLocation('home');
+        setLocation('/home');
         setDots(false);
+        history.push('/home')
     };
 
     const clickStream = () => {
-        setLocation('stream');
+        setLocation('/stream');
         setDots(false);
+        history.push('/stream')
     };
 
     const clickUpload = () => {
-        setLocation('upload');
+        setLocation('/upload');
         setDots(false);
+        history.push('/upload')
     };
 
     const clickDots = () => {
@@ -77,10 +81,10 @@ const UserNav = () => {
 
     const logoChanger = () => {
         if (!location) setLogo(logoWhite);
-        if (location === 'home') setLogo(logoBB);
-        if (location === 'stream') setLogo(logoPO2);
-        if (location === 'upload') setLogo(logoYO);
-        if (location === 'comments') setLogo(logoPB);
+        if (location === '/home') setLogo(logoBB);
+        if (location === '/stream') setLogo(logoPO2);
+        if (location === '/upload') setLogo(logoYO);
+        if (location === '/comments') setLogo(logoPB);
     };
 
 
@@ -91,12 +95,12 @@ const UserNav = () => {
                 <div className="UserNav-top-navbar">
                     <div className="UserNav-top-navbar-left">
                         <div className='UserNav-logo' onMouseEnter={()=>setLogo(logoBB)} onMouseLeave={()=>logoChanger()} onClick={()=>setLocation('home')}><img id='logo-img' src={logo}/></div>
-                        <button className="UserNav-home-button" onClick={clickHome} style={location === 'home' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Home</button>
-                        <button className="UserNav-stream-button" onClick={clickStream} style={location === 'stream' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Stream</button>
+                        <button className="UserNav-home-button" onClick={clickHome} style={location === '/home' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Home</button>
+                        <button className="UserNav-stream-button" onClick={clickStream} style={location === '/stream' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Stream</button>
                     </div>
-                    {location === 'stream' && (<SearchBar searched={searched} setSearched={setSearched} />)}
+                    {location === '/stream' && (<SearchBar searched={searched} setSearched={setSearched} setLocation={setLocation} />)}
                 <div className="UserNav-top-navbar-right">
-                    <div className="UserNav-upload" onClick={clickUpload} style={location === 'upload' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Upload</div>
+                    <div className="UserNav-upload" onClick={clickUpload} style={location === '/upload' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Upload</div>
                     <div className="UserNav-user">{user?.username.length < 14 ? user?.username : `${user?.username.slice(0,15)}...`}</div>
                     <div className="UserNav-dots" style={dots ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}} onClick={clickDots}>
                         <i className="fas fa-ellipsis"/>
@@ -112,10 +116,10 @@ const UserNav = () => {
 
 
 
-            {location === 'home' && (<UserPage setLocation={setLocation} />)}
-            {location === 'stream' && (<Stream setLocation={setLocation} searched={searched} />)}
-            {location === 'upload' && (<Upload setLocation={setLocation} />)}
-            {location === 'comments' && (<CommentsPage />)}
+            {/* {location === 'home' && (<UserPage setLocation={setLocation} />)} */}
+            {/* {location === 'stream' && (<Stream setLocation={setLocation} searched={searched} />)} */}
+            {/* {location === 'upload' && (<Upload setLocation={setLocation} />)} */}
+            {/* {location === 'comments' && (<CommentsPage />)} */}
 
 
 

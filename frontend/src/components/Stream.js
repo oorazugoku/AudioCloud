@@ -17,7 +17,7 @@ const Stream = ({ setLocation, searched }) => {
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
     const waveState = useSelector(state => state.wave);
-    const duration = useSelector(state => state.duration)
+    const duration = useSelector(state => state.duration);
     const [render, setRender] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [waves, setWaves] = useState({});
@@ -49,6 +49,7 @@ const Stream = ({ setLocation, searched }) => {
             wave.setMute(true)
             obj[i] = wave
             setWaves(obj)
+            console.log('RERENDER')
             setLoaded(true)
             if (songState?.id === each.id) {
                 setIndex(i)
@@ -56,12 +57,15 @@ const Stream = ({ setLocation, searched }) => {
             }
         })}
         return ()=> {
+            console.log('DISMOUNTED')
             const array = Object.values(waves)
             array.forEach(each => each.destroy())
         }
-    }, [check, render, dispatch])
+    }, [check, render, searched])
 
     useEffect(()=> {
+        const array = Object.values(waves)
+        array.forEach(each => each.destroy())
         dispatch(getSongs())
     }, [dispatch])
 

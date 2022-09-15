@@ -6,9 +6,11 @@ import { getSongs } from "../store/songs";
 import { likeSong, unlikeSong } from "../store/likes";
 
 import './CSS/CommentBar.css'
+import { useHistory } from "react-router-dom";
 
 const Comments = ({ song, setLocation }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const likes = useSelector(state => state.likes);
     const [comment, setComment] = useState('');
     const [count, setCount] = useState()
@@ -43,6 +45,7 @@ const Comments = ({ song, setLocation }) => {
         dispatch(getSongComments(song.id))
         .then(()=>dispatch(getSongFromComments(song)))
         .then(()=>setLocation('comments'))
+        .then(()=>history.push('/comments'))
     }
 
     const handleDisLike = (songId) => {

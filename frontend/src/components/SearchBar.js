@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { getSongs } from "../store/songs";
 
 import './CSS/SearchBar.css'
 
-const SearchBar = ({ searched, setSearched}) => {
+const SearchBar = ({ searched, setSearched }) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
 
@@ -16,6 +18,7 @@ const SearchBar = ({ searched, setSearched}) => {
             dispatch(getSongs(trimmed))
             setSearch('')
             setSearched(!searched)
+            history.push('/stream')
         }
     }
 

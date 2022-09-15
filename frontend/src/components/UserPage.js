@@ -102,7 +102,7 @@ const UserPage = ({ setLocation }) => {
             </div>
             <div className="UserPage-lower-container">
             <div className="Stream-left-container">
-                    {songs?.map((song, i) => user.id === song.artistId && (
+                    {songs?.map((song, i) => user?.id === song.artistId && (
                         <div key={`song${i}`} className='Stream-songs'>
                             <div className="Stream-song-image">
                                 <img className='Stream-song-image' src={song?.imageURL}/>
