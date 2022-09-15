@@ -10,6 +10,7 @@ import WaveSurfer from 'wavesurfer.js'
 
 import './CSS/UserPage.css'
 import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
+import { setWaveSeek } from "../store/waveSeek";
 
 
 
@@ -27,11 +28,6 @@ const UserPage = ({ setLocation }) => {
     const [loaded, setLoaded] = useState(false);
     const [waves, setWaves] = useState({});
     const [index, setIndex] = useState();
-    // let index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
-
-    // useEffect(()=>{
-    //     index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
-    // }, [currentWave, duration])
 
     let check;
 
@@ -64,6 +60,9 @@ const UserPage = ({ setLocation }) => {
                     partialRender: true
                 })
                 wave.load(each.url)
+                wave.on('seek', ()=> {
+                    dispatch(setWaveSeek(wave.getCurrentTime()))
+                })
                 obj[i] = wave
                 setWaves(obj)
                 setLoaded(true)

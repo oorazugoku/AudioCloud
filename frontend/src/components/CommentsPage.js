@@ -10,6 +10,7 @@ import WaveSurfer from 'wavesurfer.js'
 
 import './CSS/CommentsPage.css'
 import { setWave } from "../store/wave";
+import { setWaveSeek } from "../store/waveSeek";
 
 const CommentsPage = () => {
     const dispatch = useDispatch();
@@ -52,6 +53,9 @@ const CommentsPage = () => {
             wave.setVolume(0)
             wave.setMute(true)
             wave.setCurrentTime(duration)
+            wave.on('seek', ()=> {
+                dispatch(setWaveSeek(wave.getCurrentTime()))
+            })
             setWaves(wave)
             setLoaded(true)
         }
@@ -179,7 +183,7 @@ const CommentsPage = () => {
                     </div>
                     <div className="CommentsPage-song-info-container">
                         <div className="CommentsPage-song-title">{song.title}</div>
-                        <div className="CommentsPage-artist-username">{users[song.artistId].username}</div>
+                        <div className="CommentsPage-artist-username">{users[song.artistId]?.username}</div>
                     </div>
                     <section className='CommentPage-wave'></section>
                     {loaded && (<>

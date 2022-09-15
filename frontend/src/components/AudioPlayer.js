@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
 
@@ -13,11 +13,14 @@ import { useHistory } from "react-router-dom";
 
 const AudioPlayer = () => {
     const dispatch = useDispatch();
+    const player = useRef(null);
     const history = useHistory();
-    const song = useSelector(state => state.song)
-    const users = useSelector(state => state.users)
-    const playing = useSelector(state => state.playing)
-    const wave = useSelector(state => state.wave)
+    const song = useSelector(state => state.song);
+    const users = useSelector(state => state.users);
+    const playing = useSelector(state => state.playing);
+    const wave = useSelector(state => state.wave);
+    const waveSeek = useSelector(state => state.waveSeek);
+    const duration = useSelector(state => state.duration)
 
     const handleProgress = (progress) => {
         dispatch(setDuration(progress.playedSeconds))
@@ -37,10 +40,24 @@ const AudioPlayer = () => {
         .then(()=>history.push('/comments'))
     }
 
+    useEffect(()=>{
+        if (duration > waveSeek) {
+            if (((duration - waveSeek) > 2 || (duration - waveSeek) < 2) && waveSeek !== 0) {
+                player.current.seekTo(waveSeek)
+            }
+        }
+        if (duration < waveSeek) {
+            if (((waveSeek - duration) > 2 || (waveSeek - duration) < 2) && waveSeek !== 0) {
+                player.current.seekTo(waveSeek)
+            }
+        }
+    }, [waveSeek])
+
     return (
         <>
         <div className="AudioPlayer-Container">
             <ReactPlayer
+            ref={player}
             className="react-player"
             url={song.url}
             controls={true}
@@ -49,6 +66,7 @@ const AudioPlayer = () => {
             playing={playing}
             onPlay={handlePlay}
             onPause={handlePause}
+            // onSeek={handleProgress}
             onProgress={handleProgress}
             style={{color:'#FF5500'}}
             />

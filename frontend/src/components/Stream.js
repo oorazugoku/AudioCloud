@@ -9,7 +9,10 @@ import './CSS/Stream.css'
 import HireMe from "./HireMe";
 import { setWave } from "../store/wave";
 import { getSongs } from "../store/songs";
+import { setDuration } from "../store/duration";
 import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
+import player from "react-player";
+import { setWaveSeek } from "../store/waveSeek";
 
 const Stream = ({ searched }) => {
     const dispatch = useDispatch();
@@ -60,11 +63,14 @@ const Stream = ({ searched }) => {
             wave.load(each.url)
             wave.setVolume(0)
             wave.setMute(true)
-            obj[i] = wave
+            wave.on('seek', ()=> {
+                dispatch(setWaveSeek(wave.getCurrentTime()))
+            })
+            obj[each.id] = wave
             setWaves(obj)
             setLoaded(true)
             if (songState?.id === each.id) {
-                setIndex(i)
+                setIndex(each.id)
                 dispatch(setWave(wave))
             }
         })}
@@ -84,18 +90,18 @@ const Stream = ({ searched }) => {
         waves[index]?.setCurrentTime(duration)
     }, [duration, index])
 
-    const handleSong = (id, i) => {
+    const handleSong = (i) => {
         setIndex(i)
         if (!currentWave) setCurrentWave(waves[i])
         if (currentWave && currentWave !== waves[i]) {
             currentWave.pause()
             setCurrentWave(waves[i])
         }
-        dispatch(getOneSong(id))
+        dispatch(getOneSong(i))
         .then(()=>dispatch(setPlaying(true)))
         .then(()=>{
-            waves[i].play()
-            waves[i].setMute(true)
+            waves[i]?.play()
+            waves[i]?.setMute(true)
         })
         .then(()=>dispatch(setWave(waves[i])))
     }
@@ -119,7 +125,7 @@ const Stream = ({ searched }) => {
                             </div>
                             <div>
                                 <div className="Stream-song-header">
-                                {songState.id === song.id && playing ? (<button className="play-button" onClick={()=>handlePause(i)}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id, i)}}><i className="fas fa-play"/></button>)}
+                                {songState.id === song.id && playing ? (<button className="play-button" onClick={()=>handlePause(song.id)}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
                                 <div className="Stream-song-info">
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
@@ -139,7 +145,6 @@ const Stream = ({ searched }) => {
                                 </div>
                                     <CommentBar song={song} />
                                 </div>
-
                         </div>
                     )).reverse()}
                 </div>

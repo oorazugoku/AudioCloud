@@ -10,6 +10,7 @@ import songComments from './songComments';
 import likes from './likes';
 import wave from './wave';
 import duration from './duration'
+import waveSeek from './waveSeek'
 
 
 const rootReducer = combineReducers({
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   songComments,
   likes,
   wave,
-  duration
+  duration,
+  waveSeek
 })
 
 let enhancer;
