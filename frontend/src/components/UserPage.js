@@ -17,14 +17,20 @@ const UserPage = ({ setLocation }) => {
     const songs = useSelector(state => Object.values(state.songs));
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.session.user);
-    const songState = useSelector(state => state.song)
-    const playing = useSelector(state => state.playing)
+    const songState = useSelector(state => state.song);
+    const playing = useSelector(state => state.playing);
+    const duration = useSelector(state => state.duration)
+    const waveState = useSelector(state => state.wave)
     const [editing, setEditing] = useState(false);
     const [song, setSong] = useState();
     const [loaded, setLoaded] = useState(false);
-    const [waves, setWaves] = useState({})
+    const [waves, setWaves] = useState({});
+    const [index, setIndex] = useState();
+    // let index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
 
-    console.log(songs)
+    // useEffect(()=>{
+    //     index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
+    // }, [currentWave, duration])
 
     let wave;
     let check;
@@ -44,14 +50,21 @@ const UserPage = ({ setLocation }) => {
                     barWidth: 2,
                     hideScrollbar: true,
                     responsive: true,
-
+                    partialRender: true
                 })
                 wave.load(each.url)
                 obj[i] = wave
                 setWaves(obj)
+                if (songState?.id === each.id && playing) {
+                    setIndex(i)
+                }
             }
         })}
-    }, [check])
+    }, [check]);
+
+    useEffect(()=>{
+        waves[index]?.setCurrentTime(duration)
+    }, [duration])
 
 
     useEffect(()=>{
@@ -59,13 +72,17 @@ const UserPage = ({ setLocation }) => {
     }, [dispatch])
 
     const handleSong = (id, i) => {
+        setIndex(i)
         dispatch(getOneSong(id))
         .then(()=>dispatch(setPlaying(true)))
-        .then(()=>waves[i].playPause())
-    }
+        .then(()=>{
+            waves[i].play()
+            waves[i].setMute(true)
+        })    }
 
     const handlePause = (i) => {
-        dispatch(setPlaying(false)).then(()=>waves[i].playPause())
+        setIndex(i)
+        dispatch(setPlaying(false)).then(()=>waves[i].pause())
     }
 
 

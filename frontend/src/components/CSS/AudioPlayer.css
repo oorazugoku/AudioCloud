@@ -41,3 +41,9 @@
 .react-player {
     color: #FF5500;
 }
+
+.AudioPlayer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}

@@ -9,22 +9,24 @@ import WaveSurfer from 'wavesurfer.js'
 
 
 import './CSS/CommentsPage.css'
+import { setWave } from "../store/wave";
 
 const CommentsPage = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    const songState = useSelector(state => state.song)
-    const playing = useSelector(state => state.playing)
+    const songState = useSelector(state => state.song);
+    const playing = useSelector(state => state.playing);
     const comments = useSelector(state => Object.values(state.comments));
     const song = useSelector(state => state.songComments);
     const likes = useSelector(state => state.likes);
     const users = useSelector(state => state.users);
+    const duration = useSelector(state => state.duration)
     const [comment, setComment] = useState('');
     const [editID, setEditID] = useState();
     const [commentEdit, setCommentEdit] = useState('');
-    const [count, setCount] = useState(280)
-    const [count2, setCount2] = useState(280)
-    const [waves, setWaves] = useState()
+    const [count, setCount] = useState(280);
+    const [count2, setCount2] = useState(280);
+    const [waves, setWaves] = useState();
 
     let wave;
     let check;
@@ -42,12 +44,19 @@ const CommentsPage = () => {
                 barWidth: 2,
                 hideScrollbar: true,
                 responsive: true,
-
+                partialRender: true
             })
             wave.load(song.url)
+            wave.setVolume(0)
+            wave.setMute(true)
+            wave.setCurrentTime(duration)
             setWaves(wave)
         }
     }, [check])
+
+    useEffect(()=>{
+        waves?.setCurrentTime(duration)
+    }, [duration])
 
     useEffect(()=>{
         setCount(comment.length)
@@ -58,11 +67,15 @@ const CommentsPage = () => {
     const handleSong = (id) => {
         dispatch(getOneSong(id))
         .then(()=>dispatch(setPlaying(true)))
-        .then(()=>waves.playPause())
+        .then(()=>{
+            waves.play()
+            waves.setMute(true)
+        })
+        .then(()=>dispatch(setWave(waves)))
     }
 
     const handlePause = () => {
-        dispatch(setPlaying(false)).then(()=>waves.playPause())
+        dispatch(setPlaying(false)).then(()=>waves.pause())
     }
 
 

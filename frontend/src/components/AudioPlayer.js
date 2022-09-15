@@ -6,6 +6,8 @@ import './CSS/AudioPlayer.css';
 import { setPlaying } from "../store/playing";
 import { getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
+import { setWave } from "../store/wave";
+import { setDuration } from "../store/duration";
 
 
 const AudioPlayer = ({ setLocation }) => {
@@ -13,13 +15,18 @@ const AudioPlayer = ({ setLocation }) => {
     const song = useSelector(state => state.song)
     const users = useSelector(state => state.users)
     const playing = useSelector(state => state.playing)
+    const wave = useSelector(state => state.wave)
+
+    const handleProgress = (progress) => {
+        dispatch(setDuration(progress.playedSeconds))
+    }
 
     const handlePlay = () => {
-        dispatch(setPlaying(true))
+        dispatch(setPlaying(true)).then(()=>wave?.play())
     }
 
     const handlePause = () => {
-        dispatch(setPlaying(false))
+        dispatch(setPlaying(false)).then(()=>wave?.pause())
     }
 
     const handleViewComments = () => {
@@ -31,6 +38,10 @@ const AudioPlayer = ({ setLocation }) => {
     return (
         <>
         <div className="AudioPlayer-Container">
+            {/* <div className="AudioPlayer">
+                <i className="fa-sharp fa-solid fa-play" onClick={handlePlay}/>
+
+            </div> */}
             <ReactPlayer
             className="react-player"
             url={song.url}
@@ -40,6 +51,7 @@ const AudioPlayer = ({ setLocation }) => {
             playing={playing}
             onPlay={handlePlay}
             onPause={handlePause}
+            onProgress={handleProgress}
             style={{color:'#FF5500'}}
             />
 

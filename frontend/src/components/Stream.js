@@ -7,6 +7,7 @@ import WaveSurfer from 'wavesurfer.js'
 
 import './CSS/Stream.css'
 import HireMe from "./HireMe";
+import { setWave } from "../store/wave";
 
 const Stream = ({ setLocation }) => {
     const dispatch = useDispatch();
@@ -14,9 +15,18 @@ const Stream = ({ setLocation }) => {
     const songs = useSelector(state => Object.values(state.songs));
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
+    const waveState = useSelector(state => state.wave);
+    const duration = useSelector(state => state.duration)
     const [comment, setComment] = useState('');
     const [loaded, setLoaded] = useState(false);
-    const [waves, setWaves] = useState({})
+    const [waves, setWaves] = useState({});
+    const [currentWave, setCurrentWave] = useState();
+    const [index, setIndex] = useState();
+    // let index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
+
+    // useEffect(()=>{
+    //     index = waveState?.container?.className.slice(waveState?.container?.className.length - 2, waveState?.container?.className.length)
+    // }, [currentWave, duration])
 
     let wave;
     let check;
@@ -35,23 +45,42 @@ const Stream = ({ setLocation }) => {
                 barWidth: 2,
                 hideScrollbar: true,
                 responsive: true,
-
+                partialRender: true
             })
             wave.load(each.url)
+            wave.setVolume(0)
+            wave.setMute(true)
             obj[i] = wave
             setWaves(obj)
+            if (songState?.id === each.id && playing) {
+                setIndex(i)
+            }
         })}
     }, [check])
 
+    useEffect(()=>{
+        waves[index]?.setCurrentTime(duration)
+    }, [duration])
 
     const handleSong = (id, i) => {
+        setIndex(i)
+        if (!currentWave) setCurrentWave(waves[i])
+        if (currentWave !== waves[i]) {
+            currentWave.pause()
+            setCurrentWave(waves[i])
+        }
         dispatch(getOneSong(id))
         .then(()=>dispatch(setPlaying(true)))
-        .then(()=>waves[i].playPause())
+        .then(()=>{
+            waves[i].play()
+            waves[i].setMute(true)
+        })
+        .then(()=>dispatch(setWave(waves[i])))
     }
 
     const handlePause = (i) => {
-        dispatch(setPlaying(false)).then(()=>waves[i].playPause())
+        setIndex(i)
+        dispatch(setPlaying(false)).then(()=>waves[i].pause())
     }
 
 
