@@ -11,7 +11,7 @@ import { setDuration } from "../store/duration";
 import { useHistory } from "react-router-dom";
 
 
-const AudioPlayer = ({ setLocation }) => {
+const AudioPlayer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const song = useSelector(state => state.song)
@@ -34,7 +34,6 @@ const AudioPlayer = ({ setLocation }) => {
     const handleViewComments = () => {
         dispatch(getSongComments(song.id))
         .then(()=>dispatch(getSongFromComments(song)))
-        .then(()=>setLocation('comments'))
         .then(()=>history.push('/comments'))
     }
 

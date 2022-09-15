@@ -4,10 +4,12 @@ import { createSong, getSongs } from "../store/songs";
 
 import './CSS/Upload.css'
 import './CSS/Loading.css'
+import { useHistory } from "react-router-dom";
 
 
-const Upload = ({ setLocation }) => {
+const Upload = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [file, setFile] = useState();
     const [image, setImage] = useState();
     const [imagePre, setImagePre] = useState();
@@ -101,7 +103,7 @@ const Upload = ({ setLocation }) => {
             dispatch(createSong(info))
             .then(()=>dispatch(getSongs()))
             .then(()=>setLoading(false))
-            .then(()=>setLocation('home'))
+            .then(()=>history.push('/home'))
             .catch(()=>setLoading(false))
         }
     };

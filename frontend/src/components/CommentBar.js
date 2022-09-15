@@ -8,7 +8,7 @@ import { likeSong, unlikeSong } from "../store/likes";
 import './CSS/CommentBar.css'
 import { useHistory } from "react-router-dom";
 
-const Comments = ({ song, setLocation }) => {
+const Comments = ({ song }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const likes = useSelector(state => state.likes);
@@ -44,7 +44,6 @@ const Comments = ({ song, setLocation }) => {
     const handleViewComments = () => {
         dispatch(getSongComments(song.id))
         .then(()=>dispatch(getSongFromComments(song)))
-        .then(()=>setLocation('comments'))
         .then(()=>history.push('/comments'))
     }
 

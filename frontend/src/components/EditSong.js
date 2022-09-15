@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { getOneSong, removeSong } from "../store/song";
 import { deleteSong, editSong, getSongs } from "../store/songs";
 
@@ -7,6 +8,7 @@ import './CSS/EditSong.css'
 
 const EditSong = ({ setEditing, song }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [image, setImage] = useState(song.imageURL);
     const [imagePre, setImagePre] = useState(song.imageURL);
     const [title, setTitle] = useState(song.title);
@@ -50,9 +52,11 @@ const EditSong = ({ setEditing, song }) => {
         if (songState.id === song.id) {
             dispatch(deleteSong(song.id))
             dispatch(removeSong()).then(()=>setEditing(false))
+            .then(()=>history.push('/stream'))
         } else {
             dispatch(deleteSong(song.id))
             .then(()=>setEditing(false))
+            .then(()=>history.push('/stream'))
         }
     }
 

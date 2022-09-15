@@ -9,6 +9,7 @@ import CommentBar from "./CommentBar";
 import WaveSurfer from 'wavesurfer.js'
 
 import './CSS/UserPage.css'
+import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
 
 
 
@@ -46,9 +47,20 @@ const UserPage = ({ setLocation }) => {
                     progressColor: '#FF5500',
                     barGap: 2,
                     barRadius: 0,
-                    barWidth: 2,
+                    barWidth: 1,
+                    backgroundColor: 'white',
                     hideScrollbar: true,
                     responsive: true,
+                    plugins: [
+                        CursorPlugin.create({
+                            showTime: false,
+                            followCursorY: true,
+                            opacity: 1,
+                            customShowTimeStyle: {
+                                'background-color': '#FF550060'
+                            }
+                        })
+                    ],
                     partialRender: true
                 })
                 wave.load(each.url)
@@ -60,10 +72,10 @@ const UserPage = ({ setLocation }) => {
                 }
             }
         })}
-        // return ()=> {
-        //     const array = Object.values(waves)
-        //     array.forEach(each => each.destroy())
-        // }
+        return ()=> {
+            const array = Object.values(waves)
+            array.forEach(each => each.destroy())
+        }
     }, [check]);
 
     useEffect(()=>{
@@ -103,7 +115,7 @@ const UserPage = ({ setLocation }) => {
             <div className="UserPage-lower-container">
             <div className="Stream-left-container">
                     {songs?.map((song, i) => user?.id === song.artistId && (
-                        <div key={`song${i}`} className='Stream-songs'>
+                        <div key={`userpage${i}`} className='Stream-songs'>
                             <div className="Stream-song-image">
                                 <img className='Stream-song-image' src={song?.imageURL}/>
                             </div>

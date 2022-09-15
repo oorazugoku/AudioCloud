@@ -32,9 +32,6 @@ function App() {
     <BrowserRouter>
     {user && (<UserNav />)}
       <Switch>
-        {/* <Route exact path='/userNav'>
-          <UserNav />
-        </Route> */}
         <Route exact path='/comments'>
           <CommentsPage />
         </Route>

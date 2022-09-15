@@ -9,11 +9,13 @@ import './CSS/Stream.css'
 import HireMe from "./HireMe";
 import { setWave } from "../store/wave";
 import { getSongs } from "../store/songs";
+import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
 
-const Stream = ({ setLocation, searched }) => {
+const Stream = ({ searched }) => {
     const dispatch = useDispatch();
     const songState = useSelector(state => state.song);
     const songs = useSelector(state => Object.values(state.songs));
+    const songsState = useSelector(state => state.songs);
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
     const waveState = useSelector(state => state.wave);
@@ -31,17 +33,28 @@ const Stream = ({ setLocation, searched }) => {
     useEffect(()=>{
         let obj = {...waves}
         check = document.getElementsByClassName('Stream-songs')
-        if (check && render) {songs?.map((each, i) => {
+        if (check) {songs?.map((each, i) => {
             wave = WaveSurfer.create({
-                container: `.Stream-wave-${i}`,
+                container: `.Stream-wave-${each.id}`,
                 height: 50,
                 waveColor: '#333333',
                 progressColor: '#FF5500',
                 barGap: 2,
                 barRadius: 0,
-                barWidth: 2,
+                barWidth: 1,
+                backgroundColor: 'white',
                 hideScrollbar: true,
                 responsive: true,
+                plugins: [
+                    CursorPlugin.create({
+                        showTime: false,
+                        followCursorY: true,
+                        opacity: 1,
+                        customShowTimeStyle: {
+                            'background-color': '#FF550060'
+                        }
+                    })
+                ],
                 partialRender: true
             })
             wave.load(each.url)
@@ -49,7 +62,6 @@ const Stream = ({ setLocation, searched }) => {
             wave.setMute(true)
             obj[i] = wave
             setWaves(obj)
-            console.log('RERENDER')
             setLoaded(true)
             if (songState?.id === each.id) {
                 setIndex(i)
@@ -57,7 +69,6 @@ const Stream = ({ setLocation, searched }) => {
             }
         })}
         return ()=> {
-            console.log('DISMOUNTED')
             const array = Object.values(waves)
             array.forEach(each => each.destroy())
         }
@@ -70,18 +81,13 @@ const Stream = ({ setLocation, searched }) => {
     }, [dispatch])
 
     useEffect(()=>{
-        setRender(false)
-        setRender(true)
-    }, [searched, render])
-
-    useEffect(()=>{
         waves[index]?.setCurrentTime(duration)
     }, [duration, index])
 
     const handleSong = (id, i) => {
         setIndex(i)
         if (!currentWave) setCurrentWave(waves[i])
-        if (currentWave !== waves[i]) {
+        if (currentWave && currentWave !== waves[i]) {
             currentWave.pause()
             setCurrentWave(waves[i])
         }
@@ -102,7 +108,7 @@ const Stream = ({ setLocation, searched }) => {
 
 
 
-    return render && (
+    return (
         <>
             <div className="Stream-container">
                 <div className="Stream-left-container">
@@ -113,11 +119,11 @@ const Stream = ({ setLocation, searched }) => {
                             </div>
                             <div>
                                 <div className="Stream-song-header">
-                                {songState.id === song.id & playing ? (<button className="play-button" onClick={()=>handlePause(i)}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id, i)}}><i className="fas fa-play"/></button>)}
+                                {songState.id === song.id && playing ? (<button className="play-button" onClick={()=>handlePause(i)}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id, i)}}><i className="fas fa-play"/></button>)}
                                 <div className="Stream-song-info">
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
-                                    <section className={`Stream-wave-${i}`}></section>
+                                    <section className={`Stream-wave-${song.id}`}></section>
                                     {loaded && (
                                     <>
                                     <div className='wave-bottom-overlay-bar'></div>
@@ -131,7 +137,7 @@ const Stream = ({ setLocation, searched }) => {
                                         <div className=""></div>
                                     </div>
                                 </div>
-                                    <CommentBar song={song} setLocation={setLocation} />
+                                    <CommentBar song={song} />
                                 </div>
 
                         </div>

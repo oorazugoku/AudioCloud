@@ -8,11 +8,6 @@ import { setPlaying } from "../store/playing";
 import { getUsers } from "../store/users";
 import { removeSong } from "../store/song";
 import { getAllLikes } from "../store/likes";
-import UserPage from "./UserPage";
-import Upload from "./Upload";
-import Stream from "./Stream";
-import CommentsPage from "./CommentsPage";
-import SearchBar from "./SearchBar";
 import logoBB from './images/cloud-BB.png';
 import logoPB from './images/cloud-PB.png';
 import logoPO2 from './images/cloud-PO2.png';
@@ -44,26 +39,25 @@ const UserNav = () => {
         dispatch(getSongs())
         dispatch(getUsers())
         dispatch(getAllLikes())
+        setLocation(locate)
     }, [])
 
     useEffect(()=>{
+        setLocation(locate)
         logoChanger();
-    }, [location]);
+    }, [locate]);
 
     const clickHome = () => {
-        setLocation('/home');
         setDots(false);
         history.push('/home')
     };
 
     const clickStream = () => {
-        setLocation('/stream');
         setDots(false);
         history.push('/stream')
     };
 
     const clickUpload = () => {
-        setLocation('/upload');
         setDots(false);
         history.push('/upload')
     };
@@ -98,7 +92,7 @@ const UserNav = () => {
                         <button className="UserNav-home-button" onClick={clickHome} style={location === '/home' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Home</button>
                         <button className="UserNav-stream-button" onClick={clickStream} style={location === '/stream' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Stream</button>
                     </div>
-                    {location === '/stream' && (<SearchBar searched={searched} setSearched={setSearched} setLocation={setLocation} />)}
+                    {/* {location === '/stream' && (<SearchBar searched={searched} setSearched={setSearched} />)} */}
                 <div className="UserNav-top-navbar-right">
                     <div className="UserNav-upload" onClick={clickUpload} style={location === '/upload' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Upload</div>
                     <div className="UserNav-user">{user?.username.length < 14 ? user?.username : `${user?.username.slice(0,15)}...`}</div>
@@ -113,14 +107,6 @@ const UserNav = () => {
                     </div>
                 </div>
             </div>
-
-
-
-            {/* {location === 'home' && (<UserPage setLocation={setLocation} />)} */}
-            {/* {location === 'stream' && (<Stream setLocation={setLocation} searched={searched} />)} */}
-            {/* {location === 'upload' && (<Upload setLocation={setLocation} />)} */}
-            {/* {location === 'comments' && (<CommentsPage />)} */}
-
 
 
 

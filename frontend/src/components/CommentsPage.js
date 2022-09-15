@@ -43,7 +43,7 @@ const CommentsPage = () => {
                 progressColor: '#FF5500',
                 barGap: 2,
                 barRadius: 0,
-                barWidth: 2,
+                barWidth: 1,
                 hideScrollbar: true,
                 responsive: true,
                 partialRender: true
@@ -55,10 +55,13 @@ const CommentsPage = () => {
             setWaves(wave)
             setLoaded(true)
         }
+        return ()=> {
+            wave.destroy()
+        }
     }, [check])
 
     useEffect(()=>{
-        waves?.setCurrentTime(duration)
+        if (songState.id === song.id) waves?.setCurrentTime(duration)
     }, [duration])
 
     useEffect(()=>{
