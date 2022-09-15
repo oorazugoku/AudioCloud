@@ -8,6 +8,7 @@ import WaveSurfer from 'wavesurfer.js'
 import './CSS/Stream.css'
 import HireMe from "./HireMe";
 import { setWave } from "../store/wave";
+import { getSongs } from "../store/songs";
 
 const Stream = ({ setLocation, searched }) => {
     const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Stream = ({ setLocation, searched }) => {
     let check;
 
     useEffect(()=>{
-        let obj = {}
+        let obj = {...waves}
         check = document.getElementsByClassName('Stream-songs')
         if (check && render) {songs?.map((each, i) => {
             wave = WaveSurfer.create({
@@ -43,22 +44,26 @@ const Stream = ({ setLocation, searched }) => {
                 responsive: true,
                 partialRender: true
             })
-            obj = {...waves}
             wave.load(each.url)
             wave.setVolume(0)
             wave.setMute(true)
             obj[i] = wave
             setWaves(obj)
             setLoaded(true)
-            if (songState?.id === each.id && playing) {
+            if (songState?.id === each.id) {
                 setIndex(i)
+                dispatch(setWave(wave))
             }
         })}
         return ()=> {
             const array = Object.values(waves)
             array.forEach(each => each.destroy())
         }
-    }, [check, render])
+    }, [check, render, dispatch])
+
+    useEffect(()=> {
+        dispatch(getSongs())
+    }, [dispatch])
 
     useEffect(()=>{
         setRender(false)

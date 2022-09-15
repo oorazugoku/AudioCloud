@@ -36,7 +36,7 @@ const UserPage = ({ setLocation }) => {
 
     check = document.getElementsByClassName('Stream-songs')
     useEffect(()=>{
-        let obj = {...waves}
+        let obj = {}
         if (check) {songs?.map((each, i) => {
             if (user.id === each.artistId) {
                 const wave = WaveSurfer.create({
@@ -60,6 +60,10 @@ const UserPage = ({ setLocation }) => {
                 }
             }
         })}
+        // return ()=> {
+        //     const array = Object.values(waves)
+        //     array.forEach(each => each.destroy())
+        // }
     }, [check]);
 
     useEffect(()=>{
