@@ -31,39 +31,33 @@ const CommentsPage = () => {
     const [waves, setWaves] = useState();
     const [loaded, setLoaded] = useState(false);
 
-
-    let wave;
-    let check;
-
     useEffect(()=>{
-        check = document.getElementsByClassName('CommentPage-wave')
-        if (check) {
-            wave = WaveSurfer.create({
-                container: '.CommentPage-wave',
-                height: 150,
-                waveColor: 'black',
-                progressColor: '#FF5500',
-                barGap: 2,
-                barRadius: 0,
-                barWidth: 1,
-                hideScrollbar: true,
-                responsive: true,
-                partialRender: true
-            })
-            wave.load(song?.url)
-            wave.setCurrentTime(duration)
-            wave.setVolume(0)
-            wave.setMute(true)
-            wave.on('seek', ()=> {
-                if (song?.id === songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-            })
-            setWaves(wave)
-            setLoaded(true)
-        }
+        if (waves) waves.destroy();
+        const wave = WaveSurfer.create({
+            container: '.CommentPage-wave',
+            height: 150,
+            waveColor: 'black',
+            progressColor: '#FF5500',
+            barGap: 2,
+            barRadius: 0,
+            barWidth: 1,
+            hideScrollbar: true,
+            responsive: true,
+            partialRender: true
+        })
+        wave.load(song?.url)
+        wave.setCurrentTime(duration)
+        wave.setVolume(0)
+        wave.setMute(true)
+        wave.on('seek', ()=> {
+            if (song?.id === songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
+        })
+        setWaves(wave)
+
         return ()=> {
             wave.destroy()
         }
-    }, [check, dispatch])
+    }, [dispatch])
 
     useEffect(()=>{
         if (songState.id === song.id) waves?.setCurrentTime(duration)
