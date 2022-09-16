@@ -31,13 +31,13 @@ const UserPage = ({ setLocation }) => {
 
     let check;
 
-    check = document.getElementsByClassName('Stream-songs')
     useEffect(()=>{
         let obj = {}
+        check = document.getElementsByClassName('Stream-songs')
         if (check) {songs?.map((each, i) => {
             if (user.id === each.artistId) {
                 const wave = WaveSurfer.create({
-                    container: `.Stream-wave-${i}`,
+                    container: `.Stream-wave-${each.id}`,
                     height: 50,
                     waveColor: '#333333',
                     progressColor: '#FF5500',
@@ -60,21 +60,23 @@ const UserPage = ({ setLocation }) => {
                     partialRender: true
                 })
                 wave.load(each.url)
-                wave.on('seek', ()=> {
-                    dispatch(setWaveSeek(wave.getCurrentTime()))
-                })
-                obj[i] = wave
+                obj[each.id] = wave
                 setWaves(obj)
                 setLoaded(true)
                 if (songState?.id === each.id && playing) {
-                    setIndex(i)
+                    setIndex(each.id)
                     wave.setCurrentTime(duration)
                 }
+                let number = wave.container.className.split('-')[2]
+                wave.on('seek', ()=> {
+                    if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
+                })
             }
         })}
         return ()=> {
             const array = Object.values(waves)
             array.forEach(each => each.destroy())
+            setWaves({})
         }
     }, [check]);
 
@@ -87,9 +89,9 @@ const UserPage = ({ setLocation }) => {
         dispatch(getSongs())
     }, [dispatch])
 
-    const handleSong = (id, i) => {
+    const handleSong = (i) => {
         setIndex(i)
-        dispatch(getOneSong(id))
+        dispatch(getOneSong(i))
         .then(()=>dispatch(setPlaying(true)))
         .then(()=>{
             waves[i].play()
@@ -121,11 +123,11 @@ const UserPage = ({ setLocation }) => {
                             </div>
                             <div>
                                 <div className="Stream-song-header">
-                                {songState.id === song.id & playing ? (<button className="play-button" onClick={()=>handlePause(i)}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id, i)}}><i className="fas fa-play"/></button>)}
+                                {songState.id === song.id & playing ? (<button className="play-button" onClick={()=>handlePause(song.id)}><i className="fas fa-pause"/></button>) : (<button className="play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
                                 <div className="Stream-song-info">
                                     <div className="Stream-song-artist">{users[song.artistId]?.username}</div>
                                     <div className="Stream-song-title">{song?.title.length <= 30 ? song?.title : `${song.title.slice(0,30)}...`}</div>
-                                    <section className={`Stream-wave-${i}`}></section>
+                                    <section className={`Stream-wave-${song.id}`}></section>
                                     {loaded && (
                                     <>
                                     <div className='UserPage-wave-bottom-overlay-bar'></div>

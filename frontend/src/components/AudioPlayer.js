@@ -29,11 +29,13 @@ const AudioPlayer = () => {
     }
 
     const handlePlay = () => {
-        dispatch(setPlaying(true)).then(()=>wave?.play())
+        dispatch(setPlaying(true))
+        // .then(()=>wave?.play())
     }
 
     const handlePause = () => {
-        dispatch(setPlaying(false)).then(()=>wave?.pause())
+        dispatch(setPlaying(false))
+        // .then(()=>wave?.pause())
     }
 
     const handleViewComments = () => {

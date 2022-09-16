@@ -29,7 +29,30 @@ const UserNav = () => {
     const user = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
     const [logoDiv, setLogoDiv] = useState(0);
-    const [searched, setSearched] = useState(false)
+    const [searched, setSearched] = useState(false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     useEffect(()=>{
       if (user) setIsLoaded(true)

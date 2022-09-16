@@ -50,9 +50,9 @@ const CommentsPage = () => {
                 partialRender: true
             })
             wave.load(song.url)
+            wave.setCurrentTime(duration)
             wave.setVolume(0)
             wave.setMute(true)
-            wave.setCurrentTime(duration)
             wave.on('seek', ()=> {
                 dispatch(setWaveSeek(wave.getCurrentTime()))
             })
