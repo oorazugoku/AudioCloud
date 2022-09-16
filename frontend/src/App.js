@@ -33,7 +33,7 @@ function App() {
   return (
   <ModalProvider>
     <BrowserRouter>
-    {user && (<UserNav />)}
+    {user && (<UserNav exact path='/userNav'/>)}
       <Switch>
         {!user && (<Route exact path='/'>
           <HomePage />

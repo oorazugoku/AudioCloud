@@ -31,45 +31,28 @@ const UserNav = () => {
     const [logoDiv, setLogoDiv] = useState(0);
     const [searched, setSearched] = useState(false);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     useEffect(()=>{
       if (user) setIsLoaded(true)
     }, [dispatch, user, searched])
 
+
     useEffect(()=>{
         dispatch(getSongs())
+        .then(()=>{
+            setLocation('/stream')
+            history.push('/stream')
+        })
         dispatch(getUsers())
         dispatch(getAllLikes())
-        setLocation(locate)
     }, [])
 
     useEffect(()=>{
-        if (!location) history.push('/home')
         setLocation(locate)
-        logoChanger();
     }, [locate]);
+
+    useEffect(()=>{
+        logoChanger();
+    }, [location]);
 
     const clickHome = () => {
         setDots(false);
@@ -112,7 +95,7 @@ const UserNav = () => {
             <div className="UserNav-top-navbar-container">
                 <div className="UserNav-top-navbar">
                     <div className="UserNav-top-navbar-left">
-                        <div className='UserNav-logo' onMouseEnter={()=>setLogo(logoBB)} onMouseLeave={()=>logoChanger()} onClick={()=>setLocation('home')}><img id='logo-img' src={logo}/></div>
+                        <div className='UserNav-logo' onMouseEnter={()=>setLogo(logoBB)} onMouseLeave={()=>logoChanger()} onClick={()=>setLocation('/home')}><img id='logo-img' src={logo}/></div>
                         <button className="UserNav-home-button" onClick={clickHome} style={location === '/home' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Home</button>
                         <button className="UserNav-stream-button" onClick={clickStream} style={location === '/stream' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Stream</button>
                     </div>

@@ -17,8 +17,8 @@ import { setWaveSeek } from "../store/waveSeek";
 const Stream = ({ searched }) => {
     const dispatch = useDispatch();
     const songState = useSelector(state => state.song);
-    const songs = useSelector(state => Object.values(state.songs));
     const songsState = useSelector(state => state.songs);
+    const songs = useSelector(state => Object.values(state.songs));
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
     const waveState = useSelector(state => state.wave);
@@ -28,14 +28,21 @@ const Stream = ({ searched }) => {
     const [waves, setWaves] = useState({});
     const [currentWave, setCurrentWave] = useState();
     const [index, setIndex] = useState();
+    const [check, setCheck] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
 
 
-    let check;
+    useEffect(()=> {
+        console.log('CHECK', check)
+        if (!check) setCheck(document.getElementsByClassName('Stream-songs'))
+    }, [check])
 
     useEffect(()=>{
-        let obj = {...waves}
-        check = document.getElementsByClassName('Stream-songs')
-        if (check) {songs?.map(each => {
+        console.log("WAVES-OUTSIDE")
+        if (check?.length === songs?.length) {
+            let obj = {...waves}
+            console.log('WAVES-INSIDE')
+            songs?.map(each => {
             const wave = WaveSurfer.create({
                 container: `.Stream-wave-${each.id}`,
                 height: 50,
@@ -56,8 +63,8 @@ const Stream = ({ searched }) => {
                             'background-color': '#FF550060'
                         }
                     })
-                ],
-                partialRender: true
+                ]
+                // partialRender: true
             })
             wave.load(each.url)
             wave.setVolume(0)
@@ -70,17 +77,19 @@ const Stream = ({ searched }) => {
                 setIndex(each.id)
                 wave.setCurrentTime(duration)
             }
-            let number = wave.container.className.split('-')[2]
-            wave.on('seek', ()=> {
-                if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-            })
+            // let number = wave.container.className.split('-')[2]
+            // setTimeout(()=>{
+            //     wave.on('seek', ()=> {
+            //         if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
+            //     })
+            // }, 500)
         })}
         return ()=> {
             const array = Object.values(waves)
             array.forEach(each => each.destroy())
             setWaves({})
         }
-    }, [check, render, searched])
+    }, [check])
 
 
     useEffect(()=>{

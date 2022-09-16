@@ -29,11 +29,16 @@ const UserPage = ({ setLocation }) => {
     const [waves, setWaves] = useState({});
     const [index, setIndex] = useState();
 
+    useEffect(()=>{
+        dispatch(getSongs())
+    }, [dispatch])
+
+
     let check;
 
+    check = document.getElementsByClassName('Stream-songs')
     useEffect(()=>{
         let obj = {}
-        check = document.getElementsByClassName('Stream-songs')
         if (check) {songs?.map((each, i) => {
             if (user.id === each.artistId) {
                 const wave = WaveSurfer.create({
@@ -67,10 +72,10 @@ const UserPage = ({ setLocation }) => {
                     setIndex(each.id)
                     wave.setCurrentTime(duration)
                 }
-                let number = wave.container.className.split('-')[2]
-                wave.on('seek', ()=> {
-                    if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-                })
+                // let number = wave.container.className.split('-')[2]
+                // wave.on('seek', ()=> {
+                //     if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
+                // })
             }
         })}
         return ()=> {
@@ -85,9 +90,6 @@ const UserPage = ({ setLocation }) => {
     }, [duration, index])
 
 
-    useEffect(()=>{
-        dispatch(getSongs())
-    }, [dispatch])
 
     const handleSong = (i) => {
         setIndex(i)
