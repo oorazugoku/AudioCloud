@@ -56,8 +56,10 @@ const UserNav = () => {
     }, [location]);
 
     const clickHome = () => {
-        setDots(false);
-        history.push('/home')
+        dispatch(getSongs()).then(()=>{
+            setDots(false);
+            history.push('/home')
+        })
     };
 
     const clickStream = () => {

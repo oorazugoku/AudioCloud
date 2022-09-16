@@ -114,20 +114,16 @@ router.get('/', validateQuery, async (req, res, next) => {
     pagination.offset = size * (page - 1)
   }
 
-
-  // const advSearch = {...pagination}
-  // const whereClause = {}
-
   if (search) {
     let song = await Song.findAll({
-      where: { title: { [Op.iLike]: search } }
+      where: { title: { [Op.substring]: search } }
     })
     let artist = await Song.findAll({
       include: {
         model: User,
         as: 'Artist',
         attributes: [],
-        where: { username: { [Op.iLike]: search } }},
+        where: { username: { [Op.substring]: search } }},
         ...pagination
     });
     let album = await Song.findAll({
@@ -135,7 +131,7 @@ router.get('/', validateQuery, async (req, res, next) => {
         model: Album,
         as: 'Album',
         attributes: ['title'],
-        where: { title: {[Op.iLike]: search }}},
+        where: { title: {[Op.substring]: search }}},
         ...pagination
     });
     console.log('SONG', song)
@@ -154,52 +150,6 @@ router.get('/', validateQuery, async (req, res, next) => {
   }
 
 
-  // if (search) {
-  //   // advSearch.where = whereClause
-  //   // whereClause.title = { [Op.substring]: songTitle }
-  //   let result = await Song.findAll({
-  //     where: { title: { [Op.substring]: search } }
-  //   })
-  //   if (result) {
-  //     size = result.length;
-  //     return res.json({ page, size, result });
-  //   }
-  // };
-
-  // if (artist) {
-  //   let result = await Song.findAll({
-  //     include: {
-  //       model: User,
-  //       as: 'Artist',
-  //       attributes: [],
-  //       where: { username: { [Op.substring]: artist } }},
-  //       ...pagination
-  //   });
-  //   if (result) {
-  //     size = result.length;
-  //     return res.json({ page, size, result });
-  //   }
-  // };
-
-  // if (search) {
-  //   let result = await Song.findAll({
-  //     include: {
-  //       model: Album,
-  //       as: 'Album',
-  //       attributes: ['title'],
-  //       where: { title: {[Op.substring]: search }}},
-  //       ...pagination
-  //   });
-  //   if (result) {
-  //     size = result.length;
-  //     return res.json({ page, size, result });
-  //   }
-  // };
-
-  // if (createdAt) {
-  //   advSearch.where = whereClause
-  //   whereClause.createdAt = { [Op.substring]: createdAt }
-  // };
 
   let result = await Song.findAll({
     include: [{ model: Comment }, { model: songLike }]
