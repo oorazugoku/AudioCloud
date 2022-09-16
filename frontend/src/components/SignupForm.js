@@ -36,7 +36,7 @@ const SignupForm = ({ setShowSignupModal }) => {
 
         await dispatch(signup(info))
         .then(()=>setShowSignupModal(false))
-        .then(()=>history.push('/userNav'))
+        .then(()=>history.push('/home'))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);

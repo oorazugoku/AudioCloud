@@ -22,7 +22,6 @@ function App() {
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-    if (user) history.push('/home')
   }, [dispatch]);
 
 
@@ -31,11 +30,14 @@ function App() {
     dispatch(getUsers())
   }, [])
 
-  return isLoaded && (
+  return (
   <ModalProvider>
     <BrowserRouter>
     {user && (<UserNav />)}
       <Switch>
+        {!user && (<Route exact path='/'>
+          <HomePage />
+        </Route>)}
         <Route exact path='/comments'>
           <CommentsPage />
         </Route>
@@ -47,9 +49,6 @@ function App() {
         </Route>
         <Route exact path='/stream'>
           <Stream />
-        </Route>
-        <Route exact path='/'>
-          <HomePage />
         </Route>
       </Switch>
     </BrowserRouter>

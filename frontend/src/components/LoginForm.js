@@ -27,7 +27,7 @@ const LoginForm = ({ setShowModal }) => {
         }
         await dispatch(login(info))
         .then(()=>setShowModal(false))
-        .then(()=>history.push('/userNav'))
+        .then(()=>history.push('/home'))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -41,7 +41,7 @@ const LoginForm = ({ setShowModal }) => {
       }
       dispatch(login(info))
       .then(()=>setShowModal(false))
-      .then(()=>history.push('/userNav'))
+      .then(()=>history.push('/home'))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
