@@ -11,11 +11,14 @@ import WaveSurfer from 'wavesurfer.js'
 import './CSS/UserPage.css'
 import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
 import { setWaveSeek } from "../store/waveSeek";
+import { useHistory } from "react-router-dom";
+import { editSong } from "../store/editSong";
 
 
 
 const UserPage = ({ setLocation }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const songs = useSelector(state => Object.values(state.songs));
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.session.user);
@@ -105,6 +108,9 @@ const UserPage = ({ setLocation }) => {
         dispatch(setPlaying(false)).then(()=>waves[i].pause())
     }
 
+    const handleEdit = (data) => {
+        dispatch(editSong(data)).then(()=>history.push('/editSong'))
+    }
 
 
 
@@ -147,7 +153,7 @@ const UserPage = ({ setLocation }) => {
                                 </div>
 
 
-                                {user.id === song.artistId && (<i className="fas fa-pen-to-square" onClick={()=>{setEditing(true); setSong(song)}}/>)}
+                                {user.id === song.artistId && (<i className="fas fa-pen-to-square" onClick={()=>handleEdit(song)}/>)}
                         </div>
                     )).reverse()}
                 </div>

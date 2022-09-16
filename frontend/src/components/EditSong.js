@@ -6,13 +6,14 @@ import { deleteSong, editSong, getSongs } from "../store/songs";
 
 import './CSS/EditSong.css'
 
-const EditSong = ({ setEditing, song }) => {
+const EditSong = ({ setEditing }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [image, setImage] = useState(song.imageURL);
-    const [imagePre, setImagePre] = useState(song.imageURL);
-    const [title, setTitle] = useState(song.title);
-    const [description, setDescription] = useState(song.description);
+    const song = useSelector(state => state.editSong)
+    const [image, setImage] = useState(song?.imageURL);
+    const [imagePre, setImagePre] = useState(song?.imageURL);
+    const [title, setTitle] = useState(song?.title);
+    const [description, setDescription] = useState(song?.description);
     const [error, setError] = useState(null);
     const [saveOff, setSaveOff] = useState(false);
     const songState = useSelector(state => state.song);
@@ -40,7 +41,7 @@ const EditSong = ({ setEditing, song }) => {
             .then(()=> {
                 if (Object.values(songState).length > 0) dispatch(getOneSong(songState.id))
             })
-            .then(()=>setEditing(false))
+            .then(()=>history.push('/home'))
         }
     }
 

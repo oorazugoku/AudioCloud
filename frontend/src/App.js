@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, BrowserRouter, useHistory } from 'react-router-dom'
 import CommentsPage from "./components/CommentsPage";
 import { ModalProvider } from './components/context/Modal';
+import EditSong from "./components/EditSong";
 import HomePage from "./components/HomePage";
 import Stream from "./components/Stream";
 import Upload from "./components/Upload";
@@ -40,6 +41,9 @@ function App() {
         </Route>)}
         <Route exact path='/comments'>
           <CommentsPage />
+        </Route>
+        <Route exact path='/editSong'>
+          <EditSong />
         </Route>
         <Route exact path='/upload'>
           <Upload />

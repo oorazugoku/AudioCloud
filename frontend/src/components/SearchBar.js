@@ -11,14 +11,13 @@ const SearchBar = ({ searched, setSearched }) => {
     const [search, setSearch] = useState('');
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const trimmed = search.trim()
         if (trimmed.length > 0) {
-            dispatch(getSongs(trimmed))
+            await dispatch(getSongs(trimmed))
             setSearch('')
             setSearched(!searched)
-            history.push('/stream')
         }
     }
 

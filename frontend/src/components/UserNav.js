@@ -8,6 +8,7 @@ import { setPlaying } from "../store/playing";
 import { getUsers } from "../store/users";
 import { removeSong } from "../store/song";
 import { getAllLikes } from "../store/likes";
+import SearchBar from './SearchBar'
 import logoBB from './images/cloud-BB.png';
 import logoPB from './images/cloud-PB.png';
 import logoPO2 from './images/cloud-PO2.png';
@@ -83,6 +84,7 @@ const UserNav = () => {
     const logoChanger = () => {
         if (!location) setLogo(logoWhite);
         if (location === '/home') setLogo(logoBB);
+        if (location === '/editSong') setLogo(logoBB);
         if (location === '/stream') setLogo(logoPO2);
         if (location === '/upload') setLogo(logoYO);
         if (location === '/comments') setLogo(logoPB);
@@ -99,7 +101,7 @@ const UserNav = () => {
                         <button className="UserNav-home-button" onClick={clickHome} style={location === '/home' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Home</button>
                         <button className="UserNav-stream-button" onClick={clickStream} style={location === '/stream' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Stream</button>
                     </div>
-                    {/* {location === '/stream' && (<SearchBar searched={searched} setSearched={setSearched} />)} */}
+                    {location === '/stream' && (<SearchBar searched={searched} setSearched={setSearched} />)}
                 <div className="UserNav-top-navbar-right">
                     <div className="UserNav-upload" onClick={clickUpload} style={location === '/upload' ? {backgroundColor: '#111111'} : {backgroundColor: '#333333'}}>Upload</div>
                     <div className="UserNav-user">{user?.username.length < 14 ? user?.username : `${user?.username.slice(0,15)}...`}</div>
