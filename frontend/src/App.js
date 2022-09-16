@@ -34,7 +34,7 @@ function App() {
   return isLoaded && (
   <ModalProvider>
     <BrowserRouter>
-    {user && isLoaded && (<UserNav />)}
+    {user && (<UserNav />)}
       <Switch>
         <Route exact path='/comments'>
           <CommentsPage />
