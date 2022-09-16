@@ -258,6 +258,7 @@
     position: absolute;
     bottom: 5em;
     width: 750px;
+    cursor: pointer;
 }
 
 .CommentPage-wave-bottom-overlay-bar {

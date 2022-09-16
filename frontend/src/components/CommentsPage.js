@@ -11,6 +11,7 @@ import WaveSurfer from 'wavesurfer.js'
 import './CSS/CommentsPage.css'
 import { setWave } from "../store/wave";
 import { setWaveSeek } from "../store/waveSeek";
+import { getSongFromComments } from "../store/songComments";
 
 const CommentsPage = () => {
     const dispatch = useDispatch();
@@ -49,12 +50,12 @@ const CommentsPage = () => {
                 responsive: true,
                 partialRender: true
             })
-            wave.load(song.url)
+            wave.load(song?.url)
             wave.setCurrentTime(duration)
             wave.setVolume(0)
             wave.setMute(true)
             wave.on('seek', ()=> {
-                dispatch(setWaveSeek(wave.getCurrentTime()))
+                if (song?.id === songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
             })
             setWaves(wave)
             setLoaded(true)
@@ -62,7 +63,7 @@ const CommentsPage = () => {
         return ()=> {
             wave.destroy()
         }
-    }, [check])
+    }, [check, dispatch])
 
     useEffect(()=>{
         if (songState.id === song.id) waves?.setCurrentTime(duration)
@@ -76,6 +77,7 @@ const CommentsPage = () => {
 
     const handleSong = (id) => {
         dispatch(getOneSong(id))
+        .then(()=>dispatch(getSongFromComments(song)))
         .then(()=>dispatch(setPlaying(true)))
         .then(()=>{
             waves.play()
