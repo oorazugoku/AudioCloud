@@ -34,7 +34,7 @@ function App() {
   return isLoaded && (
   <ModalProvider>
     <BrowserRouter>
-    {user && (<UserNav />)}
+    {user && isLoaded && (<UserNav />)}
       <Switch>
         <Route exact path='/comments'>
           <CommentsPage />
@@ -48,9 +48,9 @@ function App() {
         <Route exact path='/stream'>
           <Stream />
         </Route>
-        {!user && (<Route exact path='/'>
+        <Route exact path='/'>
           <HomePage />
-        </Route>)}
+        </Route>
       </Switch>
     </BrowserRouter>
   </ModalProvider>
