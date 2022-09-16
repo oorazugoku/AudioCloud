@@ -68,6 +68,7 @@ const UserPage = ({ setLocation }) => {
                 setLoaded(true)
                 if (songState?.id === each.id && playing) {
                     setIndex(i)
+                    wave.setCurrentTime(duration)
                 }
             }
         })}

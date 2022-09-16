@@ -8,7 +8,8 @@ import { getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
 import { setWave } from "../store/wave";
 import { setDuration } from "../store/duration";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import { setWaveSeek } from "../store/waveSeek";
 
 
 const AudioPlayer = () => {
@@ -20,7 +21,8 @@ const AudioPlayer = () => {
     const playing = useSelector(state => state.playing);
     const wave = useSelector(state => state.wave);
     const waveSeek = useSelector(state => state.waveSeek);
-    const duration = useSelector(state => state.duration)
+    const duration = useSelector(state => state.duration);
+
 
     const handleProgress = (progress) => {
         dispatch(setDuration(progress.playedSeconds))
@@ -42,12 +44,12 @@ const AudioPlayer = () => {
 
     useEffect(()=>{
         if (duration > waveSeek) {
-            if (((duration - waveSeek) > 2 || (duration - waveSeek) < 2) && waveSeek !== 0) {
+            if ((duration - waveSeek) > 2 || (duration - waveSeek) < 2) {
                 player.current.seekTo(waveSeek)
             }
         }
         if (duration < waveSeek) {
-            if (((waveSeek - duration) > 2 || (waveSeek - duration) < 2) && waveSeek !== 0) {
+            if ((waveSeek - duration) > 2 || (waveSeek - duration) < 2) {
                 player.current.seekTo(waveSeek)
             }
         }

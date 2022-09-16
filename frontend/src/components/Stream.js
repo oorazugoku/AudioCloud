@@ -36,7 +36,7 @@ const Stream = ({ searched }) => {
     useEffect(()=>{
         let obj = {...waves}
         check = document.getElementsByClassName('Stream-songs')
-        if (check) {songs?.map((each, i) => {
+        if (check) {songs?.map(each => {
             wave = WaveSurfer.create({
                 container: `.Stream-wave-${each.id}`,
                 height: 50,
@@ -63,16 +63,17 @@ const Stream = ({ searched }) => {
             wave.load(each.url)
             wave.setVolume(0)
             wave.setMute(true)
-            wave.on('seek', ()=> {
-                dispatch(setWaveSeek(wave.getCurrentTime()))
-            })
             obj[each.id] = wave
             setWaves(obj)
             setLoaded(true)
             if (songState?.id === each.id) {
                 setIndex(each.id)
                 dispatch(setWave(wave))
+                wave.setCurrentTime(duration)
             }
+            wave.on('seek', ()=> {
+                dispatch(setWaveSeek(wave.getCurrentTime()))
+            })
         })}
         return ()=> {
             const array = Object.values(waves)
@@ -80,11 +81,11 @@ const Stream = ({ searched }) => {
         }
     }, [check, render, searched])
 
-    useEffect(()=> {
-        const array = Object.values(waves)
-        array.forEach(each => each.destroy())
-        dispatch(getSongs())
-    }, [dispatch])
+    // useEffect(()=> {
+    //     const array = Object.values(waves)
+    //     array.forEach(each => each.destroy())
+    //     dispatch(getSongs())
+    // }, [dispatch])
 
     useEffect(()=>{
         waves[index]?.setCurrentTime(duration)
