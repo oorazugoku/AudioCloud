@@ -23,7 +23,7 @@ const UserNav = () => {
     const locate = useLocation().pathname;
     const history = useHistory();
     const [file, setFile] = useState('');
-    const [location, setLocation] = useState(locate);
+    const [location, setLocation] = useState();
     const [logo, setLogo] = useState(null);
     const [dots, setDots] = useState(false);
     const user = useSelector(state => state.session.user);
@@ -43,6 +43,7 @@ const UserNav = () => {
     }, [])
 
     useEffect(()=>{
+        if (!location) history.push('/home')
         setLocation(locate)
         logoChanger();
     }, [locate]);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, BrowserRouter } from 'react-router-dom'
+import { Route, Switch, BrowserRouter, useHistory } from 'react-router-dom'
 import CommentsPage from "./components/CommentsPage";
 import { ModalProvider } from './components/context/Modal';
 import HomePage from "./components/HomePage";
@@ -15,19 +15,23 @@ import { getUsers } from "./store/users";
 
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(state => state.session.user)
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    if (user) history.push('/home')
   }, [dispatch]);
+
+
 
   useEffect(()=>{
     dispatch(getUsers())
   }, [])
 
-  return (
+  return isLoaded && (
   <ModalProvider>
     <BrowserRouter>
     {user && (<UserNav />)}
@@ -44,9 +48,9 @@ function App() {
         <Route exact path='/stream'>
           <Stream />
         </Route>
-        <Route exact path='/'>
+        {!user && (<Route exact path='/'>
           <HomePage />
-        </Route>
+        </Route>)}
       </Switch>
     </BrowserRouter>
   </ModalProvider>
