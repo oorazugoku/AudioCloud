@@ -88,7 +88,6 @@ const Stream = ({ searched }) => {
             const array = Object.values(waves)
             array.forEach(each => each.destroy())
             setWaves({})
-            console.log('DISMOUNTED')
         }
     }, [])
 
@@ -144,7 +143,6 @@ const Stream = ({ searched }) => {
             const array = Object.values(waves)
             array.forEach(each => each.destroy())
             setWaves({})
-            console.log('DISMOUNTED')
         }
     }, [numberSongs])
 

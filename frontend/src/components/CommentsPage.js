@@ -12,9 +12,11 @@ import './CSS/CommentsPage.css'
 import { setWave } from "../store/wave";
 import { setWaveSeek } from "../store/waveSeek";
 import { getSongFromComments } from "../store/songComments";
+import { useHistory } from "react-router-dom";
 
 const CommentsPage = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const songState = useSelector(state => state.song);
     const playing = useSelector(state => state.playing);
@@ -30,37 +32,45 @@ const CommentsPage = () => {
     const [count2, setCount2] = useState(280);
     const [waves, setWaves] = useState();
     const [loaded, setLoaded] = useState(false);
+    const [songLoaded, setSongLoaded] = useState(false);
+
+
 
     useEffect(()=>{
-        if (waves) waves.destroy();
-        const wave = WaveSurfer.create({
-            container: '.CommentPage-wave',
-            height: 150,
-            waveColor: 'black',
-            progressColor: '#FF5500',
-            barGap: 2,
-            barRadius: 0,
-            barWidth: 1,
-            hideScrollbar: true,
-            responsive: true,
-            partialRender: true
-        })
-        wave.load(song?.url)
-        wave.setCurrentTime(duration)
-        wave.setVolume(0)
-        wave.setMute(true)
-        wave.on('seek', ()=> {
-            if (song?.id === songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-        })
-        setWaves(wave)
+        const check = Object.values(song)
+        if (check.length === 0) history.push('/userNav')
+
+            if (waves) waves.destroy();
+            const wave = WaveSurfer.create({
+                container: '.CommentPage-wave',
+                height: 150,
+                waveColor: 'black',
+                progressColor: '#FF5500',
+                barGap: 2,
+                barRadius: 0,
+                barWidth: 1,
+                hideScrollbar: true,
+                responsive: true,
+                partialRender: true
+            })
+            wave?.load(song?.url)
+            wave?.setVolume(0)
+            wave?.setMute(true)
+            wave?.setCurrentTime(duration)
+            wave?.on('seek', ()=> {
+                if (song?.id === songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
+            })
+            setWaves(wave)
+
 
         return ()=> {
-            wave.destroy()
+            wave?.destroy()
         }
-    }, [dispatch])
+
+    }, [])
 
     useEffect(()=>{
-        if (songState.id === song.id) waves?.setCurrentTime(duration)
+        if (songState?.id === song?.id) waves?.setCurrentTime(duration)
     }, [duration])
 
     useEffect(()=>{
@@ -73,10 +83,6 @@ const CommentsPage = () => {
         dispatch(getOneSong(id))
         .then(()=>dispatch(getSongFromComments(song)))
         .then(()=>dispatch(setPlaying(true)))
-        .then(()=>{
-            waves.play()
-            waves.setMute(true)
-        })
         .then(()=>dispatch(setWave(waves)))
     }
 
