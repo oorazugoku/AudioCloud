@@ -28,7 +28,7 @@ export const removeWave = () => async (dispatch) => {
   dispatch(removeWaveAction());
 };
 
-const initialState = {};
+const initialState = null;
 
 const waveReducer = (state = initialState, action) => {
   let newState = {};

@@ -30,7 +30,7 @@ const Stream = ({ searched }) => {
     const [index, setIndex] = useState();
     const [check, setCheck] = useState(null);
 
-    console.log('CURRENT WAVE 1', currentWave)
+
     useEffect(()=> {
         if (!check) setCheck(document.getElementsByClassName('Stream-songs'))
     }, [check])
