@@ -61,7 +61,7 @@ const CommentsPage = () => {
                 if (song?.id === songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
             })
             setWaves(wave)
-
+            setLoaded(true)
 
         return ()=> {
             wave?.destroy()
