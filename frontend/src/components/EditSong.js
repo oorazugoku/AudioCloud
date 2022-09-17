@@ -46,18 +46,17 @@ const EditSong = ({ setEditing }) => {
     }
 
     const cancel = () => {
-        setEditing(false)
+        history.push('/home')
     }
 
     const handleDelete = () => {
         if (songState.id === song.id) {
             dispatch(deleteSong(song.id))
-            dispatch(removeSong()).then(()=>setEditing(false))
-            .then(()=>history.push('/stream'))
+            dispatch(removeSong())
+            .then(()=>history.push('/home'))
         } else {
             dispatch(deleteSong(song.id))
-            .then(()=>setEditing(false))
-            .then(()=>history.push('/stream'))
+            .then(()=>history.push('/home'))
         }
     }
 
