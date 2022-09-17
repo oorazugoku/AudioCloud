@@ -31,6 +31,7 @@ const CommentsPage = () => {
     const [count, setCount] = useState(280);
     const [count2, setCount2] = useState(280);
     const [waves, setWaves] = useState();
+    const [currentWave, setCurrentWave] = useState();
     const [loaded, setLoaded] = useState(false);
     const [songLoaded, setSongLoaded] = useState(false);
 
@@ -57,9 +58,9 @@ const CommentsPage = () => {
             wave?.setVolume(0)
             wave?.setMute(true)
             wave?.setCurrentTime(duration)
-            wave?.on('seek', ()=> {
-                if (song?.id === songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-            })
+            // wave?.on('seek', ()=> {
+            //     if (song?.id === songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
+            // })
             setWaves(wave)
             setLoaded(true)
 
@@ -70,7 +71,8 @@ const CommentsPage = () => {
     }, [])
 
     useEffect(()=>{
-        if (songState?.id === song?.id) waves?.setCurrentTime(duration)
+        currentWave?.setCurrentTime(duration);
+        currentWave?.on('seek', ()=> dispatch(setWaveSeek(currentWave?.getCurrentTime())));
     }, [duration])
 
     useEffect(()=>{
@@ -80,14 +82,18 @@ const CommentsPage = () => {
 
 
     const handleSong = (id) => {
+        setCurrentWave(waves)
         dispatch(getOneSong(id))
         .then(()=>dispatch(getSongFromComments(song)))
         .then(()=>dispatch(setPlaying(true)))
         .then(()=>dispatch(setWave(waves)))
+        .then(()=>currentWave?.play())
+
+
     }
 
     const handlePause = () => {
-        dispatch(setPlaying(false)).then(()=>waves.pause())
+        dispatch(setPlaying(false)).then(()=>currentWave.pause())
     }
 
 

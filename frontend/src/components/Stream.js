@@ -30,7 +30,7 @@ const Stream = ({ searched }) => {
     const [index, setIndex] = useState();
     const [check, setCheck] = useState(null);
 
-
+    console.log('CURRENT WAVE 1', currentWave)
     useEffect(()=> {
         if (!check) setCheck(document.getElementsByClassName('Stream-songs'))
     }, [check])
@@ -74,15 +74,9 @@ const Stream = ({ searched }) => {
             // setLoaded(true)
 
             if (songState?.id === each.id) {
-                setIndex(each.id)
-                wave.setCurrentTime(duration)
+                setCurrentWave(wave)
             }
-            // let number = wave.container.className.split('-')[2]
-            // setTimeout(()=>{
-            //     wave.on('seek', ()=> {
-            //         if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-            //     })
-            // }, 500)
+
         })
         return ()=> {
             const array = Object.values(waves)
@@ -90,6 +84,10 @@ const Stream = ({ searched }) => {
             setWaves({})
         }
     }, [])
+
+    useEffect(()=> {
+        currentWave?.setCurrentTime(duration)
+    }, [currentWave])
 
     useEffect(()=>{
         // setWaves({})
@@ -127,16 +125,12 @@ const Stream = ({ searched }) => {
                 setWaves(obj)
                 // setLoaded(true)
 
-                if (songState?.id === each.id) {
-                    setIndex(each.id)
-                    wave.setCurrentTime(duration)
-                }
-                // let number = wave.container.className.split('-')[2]
-                // setTimeout(()=>{
-                //     wave.on('seek', ()=> {
-                //         if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-                //     })
-                // }, 500)
+                // if (songState?.id === each.id) {
+                //     setIndex(each.id)
+                //     setCurrentWave(wave)
+                //     wave.setCurrentTime(duration)
+                // }
+
             }
         })}
         return ()=> {
@@ -148,14 +142,15 @@ const Stream = ({ searched }) => {
 
 
     useEffect(()=>{
-        waves[index]?.setCurrentTime(duration)
+        currentWave?.setCurrentTime(duration)
+        currentWave?.on('seek', ()=> dispatch(setWaveSeek(currentWave?.getCurrentTime())))
     }, [duration, index])
 
     const handleSong = (i) => {
         setIndex(i)
         if (!currentWave) setCurrentWave(waves[i])
         if (currentWave && currentWave !== waves[i]) {
-            currentWave.pause()
+            // currentWave.pause()
             setCurrentWave(waves[i])
         }
         dispatch(getOneSong(i))
@@ -169,7 +164,8 @@ const Stream = ({ searched }) => {
 
     const handlePause = (i) => {
         setIndex(i)
-        dispatch(setPlaying(false)).then(()=>waves[i].pause())
+        dispatch(setPlaying(false))
+        currentWave.pause()
     }
 
 

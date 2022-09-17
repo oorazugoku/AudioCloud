@@ -23,6 +23,8 @@ const AudioPlayer = () => {
     const waveSeek = useSelector(state => state.waveSeek);
     const duration = useSelector(state => state.duration);
 
+    console.log('AUDIOPLAYER', wave)
+
 
     const handleProgress = (progress) => {
         dispatch(setDuration(progress.playedSeconds))
