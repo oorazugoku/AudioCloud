@@ -185,7 +185,7 @@ const CommentsPage = () => {
                         (<button className="CommentsPage-play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
                     </div>
                     <div className="CommentsPage-song-info-container">
-                        <div className="CommentsPage-song-title">{song.title}</div>
+                        <div className="CommentsPage-song-title">{song?.title.length <= 20 ? song?.title : `${song.title.slice(0,20)} . . . `}</div>
                         <div className="CommentsPage-artist-username">{users[song.artistId]?.username}</div>
                     </div>
                     <section className='CommentPage-wave'></section>
