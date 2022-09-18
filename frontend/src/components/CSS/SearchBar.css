@@ -14,7 +14,7 @@
     color: #333333;
 }
 
-.fa-magnifying-glass {
+#big-search-icon {
     position: absolute;
     top: 1em;
     right: 10px;
@@ -25,32 +25,37 @@
 .auto-fill-container {
     display: flex;
     flex-direction: column;
-    max-height: 150px;
+    max-height: 180px;
     min-height: 30px;
     width: 357px;
     position: absolute;
-    top: 2.8em;
-    border-right: 1px solid #333333;
+    top: 4.1em;
+    /* border-right: 1px solid #333333;
     border-left: 1px solid #333333;
-    border-bottom: 1px solid #333333;
-    border-radius: 0 0 4px 4px;
+    border-bottom: 1px solid #333333; */
+    /* border-radius: 0 0 4px 4px; */
     color: #CCCCCC;
     font-size: 12px;
-    background-color: white;
-    overflow: hidden scroll;
+    background-color: #333333;
+    overflow: hidden;
 }
 
 .auto-fill-data {
     display: flex;
     align-items: center;
-    padding-left: 5px;
-    height: 20px;
+    padding: 8px;
+    /* height: 50px; */
     cursor: pointer;
     display: flex;
     position: relative;
 }
 
 .auto-fill-data:hover {
-    background-color: #CCCCCC;
-    color: black;
+    background-color: #111111;
+    color: #CCCCCC;
+}
+
+#small-search-icon {
+    margin-right: 15px;
+    margin-left: 10px;
 }

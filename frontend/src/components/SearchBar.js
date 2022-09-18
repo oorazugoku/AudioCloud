@@ -8,9 +8,11 @@ import './CSS/SearchBar.css'
 const SearchBar = ({ searched, setSearched }) => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const [search, setSearch] = useState('');
     const fill = useSelector(state => Object.values(state.search));
+    const [search, setSearch] = useState('');
     const [autoFill, setAutoFill] = useState([]);
+    const [focus, setFocus] = useState(false);
+    const [mouse, setMouse] = useState(false);
 
 
     const handleSubmit = (e) => {
@@ -22,6 +24,18 @@ const SearchBar = ({ searched, setSearched }) => {
             setSearched(!searched)
         }
     }
+
+    const handleFocus = () => {
+        if (!mouse) {
+            if (search.length > 0) setFocus(!focus)
+            if (search.length === 0) setFocus(false)
+        }
+    }
+
+    useEffect(()=>{
+        if (search.length > 0) setFocus(true)
+        if (search.length === 0) setFocus(false)
+    }, [search])
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
@@ -38,19 +52,21 @@ const SearchBar = ({ searched, setSearched }) => {
     return (
         <>
             <div className="SearchBar-container">
-                <form onSubmit={handleSubmit} autoComplete='on'>
+                <form onSubmit={handleSubmit}>
                     <input
                     className="SearchBar-input"
                     value={search}
+                    onBlur={handleFocus}
+                    onFocus={handleFocus}
                     placeholder='Search'
                     onChange={(e)=>handleSearch(e)}
                     >
                     </input>
-                    <i className="fas fa-magnifying-glass" onClick={handleSubmit}></i>
+                    <i className="fas fa-magnifying-glass" onClick={handleSubmit} id='big-search-icon'></i>
                 </form>
-                {!!autoFill.length > 0 && (<div className="auto-fill-container">
+                {focus && (<div className="auto-fill-container" onMouseEnter={()=>setMouse(true)} onMouseLeave={()=>setMouse(false)}>
                     {autoFill.map(each => (<>
-                        <div key={each} className='auto-fill-data' onClick={()=>handleSearchClick(each)}>{each}</div>
+                        <div key={each} className='auto-fill-data' onClick={()=>handleSearchClick(each)}><i className="fas fa-magnifying-glass" id='small-search-icon' />{each.length >= 25 ? `${each.slice(0,25)}...` : each}</div>
                     </>))}
                 </div>)}
             </div>
