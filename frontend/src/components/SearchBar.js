@@ -15,7 +15,7 @@ const SearchBar = ({ searched, setSearched }) => {
         e.preventDefault();
         const trimmed = search.trim()
         if (trimmed.length > 0) {
-            dispatch(getSongs(trimmed))
+            dispatch(getSongs(trimmed)).then(()=>history.push('/userNav'))
             setSearch('')
             setSearched(!searched)
         }

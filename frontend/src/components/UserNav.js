@@ -48,6 +48,7 @@ const UserNav = () => {
     }, [])
 
     useEffect(()=>{
+        if (locate === '/userNav') history.push('/stream')
         setLocation(locate)
     }, [locate]);
 
