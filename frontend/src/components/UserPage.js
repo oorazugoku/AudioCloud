@@ -55,16 +55,7 @@ const UserPage = ({ setLocation }) => {
                     backgroundColor: 'white',
                     hideScrollbar: true,
                     responsive: true,
-                    plugins: [
-                        CursorPlugin.create({
-                            showTime: false,
-                            followCursorY: true,
-                            opacity: 1,
-                            customShowTimeStyle: {
-                                'background-color': '#FF550060'
-                            }
-                        })
-                    ],
+                    interact: false,
                     partialRender: true
                 })
                 wave.load(each.url)
@@ -75,10 +66,6 @@ const UserPage = ({ setLocation }) => {
                     setIndex(each.id)
                     wave.setCurrentTime(duration)
                 }
-                // let number = wave.container.className.split('-')[2]
-                // wave.on('seek', ()=> {
-                //     if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-                // })
             }
         })}
         return ()=> {

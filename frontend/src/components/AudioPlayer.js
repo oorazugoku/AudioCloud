@@ -30,12 +30,10 @@ const AudioPlayer = () => {
 
     const handlePlay = () => {
         dispatch(setPlaying(true))
-        // .then(()=>wave?.play())
     }
 
     const handlePause = () => {
         dispatch(setPlaying(false))
-        // .then(()=>wave?.pause())
     }
 
     const handleViewComments = () => {
@@ -43,19 +41,6 @@ const AudioPlayer = () => {
         .then(()=>dispatch(getSongFromComments(song)))
         .then(()=>history.push('/comments'))
     }
-
-    useEffect(()=>{
-        if (duration > waveSeek) {
-            if ((duration - waveSeek) > 2 || (duration - waveSeek) < 2) {
-                player.current.seekTo(waveSeek)
-            }
-        }
-        if (duration < waveSeek) {
-            if ((waveSeek - duration) > 2 || (waveSeek - duration) < 2) {
-                player.current.seekTo(waveSeek)
-            }
-        }
-    }, [waveSeek])
 
     return (
         <>
@@ -70,7 +55,6 @@ const AudioPlayer = () => {
             playing={playing}
             onPlay={handlePlay}
             onPause={handlePause}
-            // onSeek={handleProgress}
             onProgress={handleProgress}
             style={{color:'#FF5500'}}
             />

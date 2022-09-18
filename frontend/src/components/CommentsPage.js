@@ -51,7 +51,8 @@ const CommentsPage = () => {
                 barWidth: 1,
                 hideScrollbar: true,
                 responsive: true,
-                partialRender: true
+                partialRender: true,
+                interact: false
             })
             wave?.load(song?.url)
             wave?.setVolume(0)

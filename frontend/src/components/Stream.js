@@ -55,34 +55,18 @@ const Stream = ({ searched }) => {
                 backgroundColor: 'white',
                 hideScrollbar: true,
                 responsive: true,
-                plugins: [
-                    CursorPlugin.create({
-                        showTime: false,
-                        followCursorY: true,
-                        opacity: 1,
-                        customShowTimeStyle: {
-                            'background-color': '#FF550060'
-                        }
-                    })
-                ]
+                interact: false
             })
             wave.load(each.url)
             wave.setVolume(0)
             wave.setMute(true)
             obj[each.id] = wave
             setWaves(obj)
-            // setLoaded(true)
 
             if (songState?.id === each.id) {
                 setIndex(each.id)
                 wave.setCurrentTime(duration)
             }
-            // let number = wave.container.className.split('-')[2]
-            // setTimeout(()=>{
-            //     wave.on('seek', ()=> {
-            //         if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-            //     })
-            // }, 500)
         })
         return ()=> {
             const array = Object.values(waves)
@@ -92,7 +76,6 @@ const Stream = ({ searched }) => {
     }, [])
 
     useEffect(()=>{
-        // setWaves({})
         if (check?.length === songs?.length) {
             let obj = {...waves}
             songs?.map(each => {
@@ -108,16 +91,7 @@ const Stream = ({ searched }) => {
                     backgroundColor: 'white',
                     hideScrollbar: true,
                     responsive: true,
-                    plugins: [
-                        CursorPlugin.create({
-                            showTime: false,
-                            followCursorY: true,
-                            opacity: 1,
-                            customShowTimeStyle: {
-                                'background-color': '#FF550060'
-                            }
-                        })
-                    ]
+                    interact: false
                 })
 
                 wave.load(each.url)
@@ -125,18 +99,11 @@ const Stream = ({ searched }) => {
                 wave.setMute(true)
                 obj[each.id] = wave
                 setWaves(obj)
-                // setLoaded(true)
 
                 if (songState?.id === each.id) {
                     setIndex(each.id)
                     wave.setCurrentTime(duration)
                 }
-                // let number = wave.container.className.split('-')[2]
-                // setTimeout(()=>{
-                //     wave.on('seek', ()=> {
-                //         if (number == songState?.id) dispatch(setWaveSeek(wave.getCurrentTime()))
-                //     })
-                // }, 500)
             }
         })}
         return ()=> {
