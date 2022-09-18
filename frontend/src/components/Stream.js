@@ -23,6 +23,7 @@ const Stream = ({ searched }) => {
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
     const waveState = useSelector(state => state.wave);
+    const waveSeek = useSelector(state => state.waveSeek)
     const duration = useSelector(state => state.duration);
     const [loaded, setLoaded] = useState(false);
     const [waves, setWaves] = useState({});
@@ -34,7 +35,6 @@ const Stream = ({ searched }) => {
     useEffect(()=> {
         if (!check) setCheck(document.getElementsByClassName('Stream-songs'))
     }, [check])
-
 
     useEffect(()=>{
         const check = Object.values(waves)
@@ -71,18 +71,24 @@ const Stream = ({ searched }) => {
             wave.setMute(true)
             obj[each.id] = wave
             setWaves(obj)
-            // setLoaded(true)
+            if (!waveSeek[each.id]) {
+                const data = {
+                    id: each.id,
+                    time: 0
+                }
+                dispatch(setWaveSeek(data))
+            }
 
             if (songState?.id === each.id) {
                 setCurrentWave(wave)
             }
 
         })
-        return ()=> {
-            const array = Object.values(waves)
-            array.forEach(each => each.destroy())
-            setWaves({})
-        }
+        // return ()=> {
+        //     const array = Object.values(waves)
+        //     array.forEach(each => each.destroy())
+        //     setWaves({})
+        // }
     }, [])
 
     useEffect(()=> {

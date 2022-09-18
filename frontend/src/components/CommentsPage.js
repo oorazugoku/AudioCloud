@@ -13,6 +13,7 @@ import { setWave } from "../store/wave";
 import { setWaveSeek } from "../store/waveSeek";
 import { getSongFromComments } from "../store/songComments";
 import { useHistory } from "react-router-dom";
+import { setDuration } from "../store/duration";
 
 const CommentsPage = () => {
     const dispatch = useDispatch();
@@ -26,23 +27,25 @@ const CommentsPage = () => {
     const likes = useSelector(state => state.likes);
     const users = useSelector(state => state.users);
     const duration = useSelector(state => state.duration)
+    const waveSeek = useSelector(state => state.waveSeek)
     const [comment, setComment] = useState('');
     const [editID, setEditID] = useState();
     const [commentEdit, setCommentEdit] = useState('');
     const [count, setCount] = useState(280);
     const [count2, setCount2] = useState(280);
     const [waves, setWaves] = useState();
-    const [currentWave, setCurrentWave] = useState();
+    const [time, setTime] = useState();
     const [loaded, setLoaded] = useState(false);
     const [songLoaded, setSongLoaded] = useState(false);
+    const [changing, setChanging] = useState(false);
 
-    // waveState?.on('seek', ()=> dispatch(setWaveSeek(waveState?.getCurrentTime())))
+    useEffect(()=>{
+        if (waveState) dispatch(setDuration(waveState?.getCurrentTime()))
+    }, [])
 
     useEffect(()=>{
         const check = Object.values(song)
         if (check.length === 0) history.push('/userNav')
-
-            if (waves) waves.destroy();
             const wave = WaveSurfer.create({
                 container: '.CommentPage-wave',
                 height: 150,
@@ -58,24 +61,36 @@ const CommentsPage = () => {
             wave?.load(song?.url)
             wave?.setVolume(0)
             wave?.setMute(true)
-            wave?.setCurrentTime(duration)
+            wave?.setCurrentTime(waveSeek[song?.id]?.time)
             wave?.on('seek', ()=> {
-                if (song?.id === songState?.id) dispatch(setWaveSeek(waveState?.getCurrentTime()))
+                const data = {
+                    id: song.id,
+                    time: wave.getCurrentTime()
+                }
+                dispatch(setWaveSeek(data))
             })
             setWaves(wave)
             setLoaded(true)
-
-        return ()=> {
-            wave?.destroy()
-        }
-
     }, [])
 
     // useEffect(()=>{
-    //     currentWave?.setCurrentTime(duration);
-    // }, [duration])
+    //     if (loaded) {
+    //         if (songState?.id === song?.id) {
+    //             waves.setCurrentTime(waveState?.getCurrentTime())
+    //             console.log('WAVEs', waves.getCurrentTime())
+    //             waves.play()
+    //         }
+    //     }
+    // }, [loaded])
 
-    // currentWave?.on('seek', ()=> dispatch(setWaveSeek(currentWave?.getCurrentTime())));
+    useEffect(()=>{
+        const seek = {
+            id: song?.id,
+            time: time
+        }
+        dispatch(setWaveSeek(seek))
+    }, [time])
+
 
     useEffect(()=>{
         setCount(comment.length)
@@ -83,22 +98,32 @@ const CommentsPage = () => {
     }, [comment, commentEdit])
 
     useEffect(()=>{
-        if (playing) waveState?.play()
-    }, [playing])
+        waves?.setCurrentTime(duration)
+    }, [duration])
 
     const handleSong = (id) => {
-        setCurrentWave(waves)
+        const data = {
+            id,
+            time: waves?.getCurrentTime()
+        }
         dispatch(getOneSong(id))
         .then(()=>dispatch(getSongFromComments(song)))
         .then(()=>dispatch(setWave(waves)))
         .then(()=>dispatch(setPlaying(true)))
+        .then(()=>dispatch(setWaveSeek(data)))
         // .then(()=>waveState?.play())
         // .then(()=>currentWave?.play())
     }
 
     const handlePause = () => {
+        const data = {
+            id: songState.id,
+            time: waveState?.getCurrentTime()
+        }
         dispatch(setPlaying(false))
         .then(()=>waveState?.pause())
+        .then(()=>dispatch(setWaveSeek(data)))
+
     }
 
 

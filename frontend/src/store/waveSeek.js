@@ -13,16 +13,19 @@ const setWaveSeekAction = (payload) => {
 
 
 // Thunk - Set Wave Seek
-export const setWaveSeek = (time) => async (dispatch) => {
-    dispatch(setWaveSeekAction(time));
+export const setWaveSeek = (data) => async (dispatch) => {
+    dispatch(setWaveSeekAction(data));
 };
 
+const initialstate = {};
 
-
-const waveSeekReducer = (state = 0, action) => {
+const waveSeekReducer = (state = initialstate, action) => {
+  let newState = {};
   switch (action.type) {
     case SET_WAVE_SEEK:
-        return action.payload;
+      newState = {...state}
+      newState[action.payload.id] = action.payload
+      return newState;
     default:
         return state;
   }

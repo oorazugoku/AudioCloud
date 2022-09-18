@@ -17,6 +17,7 @@ import logoYO from './images/cloud-YO.png';
 
 
 import './CSS/UserNav.css';
+import { setWaveSeek } from "../store/waveSeek";
 
 
 const UserNav = () => {
@@ -31,11 +32,13 @@ const UserNav = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [logoDiv, setLogoDiv] = useState(0);
     const [searched, setSearched] = useState(false);
+    const waveSeek = useSelector(state => state.waveSeek);
+    const wave = useSelector(state => state.wave);
+    const song = useSelector(state => state.song)
 
     useEffect(()=>{
       if (user) setIsLoaded(true)
     }, [dispatch, user, searched])
-
 
     useEffect(()=>{
         dispatch(getSongs())
@@ -49,6 +52,13 @@ const UserNav = () => {
 
     useEffect(()=>{
         setLocation(locate)
+        if (wave) {
+            const data = {
+                id: song.id,
+                time: wave.getCurrentTime()
+            }
+            dispatch(setWaveSeek(data))
+        }
     }, [locate]);
 
     useEffect(()=>{
