@@ -12,6 +12,7 @@ import wave from './wave';
 import duration from './duration'
 import waveSeek from './waveSeek'
 import editSong from './editSong'
+import search from './search'
 
 
 const rootReducer = combineReducers({
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
   wave,
   duration,
   waveSeek,
-  editSong
+  editSong,
+  search
 })
 
 let enhancer;

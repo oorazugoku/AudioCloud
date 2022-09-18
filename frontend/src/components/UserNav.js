@@ -18,6 +18,7 @@ import logoYO from './images/cloud-YO.png';
 
 import './CSS/UserNav.css';
 import { removeWave } from "../store/wave";
+import { searchOptions } from "../store/search";
 
 
 const UserNav = () => {
@@ -32,6 +33,10 @@ const UserNav = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [logoDiv, setLogoDiv] = useState(0);
     const [searched, setSearched] = useState(false);
+    const searchState = useSelector(state => state.search);
+    const users = useSelector(state => state.users);
+    const songs = useSelector(state => state.songs);
+
 
     useEffect(()=>{
       if (user) setIsLoaded(true)
@@ -50,6 +55,21 @@ const UserNav = () => {
 
     useEffect(()=>{
         if (locate === '/userNav') history.push('/stream')
+        const songArr = Object.values(songs)
+        const userArr = Object.values(users)
+        const searchArr = Object.values(searchState)
+        if (searchArr.length === 0 && songArr.length > 0 && userArr.length > 0) {
+            let data = {}
+            songArr.forEach(song => {
+                const title = song.title
+                data[title] = title
+                if (users[song.artistId]) {
+                    const artist = users[song.artistId].username
+                    data[artist] = artist
+                }
+            })
+            dispatch(searchOptions(data))
+        }
         setLocation(locate)
     }, [locate]);
 

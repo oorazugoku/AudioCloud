@@ -11,11 +11,12 @@ const getUsersAction = (payload) => {
   };
 };
 
-// Thunk - Logout
+// Thunk - Get all Users
 export const getUsers = () => async (dispatch) => {
   const response = await csrfFetch('/api/users');
   const data = await response.json()
   dispatch(getUsersAction(data));
+  return response
 };
 
 const initialState = {};

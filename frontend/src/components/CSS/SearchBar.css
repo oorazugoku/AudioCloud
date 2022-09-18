@@ -21,3 +21,36 @@
     color: #333333;
     cursor: pointer;
 }
+
+.auto-fill-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 150px;
+    min-height: 30px;
+    width: 357px;
+    position: absolute;
+    top: 2.8em;
+    border-right: 1px solid #333333;
+    border-left: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-radius: 0 0 4px 4px;
+    color: #CCCCCC;
+    font-size: 12px;
+    background-color: white;
+    overflow: hidden scroll;
+}
+
+.auto-fill-data {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    position: relative;
+}
+
+.auto-fill-data:hover {
+    background-color: #CCCCCC;
+    color: black;
+}

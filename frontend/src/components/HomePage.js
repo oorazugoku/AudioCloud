@@ -12,7 +12,6 @@ import './CSS/HomePage.css'
 
 
 const HomePage = () => {
-
     const [showModal, setShowModal] = useState(false);
     const [showSignupModal, setShowSignupModal] = useState(false);
 

@@ -9,6 +9,8 @@ const SearchBar = ({ searched, setSearched }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
+    const fill = useSelector(state => Object.values(state.search));
+    const [autoFill, setAutoFill] = useState([]);
 
 
     const handleSubmit = (e) => {
@@ -23,12 +25,20 @@ const SearchBar = ({ searched, setSearched }) => {
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
+        const result = fill.filter(word => word.toLowerCase().includes(e.target.value.toLowerCase()))
+        setAutoFill(result)
+    }
+
+    const handleSearchClick = (data) => {
+        setSearch(data)
+        dispatch(getSongs(data)).then(()=>history.push('/userNav'))
+        setSearch('')
     }
 
     return (
         <>
             <div className="SearchBar-container">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} autoComplete='on'>
                     <input
                     className="SearchBar-input"
                     value={search}
@@ -38,6 +48,11 @@ const SearchBar = ({ searched, setSearched }) => {
                     </input>
                     <i className="fas fa-magnifying-glass" onClick={handleSubmit}></i>
                 </form>
+                {!!autoFill.length > 0 && (<div className="auto-fill-container">
+                    {autoFill.map(each => (<>
+                        <div key={each} className='auto-fill-data' onClick={()=>handleSearchClick(each)}>{each}</div>
+                    </>))}
+                </div>)}
             </div>
         </>
     );

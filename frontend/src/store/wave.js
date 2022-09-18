@@ -1,5 +1,3 @@
-import { csrfFetch } from './csrf';
-
 //Type Producer
 const SET_WAVE = 'wave/SET_WAVE';
 const REMOVE_WAVE = 'wave/REMOVE_WAVE'
