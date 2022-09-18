@@ -18,12 +18,12 @@ const removeWaveAction = () => {
   };
 };
 
-// Thunk - Get one Song
+// Thunk - Set the Wave
 export const setWave = (wave) => async (dispatch) => {
     dispatch(setWaveAction(wave));
 };
 
-// Thunk - Remove Song
+// Thunk - Delete the Wave
 export const removeWave = () => async (dispatch) => {
   dispatch(removeWaveAction());
 };

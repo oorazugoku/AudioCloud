@@ -17,6 +17,7 @@ import logoYO from './images/cloud-YO.png';
 
 
 import './CSS/UserNav.css';
+import { removeWave } from "../store/wave";
 
 
 const UserNav = () => {
@@ -40,8 +41,8 @@ const UserNav = () => {
     useEffect(()=>{
         dispatch(getSongs())
         .then(()=>{
-            setLocation('/stream')
-            history.push('/stream')
+            setLocation('/home')
+            history.push('/home')
         })
         dispatch(getUsers())
         dispatch(getAllLikes())
@@ -81,6 +82,8 @@ const UserNav = () => {
         dispatch(sessionActions.logout())
         .then(()=>dispatch(setPlaying(false)))
         .then(()=>dispatch(removeSong()))
+        .then(()=>dispatch(removeWave()))
+        .then(()=>setIsLoaded(false))
         history.push('/')
     };
 
