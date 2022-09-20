@@ -37,9 +37,10 @@ const CommentsPage = () => {
 
     useEffect(()=>{
         const check = Object.values(song)
-        if (check.length === 0) history.push('/userNav')
+        if (check.length === 0) history.push('/')
+        if (waves) waves.destroy();
 
-            if (waves) waves.destroy();
+        if (check.length > 0) {
             const wave = WaveSurfer.create({
                 container: '.CommentPage-wave',
                 height: 150,
@@ -63,8 +64,10 @@ const CommentsPage = () => {
             setWaves(wave)
             setLoaded(true)
 
-        return ()=> {
-            wave?.destroy()
+
+            return ()=> {
+                wave?.destroy()
+            }
         }
 
     }, [])
@@ -77,7 +80,6 @@ const CommentsPage = () => {
         setCount(comment.length)
         setCount2(commentEdit.length)
     }, [comment, commentEdit])
-
 
     const handleSong = (id) => {
         dispatch(getOneSong(id))
@@ -186,13 +188,13 @@ const CommentsPage = () => {
                 <div className="CommentsPage-top-left-container">
                     <div className="CommentsPage-play-button">
 
-                    {songState.id === song.id & playing ?
+                    {songState?.id === song?.id & playing ?
                         (<button className="CommentsPage-play-button" onClick={handlePause}><i className="fas fa-pause"/></button>) :
                         (<button className="CommentsPage-play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
 
                     </div>
                     <div className="CommentsPage-song-info-container">
-                        <div className="CommentsPage-song-title">{song?.title.length <= 20 ? song?.title : `${song.title.slice(0,20)} . . . `}</div>
+                        <div className="CommentsPage-song-title">{song?.title?.length <= 20 ? song?.title : `${song?.title?.slice(0,20)} . . . `}</div>
                         <div className="CommentsPage-artist-username">{users[song.artistId]?.username}</div>
                     </div>
                     <section className='CommentPage-wave'></section>

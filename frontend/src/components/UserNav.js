@@ -52,7 +52,7 @@ const UserNav = () => {
     }, [])
 
     useEffect(()=>{
-        if (locate === '/userNav') history.push('/stream')
+        // if (locate === '/userNav') history.push('/stream')
         const songArr = Object.values(songs)
         const userArr = Object.values(users)
         const searchArr = Object.values(searchState)
