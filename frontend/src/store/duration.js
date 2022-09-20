@@ -18,12 +18,12 @@ const removeWaveAction = () => {
   };
 };
 
-// Thunk - Get one Song
+// Thunk - Set Song Progress
 export const setDuration = (time) => async (dispatch) => {
     dispatch(setDurationAction(time));
 };
 
-// Thunk - Remove Song
+// Thunk - Remove Song Wave
 export const removeWave = () => async (dispatch) => {
   dispatch(removeWaveAction());
 };

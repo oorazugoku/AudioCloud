@@ -9,12 +9,10 @@ const editSongAction = (payload) => {
     };
 };
 
-
 // Thunk - Edit a Song
 export const editSong = (song) => async (dispatch) => {
     dispatch(editSongAction(song));
 };
-
 
 const initialState = {};
 

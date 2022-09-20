@@ -9,7 +9,7 @@ const setPlayingAction = (payload) => {
     };
 };
 
-// Thunk - Get one Song
+// Thunk - Set Song Playing
 export const setPlaying = (data) => async (dispatch) => {
     dispatch(setPlayingAction(data));
 };

@@ -10,7 +10,7 @@ const searchOptionsAction = (payload) => {
     };
 };
 
-// Thunk - Set the Wave
+// Thunk - Initialize Search Options
 export const searchOptions = (data) => async (dispatch) => {
     dispatch(searchOptionsAction(data));
 };

@@ -1,5 +1,3 @@
-import { csrfFetch } from './csrf';
-
 //Type Producer
 const SET_WAVE_SEEK = 'wave/SET_WAVE_SEEK';
 
