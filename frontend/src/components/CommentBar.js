@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { addComment, getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
 import { getSongs } from "../store/songs";
 import { likeSong, unlikeSong } from "../store/likes";
 import { useHistory } from "react-router-dom";
 
-import './CSS/CommentBar.css'
+import './CSS/CommentBar.css';
 
 const Comments = ({ song }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const likes = useSelector(state => state.likes);
     const [comment, setComment] = useState('');
-    const [count, setCount] = useState()
+    const [count, setCount] = useState();
 
     useEffect(()=>{
         setCount(comment.length)

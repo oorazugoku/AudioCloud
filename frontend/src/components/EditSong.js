@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { getOneSong, removeSong } from "../store/song";
 import { deleteSong, editSong, getSongs } from "../store/songs";
 
-import './CSS/EditSong.css'
+import './CSS/EditSong.css';
 
 const EditSong = () => {
     const dispatch = useDispatch();

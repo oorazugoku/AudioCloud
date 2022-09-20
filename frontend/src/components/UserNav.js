@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AudioPlayer from "./AudioPlayer";
-import * as sessionActions from '../store/session'
+import * as sessionActions from '../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { getSongs } from "../store/songs";
@@ -10,7 +10,7 @@ import { removeSong } from "../store/song";
 import { getAllLikes } from "../store/likes";
 import { removeWave } from "../store/wave";
 import { searchOptions } from "../store/search";
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
 import logoBB from './images/cloud-BB.png';
 import logoPB from './images/cloud-PB.png';
 import logoPO2 from './images/cloud-PO2.png';

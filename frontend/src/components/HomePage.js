@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import { Modal } from './context/Modal'
-import Slide from './Slide'
-import LoginForm from './LoginForm'
-import SignupForm from './SignupForm'
-import logoWhite from './images/Audiocloud-white.svg'
-import linked from './images/Linkedin.png'
-import git from './images/github.png'
+import React, { useState } from 'react';
+import { Modal } from './context/Modal';
+import Slide from './Slide';
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
+import logoWhite from './images/Audiocloud-white.svg';
+import linked from './images/Linkedin.png';
+import git from './images/github.png';
 
 
-import './CSS/HomePage.css'
+import './CSS/HomePage.css';
 
 
 const HomePage = () => {

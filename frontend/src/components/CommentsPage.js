@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 import WaveSurfer from 'wavesurfer.js';
 
 
-import './CSS/CommentsPage.css'
+import './CSS/CommentsPage.css';
 
 const CommentsPage = () => {
     const dispatch = useDispatch();
@@ -229,7 +229,7 @@ const CommentsPage = () => {
                             <div className="number-of-comments">{comments.length}</div>
                         </div>
                     </div>)}
-                    
+
                     <div className="comment-section">
 
                     {comments?.map((each, i) => (

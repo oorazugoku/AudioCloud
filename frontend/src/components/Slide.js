@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
-import './CSS/HomePage.css'
+import './CSS/HomePage.css';
 
 const Slide = () => {
 
-    const [swap, setSwap] = useState(false)
-    const [slide, setSlide] = useState()
+    const [swap, setSwap] = useState(false);
+    const [slide, setSlide] = useState();
 
     useEffect(()=>{
         setTimeout(() => {

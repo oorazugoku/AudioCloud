@@ -8,9 +8,9 @@ import { editSong } from "../store/editSong";
 import EditSong from "./EditSong";
 import HireMe from "./HireMe";
 import CommentBar from "./CommentBar";
-import WaveSurfer from 'wavesurfer.js'
+import WaveSurfer from 'wavesurfer.js';
 
-import './CSS/UserPage.css'
+import './CSS/UserPage.css';
 
 
 

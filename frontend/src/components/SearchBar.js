@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getSongs } from "../store/songs";
 
-import './CSS/SearchBar.css'
+import './CSS/SearchBar.css';
 
 const SearchBar = ({ searched, setSearched }) => {
     const dispatch = useDispatch();

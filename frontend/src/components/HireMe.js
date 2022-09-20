@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import suit_pic from './images/suit_pic.png'
+import suit_pic from './images/suit_pic.png';
 
-import './CSS/HireMe.css'
+import './CSS/HireMe.css';
 
 const HireMe = () => {
-    const [meet, setMeet] = useState(false)
+    const [meet, setMeet] = useState(false);
 
     return (
     <>

@@ -4,17 +4,17 @@ import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
 import { setWave } from "../store/wave";
 import CommentBar from "./CommentBar";
-import WaveSurfer from 'wavesurfer.js'
+import WaveSurfer from 'wavesurfer.js';
 import HireMe from "./HireMe";
 
-import './CSS/Stream.css'
+import './CSS/Stream.css';
 
 
 const Stream = () => {
     const dispatch = useDispatch();
     const songState = useSelector(state => state.song);
     const songs = useSelector(state => Object.values(state.songs));
-    const numberSongs = songs?.length
+    const numberSongs = songs?.length;
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
     const duration = useSelector(state => state.duration);

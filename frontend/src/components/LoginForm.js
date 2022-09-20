@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { login } from "../store/session";
-import logo from './images/cloud-YO.png'
-import logo2 from './images/cloud-PO2.png'
-
-import './CSS/LoginForm.css'
 import { useHistory } from "react-router-dom";
+import logo from './images/cloud-YO.png';
+import logo2 from './images/cloud-PO2.png';
+
+import './CSS/LoginForm.css';
 
 
 
@@ -15,7 +15,7 @@ const LoginForm = ({ setShowModal }) => {
     const [errors, setErrors] = useState([]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [logoColor, setLogoColor] = useState(logo2)
+    const [logoColor, setLogoColor] = useState(logo2);
 
 
     const onLogin = async (e) => {

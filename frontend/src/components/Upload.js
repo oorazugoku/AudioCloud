@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { createSong, getSongs } from "../store/songs";
-
-import './CSS/Upload.css'
-import './CSS/Loading.css'
 import { useHistory } from "react-router-dom";
+
+import './CSS/Upload.css';
+import './CSS/Loading.css';
 
 
 const Upload = () => {
