@@ -87,7 +87,8 @@ const CommentsPage = () => {
     }
 
     const handlePause = () => {
-        dispatch(setPlaying(false)).then(()=>waves.pause())
+        dispatch(setPlaying(false))
+        // .then(()=>waves.pause())
     }
 
 

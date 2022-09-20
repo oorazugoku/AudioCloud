@@ -82,14 +82,16 @@ const UserPage = ({ setLocation }) => {
         setIndex(i)
         dispatch(getOneSong(i))
         .then(()=>dispatch(setPlaying(true)))
-        .then(()=>{
-            waves[i].play()
-            waves[i].setMute(true)
-        })    }
+        // .then(()=>{
+        //     waves[i].play()
+        //     waves[i].setMute(true)
+        // })
+    }
 
     const handlePause = (i) => {
         setIndex(i)
-        dispatch(setPlaying(false)).then(()=>waves[i].pause())
+        dispatch(setPlaying(false))
+        // .then(()=>waves[i].pause())
     }
 
     const handleEdit = (data) => {

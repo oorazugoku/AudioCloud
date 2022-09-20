@@ -121,16 +121,17 @@ const Stream = () => {
         }
         dispatch(getOneSong(i))
         .then(()=>dispatch(setPlaying(true)))
-        .then(()=>{
-            waves[i]?.play()
-            waves[i]?.setMute(true)
-        })
+        // .then(()=>{
+        //     waves[i]?.play()
+        //     waves[i]?.setMute(true)
+        // })
         .then(()=>dispatch(setWave(waves[i])))
     }
 
     const handlePause = (i) => {
         setIndex(i)
-        dispatch(setPlaying(false)).then(()=>waves[i].pause())
+        dispatch(setPlaying(false))
+        // .then(()=>waves[i].pause())
     }
 
 
