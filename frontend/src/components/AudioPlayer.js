@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
 
@@ -6,10 +6,8 @@ import './CSS/AudioPlayer.css';
 import { setPlaying } from "../store/playing";
 import { getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
-import { setWave } from "../store/wave";
 import { setDuration } from "../store/duration";
-import { useHistory, useLocation } from "react-router-dom";
-import { setWaveSeek } from "../store/waveSeek";
+import { useHistory } from "react-router-dom";
 
 
 const AudioPlayer = () => {
@@ -19,9 +17,6 @@ const AudioPlayer = () => {
     const song = useSelector(state => state.song);
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
-    const wave = useSelector(state => state.wave);
-    const waveSeek = useSelector(state => state.waveSeek);
-    const duration = useSelector(state => state.duration);
 
 
     const handleProgress = (progress) => {

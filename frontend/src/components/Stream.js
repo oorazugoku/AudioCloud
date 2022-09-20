@@ -22,7 +22,6 @@ const Stream = ({ searched }) => {
     const numberSongs = songs?.length
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
-    const waveState = useSelector(state => state.wave);
     const duration = useSelector(state => state.duration);
     const [loaded, setLoaded] = useState(false);
     const [waves, setWaves] = useState({});

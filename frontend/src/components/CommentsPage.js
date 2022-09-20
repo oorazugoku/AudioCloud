@@ -5,14 +5,14 @@ import { likeSong, unlikeSong } from "../store/likes";
 import { setPlaying } from "../store/playing";
 import { getOneSong } from "../store/song";
 import { getSongs } from "../store/songs";
-import WaveSurfer from 'wavesurfer.js'
-
-
-import './CSS/CommentsPage.css'
 import { setWave } from "../store/wave";
 import { setWaveSeek } from "../store/waveSeek";
 import { getSongFromComments } from "../store/songComments";
 import { useHistory } from "react-router-dom";
+import WaveSurfer from 'wavesurfer.js'
+
+
+import './CSS/CommentsPage.css'
 
 const CommentsPage = () => {
     const dispatch = useDispatch();
@@ -32,7 +32,6 @@ const CommentsPage = () => {
     const [count2, setCount2] = useState(280);
     const [waves, setWaves] = useState();
     const [loaded, setLoaded] = useState(false);
-    const [songLoaded, setSongLoaded] = useState(false);
 
 
 
@@ -189,7 +188,7 @@ const CommentsPage = () => {
                     {songState.id === song.id & playing ?
                         (<button className="CommentsPage-play-button" onClick={handlePause}><i className="fas fa-pause"/></button>) :
                         (<button className="CommentsPage-play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
-                        
+
                     </div>
                     <div className="CommentsPage-song-info-container">
                         <div className="CommentsPage-song-title">{song?.title.length <= 20 ? song?.title : `${song.title.slice(0,20)} . . . `}</div>

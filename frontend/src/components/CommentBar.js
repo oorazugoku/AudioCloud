@@ -4,9 +4,9 @@ import { addComment, getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
 import { getSongs } from "../store/songs";
 import { likeSong, unlikeSong } from "../store/likes";
+import { useHistory } from "react-router-dom";
 
 import './CSS/CommentBar.css'
-import { useHistory } from "react-router-dom";
 
 const Comments = ({ song }) => {
     const dispatch = useDispatch();

@@ -6,8 +6,8 @@ import { getSongs } from "../store/songs";
 import './CSS/SearchBar.css'
 
 const SearchBar = ({ searched, setSearched }) => {
-    const history = useHistory();
     const dispatch = useDispatch();
+    const history = useHistory();
     const fill = useSelector(state => Object.values(state.search));
     const [search, setSearch] = useState('');
     const [autoFill, setAutoFill] = useState([]);

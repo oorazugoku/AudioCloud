@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
 import { getSongs } from "../store/songs";
+import { useHistory } from "react-router-dom";
+import { editSong } from "../store/editSong";
 import EditSong from "./EditSong";
 import HireMe from "./HireMe";
 import CommentBar from "./CommentBar";
 import WaveSurfer from 'wavesurfer.js'
 
 import './CSS/UserPage.css'
-import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
-import { setWaveSeek } from "../store/waveSeek";
-import { useHistory } from "react-router-dom";
-import { editSong } from "../store/editSong";
 
 
 
@@ -25,7 +23,6 @@ const UserPage = ({ setLocation }) => {
     const songState = useSelector(state => state.song);
     const playing = useSelector(state => state.playing);
     const duration = useSelector(state => state.duration)
-    const waveState = useSelector(state => state.wave)
     const [editing, setEditing] = useState(false);
     const [song, setSong] = useState();
     const [loaded, setLoaded] = useState(false);

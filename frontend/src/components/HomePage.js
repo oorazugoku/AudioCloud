@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Modal } from './context/Modal'
 import Slide from './Slide'
 import LoginForm from './LoginForm'

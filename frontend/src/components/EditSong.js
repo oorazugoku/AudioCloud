@@ -6,7 +6,7 @@ import { deleteSong, editSong, getSongs } from "../store/songs";
 
 import './CSS/EditSong.css'
 
-const EditSong = ({ setEditing }) => {
+const EditSong = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const song = useSelector(state => state.editSong)

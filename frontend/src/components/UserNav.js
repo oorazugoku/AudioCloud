@@ -8,6 +8,8 @@ import { setPlaying } from "../store/playing";
 import { getUsers } from "../store/users";
 import { removeSong } from "../store/song";
 import { getAllLikes } from "../store/likes";
+import { removeWave } from "../store/wave";
+import { searchOptions } from "../store/search";
 import SearchBar from './SearchBar'
 import logoBB from './images/cloud-BB.png';
 import logoPB from './images/cloud-PB.png';
@@ -17,21 +19,17 @@ import logoYO from './images/cloud-YO.png';
 
 
 import './CSS/UserNav.css';
-import { removeWave } from "../store/wave";
-import { searchOptions } from "../store/search";
 
 
 const UserNav = () => {
     const dispatch = useDispatch();
     const locate = useLocation().pathname;
     const history = useHistory();
-    const [file, setFile] = useState('');
     const [location, setLocation] = useState();
     const [logo, setLogo] = useState(null);
     const [dots, setDots] = useState(false);
     const user = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [logoDiv, setLogoDiv] = useState(0);
     const [searched, setSearched] = useState(false);
     const searchState = useSelector(state => state.search);
     const users = useSelector(state => state.users);
