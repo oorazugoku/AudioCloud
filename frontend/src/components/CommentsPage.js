@@ -185,19 +185,23 @@ const CommentsPage = () => {
             <div className="CommentsPage-header-container">
                 <div className="CommentsPage-top-left-container">
                     <div className="CommentsPage-play-button">
+
                     {songState.id === song.id & playing ?
                         (<button className="CommentsPage-play-button" onClick={handlePause}><i className="fas fa-pause"/></button>) :
                         (<button className="CommentsPage-play-button" onClick={()=>{handleSong(song.id)}}><i className="fas fa-play"/></button>)}
+                        
                     </div>
                     <div className="CommentsPage-song-info-container">
                         <div className="CommentsPage-song-title">{song?.title.length <= 20 ? song?.title : `${song.title.slice(0,20)} . . . `}</div>
                         <div className="CommentsPage-artist-username">{users[song.artistId]?.username}</div>
                     </div>
                     <section className='CommentPage-wave'></section>
+
                     {loaded && (<>
                     <div className='CommentPage-wave-bottom-overlay-bar'></div>
                     <div className='CommentPage-wave-bottom-overlay'></div>
                     </>)}
+
                 </div>
                 <div className="CommentsPage-song-image"><img className='header-song-image' src={song.imageURL}/></div>
             </div>

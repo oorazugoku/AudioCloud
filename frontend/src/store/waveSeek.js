@@ -9,13 +9,10 @@ const setWaveSeekAction = (payload) => {
     };
 };
 
-
 // Thunk - Set Wave Seek
 export const setWaveSeek = (time) => async (dispatch) => {
     dispatch(setWaveSeekAction(time));
 };
-
-
 
 const waveSeekReducer = (state = 0, action) => {
   switch (action.type) {
