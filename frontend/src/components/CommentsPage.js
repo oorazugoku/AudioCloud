@@ -9,7 +9,7 @@ import { setWave } from "../store/wave";
 import { setWaveSeek } from "../store/waveSeek";
 import { getSongFromComments } from "../store/songComments";
 import { useHistory } from "react-router-dom";
-import WaveSurfer from 'wavesurfer.js'
+import WaveSurfer from 'wavesurfer.js';
 
 
 import './CSS/CommentsPage.css'
@@ -24,7 +24,7 @@ const CommentsPage = () => {
     const song = useSelector(state => state.songComments);
     const likes = useSelector(state => state.likes);
     const users = useSelector(state => state.users);
-    const duration = useSelector(state => state.duration)
+    const duration = useSelector(state => state.duration);
     const [comment, setComment] = useState('');
     const [editID, setEditID] = useState();
     const [commentEdit, setCommentEdit] = useState('');
@@ -168,7 +168,7 @@ const CommentsPage = () => {
         } else if (todayDay - dateDay === 1) {
           return `Yesterday at ${time}`
         }
-      }
+    }
 
     const handleDisLike = (songId) => {
         dispatch(unlikeSong(songId))
@@ -229,13 +229,16 @@ const CommentsPage = () => {
                             <div className="number-of-comments">{comments.length}</div>
                         </div>
                     </div>)}
+                    
                     <div className="comment-section">
+
                     {comments?.map((each, i) => (
                         <div className="CommentsPage-commentsList" key={i}>
                             <div className="commentList-owner-info">
                             <div className="commentList-user">{users[each.userId]?.username}</div>
                             <div className="commentList-date">{checkDay(each?.createdAt)}</div>
                             </div>
+
                             {editID === each.id ? (
                             <form onSubmit={handleCommentEdit}>
                                 <div className="CommentsPage-input-container">
@@ -249,6 +252,7 @@ const CommentsPage = () => {
                                 </div>
                             </form>
                             ) : (<><div className="commentList-comment">{each.comment}</div></>)}
+
                             {user.id === each.userId && (
                                 <div className="commentList-edit-info">
                                 {count2 > 0 && editID === each.id && (<div className="remaining">Remaining <div className="remaining-num" style={red2}>{280 - count2}</div></div>)}
@@ -260,6 +264,7 @@ const CommentsPage = () => {
                             )}
                         </div>
                     )).reverse()}
+
                     </div>
                 </div>
                 <div className="CommentsPage-right">

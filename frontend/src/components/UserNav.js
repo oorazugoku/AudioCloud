@@ -28,9 +28,9 @@ const UserNav = () => {
     const [location, setLocation] = useState();
     const [logo, setLogo] = useState(null);
     const [dots, setDots] = useState(false);
-    const user = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
     const [searched, setSearched] = useState(false);
+    const user = useSelector(state => state.session.user);
     const searchState = useSelector(state => state.search);
     const users = useSelector(state => state.users);
     const songs = useSelector(state => state.songs);

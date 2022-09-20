@@ -2,22 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSong } from "../store/song";
 import { setPlaying } from "../store/playing";
+import { setWave } from "../store/wave";
 import CommentBar from "./CommentBar";
 import WaveSurfer from 'wavesurfer.js'
+import HireMe from "./HireMe";
 
 import './CSS/Stream.css'
-import HireMe from "./HireMe";
-import { setWave } from "../store/wave";
-import { getSongs } from "../store/songs";
-import { setDuration } from "../store/duration";
-import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
-import player from "react-player";
-import { setWaveSeek } from "../store/waveSeek";
 
-const Stream = ({ searched }) => {
+
+const Stream = () => {
     const dispatch = useDispatch();
     const songState = useSelector(state => state.song);
-    const songsState = useSelector(state => state.songs);
     const songs = useSelector(state => Object.values(state.songs));
     const numberSongs = songs?.length
     const users = useSelector(state => state.users);
