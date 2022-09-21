@@ -5,7 +5,7 @@ Live Site: [Audiocloud](https://audiocloud-ben-durham.herokuapp.com/)
 Audiocloud is a full-stack application inspired by [Soundcloud](http://www.soundcloud.com).
 You have the ability to create a profile, become an artist by Uploading Audio, listen to other Artist's songs, and comment on them.
 
-![home](https://user-images.githubusercontent.com/103156527/189544809-e270cf49-0169-4e9b-a17f-1d6bf9843fbf.png)
+![audio](https://user-images.githubusercontent.com/103156527/191396315-c0af57a5-8a96-41ee-80b8-2aecea5008de.png)
 
 ## Languages, Frameworks, and Libraries
 ### Languages
@@ -40,13 +40,14 @@ You have the ability to create a profile, become an artist by Uploading Audio, l
 ![up](https://user-images.githubusercontent.com/103156527/189545415-80e59f5a-aa0c-4116-85f9-f1ca3341fea3.png)
 
 ### Play Any uploaded content
-![paly](https://user-images.githubusercontent.com/103156527/189545439-110d057c-c965-4514-8761-7bb3ce177f12.png)
+![audio1](https://user-images.githubusercontent.com/103156527/191399942-38afa73a-f084-4a56-9a5c-dbf50f30efaa.png)
 
 ### Edit the info of your Song or Delete the Song
 ![edit](https://user-images.githubusercontent.com/103156527/189545857-a6a9bd92-a935-4843-a990-285bfd37d8a6.png)
 
 ### Comment on any song or edit a previous comment of yours
-![commetn](https://user-images.githubusercontent.com/103156527/189545909-d54755e2-0e05-46b6-8f69-69ac8d0641c0.png)
+![audio2](https://user-images.githubusercontent.com/103156527/191400106-30721356-5cb5-4a89-b858-8b01b68001ec.png)
+
 
 ## How to Run Locally
 
