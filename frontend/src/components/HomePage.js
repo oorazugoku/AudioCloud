@@ -42,7 +42,6 @@ const HomePage = () => {
 
     const handlePause = () => {
         dispatch(setPlaying(false))
-
     }
 
     return loaded && (
@@ -84,6 +83,7 @@ const HomePage = () => {
                 </div>
 
             </div>
+            
             <div className='HomePage-section2'>
                     <div>
                     Audiocloud, inspired by<a className='HomePage-links' href='https://www.soundcloud.com' target='_blank' style={{ color: 'white' }}>Soundcloud</a>
@@ -103,9 +103,7 @@ const HomePage = () => {
             </div>
         </div>
 
-        {/* <div className="UserNav-bottom-navbar">
-                {songPlaying && (<AudioPlayer />)}
-        </div> */}
+
         {showModal && (
             <>
                 <Modal onClose={() => setShowModal(false)}>
@@ -113,6 +111,7 @@ const HomePage = () => {
                 </Modal>
             </>
         )}
+
         {showSignupModal && (
             <>
                 <Modal onClose={() => setShowSignupModal(false)}>

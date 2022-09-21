@@ -23,7 +23,11 @@ const HireMe = () => {
                 </div>
                 <div className="my-bio">At 11 years old, I loved playing around with web design, learning basic HTML and making simple themed websites on kid subjects like Dragonball Z.
                 Since then, I have developed my skills and have grown to dig deep into my passion.
-                JavaScript, React, and React-Redux are my strongest skillsets but I strive to learn as much as I can and become proficient with many tools.</div>
+                JavaScript, React, and React-Redux are my strongest skillsets but I strive to learn as much as I can and become proficient with many tools.
+                <p/>
+                <a href="http://thebendurham.com" className="portfolio-link" style={{color: '#FF5500'}} target='_blank'>Portfolio</a>
+                </div>
+
             </a>)}
         </div>
     </>
