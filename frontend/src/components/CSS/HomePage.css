@@ -173,8 +173,6 @@ a.HomePage-links {
 }
 
 .HomePage-song-image-container:hover {
-    /* height: 200px;
-    width: 200px; */
     box-shadow: 0 0 15px black;
     z-index: 5;
     position: absolute;
