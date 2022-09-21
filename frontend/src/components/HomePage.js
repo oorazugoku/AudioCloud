@@ -23,8 +23,11 @@ const HomePage = () => {
     const [loaded, setLoaded] = useState(false);
     const [songPlaying, setSongPlaying] = useState(false);
     const users = useSelector(state => state.users);
+    const songState = useSelector(state => state.song);
+    const playing = useSelector(state => state.playing);
     const songs = useSelector(state => Object.values(state.songs).slice(0, 10));
     const sortedSongs = songs.sort((a,b)=> b.songLikes.length - a.songLikes.length);
+    const [hover, setHover] = useState();
 
 
     useEffect(()=>{
@@ -35,6 +38,11 @@ const HomePage = () => {
         dispatch(getOneSong(song.id))
         .then(()=>setSongPlaying(true))
         .then(()=>dispatch(setPlaying(true)))
+    }
+
+    const handlePause = () => {
+        dispatch(setPlaying(false))
+
     }
 
     return loaded && (
@@ -59,11 +67,16 @@ const HomePage = () => {
 
                 <div className="HomePage-songs-container">
                     {sortedSongs?.map(song => (<div key={song.id}>
-                        <div className='HomePage-song-container' >
-                            <div className='HomePage-song-image-container' onClick={()=>handlePlaySong(song)}><img src={song.imageURL} className="HomePage-song-image" /></div>
+                        <div className='HomePage-song-container'>
+                            <div className='HomePage-song-image-container' onMouseEnter={()=>setHover(song.id)} onMouseLeave={()=>setHover(0)}>
+                                <img src={song.imageURL} className="HomePage-song-image" />
+                                {songState.id === song.id && playing ? hover === song.id && (<button className="HomePage-play-button" onClick={()=>handlePause()}><i className="fas fa-pause"/></button>) : hover === song.id && (<button className="HomePage-play-button" onClick={()=>{handlePlaySong(song)}}><i className="fas fa-play"/></button>)}
+                            </div>
+
+
                             <div className='HomePage-song-info'>
-                                <div className='HomePage-song-title'>{song.title}</div>
-                                <div className='HomePage-song-artist'>{users[song.artistId]?.username}</div>
+                                <div className='HomePage-song-title'>{song.title.length <= 18 ? song.title : `${song.title.slice(0,18)}...`}</div>
+                                <div className='HomePage-song-artist'>{users[song.artistId]?.username.length <= 22 ? users[song.artistId]?.username : `${users[song.artistId]?.username.slice(0,22)}...`}</div>
                             </div>
 
                         </div>

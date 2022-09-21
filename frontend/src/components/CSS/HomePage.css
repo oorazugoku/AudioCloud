@@ -181,11 +181,11 @@ a.HomePage-links {
     transform: scale(1.2);
 }
 
-
 .HomePage-song-image-container {
     height: 150px;
     width: 150px;
     transition: all .3s ease-in-out;
+    position: relative;
 }
 
 .HomePage-song-image {
@@ -197,4 +197,37 @@ a.HomePage-links {
     position: absolute;
     bottom: 0;
     width: 150px;
+}
+
+.HomePage-play-button {
+    background-color: #FF5500;
+    border: 0;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+    position: absolute;
+    top: 4.2em;
+    left: 3.3em;
+}
+
+.HomePage-play-button:hover,
+.HomePage-play-button:active {
+    background-color: #ff3300;
+}
+
+.HomePage-song-title {
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-size: 14px;
+}
+
+.HomePage-song-artist {
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-size: 12px;
+    color: #999;
 }
