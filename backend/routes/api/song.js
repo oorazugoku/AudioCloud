@@ -94,7 +94,7 @@ router.get('/:songId', async (req, res, next) => {
 // Get all Songs
 router.get('/', validateQuery, async (req, res, next) => {
   let { page, size, search } = req.query;
-  const { id } = req.user;
+  // const { id } = req.user;
   let pagination = {};
   page = page === 0 ? 1 : parseInt(page)
   size = size === 0 ? 20 : parseInt(size)

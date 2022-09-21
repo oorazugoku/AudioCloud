@@ -44,15 +44,17 @@ const UserNav = () => {
     useEffect(()=>{
         dispatch(getSongs())
         .then(()=>{
-            setLocation('/home')
-            history.push('/home')
+            // if (locate === '/') {
+            //     setLocation('/home')
+            //     history.push('/home')
+            // }
         })
         dispatch(getUsers())
         dispatch(getAllLikes())
     }, [])
 
     useEffect(()=>{
-        // if (locate === '/userNav') history.push('/stream')
+        if (locate === '/userNav') history.push('/stream')
         const songArr = Object.values(songs)
         const userArr = Object.values(users)
         const searchArr = Object.values(searchState)
@@ -143,9 +145,9 @@ const UserNav = () => {
 
 
 
-            <div className="UserNav-bottom-navbar">
+            {/* <div className="UserNav-bottom-navbar">
                 <AudioPlayer setLocation={setLocation}/>
-            </div>
+            </div> */}
         </div>
         </>
     );

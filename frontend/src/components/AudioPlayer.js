@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
 
@@ -8,6 +8,8 @@ import { getSongComments } from "../store/comments";
 import { getSongFromComments } from "../store/songComments";
 import { setDuration } from "../store/duration";
 import { useHistory } from "react-router-dom";
+import LoginForm from "./LoginForm";
+import { Modal } from "./context/Modal";
 
 
 const AudioPlayer = () => {
@@ -17,6 +19,8 @@ const AudioPlayer = () => {
     const song = useSelector(state => state.song);
     const users = useSelector(state => state.users);
     const playing = useSelector(state => state.playing);
+    const user = useSelector(state => state.session.user);
+    const [showModal, setShowModal] = useState(false);
 
 
     const handleProgress = (progress) => {
@@ -32,9 +36,13 @@ const AudioPlayer = () => {
     }
 
     const handleViewComments = () => {
-        dispatch(getSongComments(song.id))
-        .then(()=>dispatch(getSongFromComments(song)))
-        .then(()=>history.push('/comments'))
+        if (user) {
+            dispatch(getSongComments(song.id))
+            .then(()=>dispatch(getSongFromComments(song)))
+            .then(()=>history.push('/comments'))
+        } else {
+            setShowModal(true)
+        }
     }
 
     return (
@@ -66,6 +74,14 @@ const AudioPlayer = () => {
 
 
         </div>
+
+        {showModal && (
+            <>
+                <Modal onClose={() => setShowModal(false)}>
+                    <LoginForm setShowModal={setShowModal}/>
+                </Modal>
+            </>
+        )}
         </>
     );
 };

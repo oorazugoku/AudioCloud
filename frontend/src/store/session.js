@@ -37,14 +37,6 @@ export const signup = (user) => async (dispatch) => {
 };
 
 // Thunk - Logout
-export const users = () => async (dispatch) => {
-  await csrfFetch('/api/users/all', {
-    method: 'DELETE'
-  });
-  dispatch(removeUser());
-};
-
-// Thunk - Logout
 export const logout = () => async (dispatch) => {
     await csrfFetch('/api/session/logout', {
       method: 'DELETE'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from './context/Modal';
 import Slide from './Slide';
 import LoginForm from './LoginForm';
@@ -9,13 +9,35 @@ import git from './images/github.png';
 
 
 import './CSS/HomePage.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSongs } from '../store/songs';
+import AudioPlayer from './AudioPlayer';
+import { getOneSong } from '../store/song';
+import { setPlaying } from '../store/playing';
 
 
 const HomePage = () => {
+    const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const [showSignupModal, setShowSignupModal] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+    const [songPlaying, setSongPlaying] = useState(false);
+    const users = useSelector(state => state.users);
+    const songs = useSelector(state => Object.values(state.songs).slice(0, 10));
+    const sortedSongs = songs.sort((a,b)=> b.songLikes.length - a.songLikes.length);
 
-    return (
+
+    useEffect(()=>{
+        dispatch(getSongs()).then(()=>setLoaded(true));
+    }, [loaded]);
+
+    const handlePlaySong = (song) => {
+        dispatch(getOneSong(song.id))
+        .then(()=>setSongPlaying(true))
+        .then(()=>dispatch(setPlaying(true)))
+    }
+
+    return loaded && (
         <>
         <div className='HomePage-Container'>
             <div className='HomePage-NavBar'>
@@ -32,8 +54,22 @@ const HomePage = () => {
             </div>
             <div className='HomePage-body'>
                 <div className='HomePage-body-text'>
-                    Sign up now and become an Artist in seconds!
+                    Hear what’s trending for free in the AudioCloud community
                 </div>
+
+                <div className="HomePage-songs-container">
+                    {sortedSongs?.map(song => (<div key={song.id}>
+                        <div className='HomePage-song-container' >
+                            <div className='HomePage-song-image-container' onClick={()=>handlePlaySong(song)}><img src={song.imageURL} className="HomePage-song-image" /></div>
+                            <div className='HomePage-song-info'>
+                                <div className='HomePage-song-title'>{song.title}</div>
+                                <div className='HomePage-song-artist'>{users[song.artistId]?.username}</div>
+                            </div>
+
+                        </div>
+                    </div>))}
+                </div>
+
             </div>
             <div className='HomePage-section2'>
                     <div>
@@ -53,6 +89,10 @@ const HomePage = () => {
                     </div>
             </div>
         </div>
+
+        {/* <div className="UserNav-bottom-navbar">
+                {songPlaying && (<AudioPlayer />)}
+        </div> */}
         {showModal && (
             <>
                 <Modal onClose={() => setShowModal(false)}>

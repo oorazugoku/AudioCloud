@@ -33,11 +33,9 @@ const CommentsPage = () => {
     const [waves, setWaves] = useState();
     const [loaded, setLoaded] = useState(false);
 
-
-
     useEffect(()=>{
         const check = Object.values(song)
-        if (check.length === 0) history.push('/')
+        if (check.length === 0) history.push('/stream')
         if (waves) waves.destroy();
 
         if (check.length > 0) {

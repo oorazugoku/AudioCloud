@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from "../store/session";
 import { useHistory } from "react-router-dom";
 import logo from './images/cloud-YO.png';
 import logo2 from './images/cloud-PO2.png';
 
 import './CSS/LoginForm.css';
+import { getSongFromComments } from "../store/songComments";
+import { getSongComments } from "../store/comments";
 
 
 
@@ -16,7 +18,15 @@ const LoginForm = ({ setShowModal }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [logoColor, setLogoColor] = useState(logo2);
+    const [onSong, setOnSong] = useState(false);
+    const song = useSelector(state => state.song)
 
+    useEffect(()=>{
+      const check = Object.values(song)
+      if (check.length > 0) {
+        setOnSong(true)
+      }
+    }, [])
 
     const onLogin = async (e) => {
         e.preventDefault();
@@ -25,27 +35,58 @@ const LoginForm = ({ setShowModal }) => {
             credential: email,
             password
         }
-        await dispatch(login(info))
-        .then(()=>setShowModal(false))
-        .then(()=>history.push('/userNav'))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        });
+
+        if (onSong) {
+          await dispatch(login(info))
+          .then(()=>{
+            dispatch(getSongComments(song.id))
+            .then(()=>dispatch(getSongFromComments(song)))
+            .then(()=>setShowModal(false))
+            .then(()=>history.push('/comments'))
+          })
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+        } else {
+          await dispatch(login(info))
+          .then(()=>setShowModal(false))
+          .then(()=>history.push('/stream'))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+        }
     }
 
-    const onDemo = () => {
+    const onDemo = async () => {
       const info = {
           credential: 'demo@email.com',
           password: 'password'
       }
-      dispatch(login(info))
-      .then(()=>setShowModal(false))
-      .then(()=>history.push('/userNav'))
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
+
+
+      if (onSong) {
+        await dispatch(login(info))
+        .then(()=>{
+          dispatch(getSongComments(song.id))
+          .then(()=>dispatch(getSongFromComments(song)))
+          .then(()=>setShowModal(false))
+          .then(()=>history.push('/comments'))
+        })
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+      } else {
+        dispatch(login(info))
+        .then(()=>setShowModal(false))
+        .then(()=>history.push('/stream'))
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+      }
   }
 
     return (
