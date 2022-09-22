@@ -14,21 +14,27 @@ import { getSongs } from '../store/songs';
 import AudioPlayer from './AudioPlayer';
 import { getOneSong } from '../store/song';
 import { setPlaying } from '../store/playing';
+import { useHistory } from 'react-router-dom';
 
 
 const HomePage = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const [showSignupModal, setShowSignupModal] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [songPlaying, setSongPlaying] = useState(false);
     const users = useSelector(state => state.users);
+    const user = useSelector(state => state.session.user);
     const songState = useSelector(state => state.song);
     const playing = useSelector(state => state.playing);
     const songs = useSelector(state => Object.values(state.songs).slice(0, 10));
     const sortedSongs = songs.sort((a,b)=> b.songLikes.length - a.songLikes.length);
     const [hover, setHover] = useState();
 
+    useEffect(()=>{
+        if (user) history.push('/home')
+    }, [user])
 
     useEffect(()=>{
         dispatch(getSongs()).then(()=>setLoaded(true));
@@ -83,7 +89,7 @@ const HomePage = () => {
                 </div>
 
             </div>
-            
+
             <div className='HomePage-section2'>
                     <div>
                     Audiocloud, inspired by<a className='HomePage-links' href='https://www.soundcloud.com' target='_blank' style={{ color: 'white' }}>Soundcloud</a>

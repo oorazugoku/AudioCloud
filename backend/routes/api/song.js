@@ -116,22 +116,23 @@ router.get('/', validateQuery, async (req, res, next) => {
 
   if (search) {
     let song = await Song.findAll({
+      include: [{ model: Comment }, { model: songLike }],
       where: { title: { [Op.substring]: search } }
     })
     let artist = await Song.findAll({
-      include: {
+      include: [{ model: Comment }, { model: songLike }, {
         model: User,
         as: 'Artist',
         attributes: [],
-        where: { username: { [Op.substring]: search } }},
+        where: { username: { [Op.substring]: search } }}],
         ...pagination
     });
     let album = await Song.findAll({
-      include: {
+      include: [{ model: songLike }, { model: Comment }, {
         model: Album,
         as: 'Album',
         attributes: ['title'],
-        where: { title: {[Op.substring]: search }}},
+        where: { title: {[Op.substring]: search }}}],
         ...pagination
     });
     console.log('SONG', song)

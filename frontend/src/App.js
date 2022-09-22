@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, BrowserRouter, useHistory } from 'react-router-dom'
 import AudioPlayer from "./components/AudioPlayer";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import CommentsPage from "./components/CommentsPage";
 import { ModalProvider } from './components/context/Modal';
 import EditSong from "./components/EditSong";
@@ -45,24 +46,24 @@ function App() {
     {user && (<UserNav exact path='/userNav'/>)}
     {isLoaded && (<AudioPlayer/>)}
       <Switch>
-        {!user && (<Route exact path='/'>
+        <Route exact path='/'>
           <HomePage />
-        </Route>)}
-        <Route exact path='/comments'>
+        </Route>
+        <ProtectedRoute exact path='/comments'>
           <CommentsPage />
-        </Route>
-        <Route exact path='/editSong'>
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/editSong'>
           <EditSong />
-        </Route>
-        <Route exact path='/upload'>
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/upload'>
           <Upload />
-        </Route>
-        <Route exact path='/home'>
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/home'>
           <UserPage />
-        </Route>
-        <Route exact path='/stream'>
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/stream'>
           <Stream />
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   </ModalProvider>
