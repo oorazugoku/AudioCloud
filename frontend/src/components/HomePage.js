@@ -28,8 +28,8 @@ const HomePage = () => {
     const user = useSelector(state => state.session.user);
     const songState = useSelector(state => state.song);
     const playing = useSelector(state => state.playing);
-    const songs = useSelector(state => Object.values(state.songs).slice(0, 10));
-    const sortedSongs = songs.sort((a,b)=> b.songLikes.length - a.songLikes.length);
+    const songs = useSelector(state => Object.values(state.songs));
+    const sortedSongs = songs.sort((a,b)=> b.songLikes.length - a.songLikes.length).slice(0, 10);
     const [hover, setHover] = useState();
 
     useEffect(()=>{

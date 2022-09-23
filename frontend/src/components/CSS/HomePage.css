@@ -222,6 +222,8 @@ a.HomePage-links {
 .HomePage-song-title {
     font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
     font-size: 14px;
+    overflow: hidden;
+    hyphens: auto;
 }
 
 .HomePage-song-artist {
