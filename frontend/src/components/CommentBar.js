@@ -14,6 +14,8 @@ const Comments = ({ song }) => {
     const likes = useSelector(state => state.likes);
     const [comment, setComment] = useState('');
     const [count, setCount] = useState();
+    const [commentCount, setCommentCount] = useState(song.Comments?.length)
+
 
     useEffect(()=>{
         setCount(comment.length)
@@ -23,12 +25,14 @@ const Comments = ({ song }) => {
     const handleComment = (e) => {
         if (comment.length <= 280) {
             e.preventDefault();
+            let total = commentCount;
             const info = {
                 id: song.id,
                 comment
             };
+
             dispatch(addComment(info))
-            .then(()=>dispatch(getSongs()))
+            .then(()=>setCommentCount(total + 1))
             .then(()=>setComment(''))
             .then(()=>setCount(280));
         }
@@ -81,7 +85,7 @@ const Comments = ({ song }) => {
 
                 <div className="Comments-lower-right" onClick={handleViewComments}>
                     <i className="fa-solid fa-message"/>
-                    <div className="number-of-comments">{song.Comments?.length}</div>
+                    <div className="number-of-comments">{commentCount}</div>
                 </div>
             </div>
             )}
