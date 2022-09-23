@@ -161,12 +161,17 @@ const CommentsPage = () => {
         const todayDay = today.getDate()
         const dateDay = newDate.getDate()
 
-        if (todayYear !== dateYear || todayMonth !== dateMonth) {
+        console.log('CHECKDAY', date)
+
+        if (todayYear !== dateYear || todayMonth !== dateMonth || todayDay - dateDay > 1) {
           const result = newDate.toLocaleDateString()
+          console.log('TIME OLD', time)
           return result
         } else if (todayDay - dateDay === 0) {
+            console.log('TIME TODAY', time)
           return `Today at ${time}`
         } else if (todayDay - dateDay === 1) {
+            console.log('TIME TOMORROW', time)
           return `Yesterday at ${time}`
         }
     }
@@ -237,7 +242,7 @@ const CommentsPage = () => {
                         <div className="CommentsPage-commentsList" key={i}>
                             <div className="commentList-owner-info">
                             <div className="commentList-user">{users[each.userId]?.username}</div>
-                            <div className="commentList-date">{checkDay(each?.createdAt)}</div>
+                            <div className="commentList-date">{checkDay(each.createdAt)}</div>
                             </div>
 
                             {editID === each.id ? (
