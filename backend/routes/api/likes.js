@@ -28,7 +28,6 @@ router.post('/song/:songId', requireAuth, async (req, res, next) => {
       err.status = 403
       return next(err)
   }
-  console.log('CHECK USER', checkUser)
   if (checkUser) {
     const err = new Error(`Already have a like.`)
     err.title = 'Missing Item'

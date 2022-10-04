@@ -80,7 +80,6 @@ const UserPage = ({ setLocation }) => {
 
     const handleSong = (i) => {
         setIndex(i)
-        console.log('WHEN??????')
 
         dispatch(getOneSong(i))
         .then(()=>dispatch(setPlaying(true)))

@@ -135,9 +135,6 @@ router.get('/', validateQuery, async (req, res, next) => {
         where: { title: {[Op.substring]: search }}}],
         ...pagination
     });
-    console.log('SONG', song)
-    console.log('ARTIST', artist)
-    console.log('ALBUM', album)
 
     if (song.length > 0 || artist.length > 0 || album.length > 0) {
       let result = [...song, ...artist, ...album]
