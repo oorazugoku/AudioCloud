@@ -15,8 +15,6 @@ import * as sessionActions from "./store/session";
 import { getUsers } from "./store/users";
 
 
-
-
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
