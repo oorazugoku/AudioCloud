@@ -30,9 +30,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('songLikes');
+    await queryInterface.dropTable('songLikes', options);
   }
 };
